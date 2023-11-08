@@ -79,7 +79,7 @@ function messages_user_view()
     ]);
     $data['sort'] = $sort;
 
-    $total = DataObjectMaster::getObjectList([
+    $total = DataObjectFactory::getObjectList([
                             'name' => 'messages_messages',
                             'status'    =>DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE,
                             'numitems' => null,
@@ -87,7 +87,7 @@ function messages_user_view()
                             ]);
     $data['total'] = count($total->getItems());
 
-    $list = DataObjectMaster::getObjectList([
+    $list = DataObjectFactory::getObjectList([
                             'name' => 'messages_messages',
                             'status'    =>DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE,
                             'startnum'  => $startnum,

@@ -55,10 +55,10 @@ function messages_user_modify()
     $data['id'] = $id;
 
     // Load the DD master object class. This line will likely disappear in future versions
-    sys::import('modules.dynamicdata.class.objects.master');
+    sys::import('modules.dynamicdata.class.objects.factory');
 
     // Get the object name
-    $object = DataObjectMaster::getObject(['name' => 'messages_messages']);
+    $object = DataObjectFactory::getObject(['name' => 'messages_messages']);
     $object->getItem(['itemid' => $id]);
     $replyto = $object->properties['replyto']->value;
     $data['replyto'] = $replyto;
@@ -70,7 +70,7 @@ function messages_user_modify()
     $data['to_id'] = null;
 
     if ($data['reply']) {
-        $reply = DataObjectMaster::getObject(['name' => 'messages_messages']);
+        $reply = DataObjectFactory::getObject(['name' => 'messages_messages']);
         $reply->getItem(['itemid' => $replyto]); // get the message we're replying to
         $data['to_id'] = $reply->properties['from_id']->value; // get the user we're replying to
         $data['display'] = $reply;

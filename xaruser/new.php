@@ -50,7 +50,7 @@ function messages_user_new()
     $draft = (!empty($draft)) ? true : false;
     $saveandedit = (!empty($saveandedit)) ? true : false;
 
-    $object = DataObjectMaster::getObject(['name' => 'messages_messages']);
+    $object = DataObjectFactory::getObject(['name' => 'messages_messages']);
     $data['object'] = $object;
 
     $data['post_url']       = xarController::URL('messages', 'user', 'new');
@@ -73,7 +73,7 @@ function messages_user_new()
     }
 
     if ($reply) {
-        $reply = DataObjectMaster::getObject(['name' => 'messages_messages']);
+        $reply = DataObjectFactory::getObject(['name' => 'messages_messages']);
         $reply->getItem(['itemid' => $replyto]); // get the message we're replying to
         $data['to_id'] = $reply->properties['from_id']->value; // get the user we're replying to
         $data['display'] = $reply;
@@ -130,7 +130,7 @@ function messages_user_new()
                 $autoreply = xarModItemVars::get('messages', "autoreply", $to_id);
             }
             if (!empty($autoreply)) {
-                $autoreplyobj = DataObjectMaster::getObject(['name' => 'messages_messages']);
+                $autoreplyobj = DataObjectFactory::getObject(['name' => 'messages_messages']);
                 $autoreplyobj->properties['author_status']->setValue(MESSAGES_STATUS_UNREAD);
                 $autoreplyobj->properties['from_id']->setValue(xarUser::getVar('uname', $to_id));
                 $autoreplyobj->properties['to_id']->setValue($uid);

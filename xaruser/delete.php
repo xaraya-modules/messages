@@ -42,7 +42,7 @@ function messages_user_delete()
         return;
     }
 
-    $data['object'] = DataObjectMaster::getObject(['name' => $object]);
+    $data['object'] = DataObjectFactory::getObject(['name' => $object]);
     $data['object']->getItem(['itemid' => $id]);
 
     $folder = xarSession::getVar('messages_currentfolder');

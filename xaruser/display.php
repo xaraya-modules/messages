@@ -38,7 +38,7 @@ function messages_user_display($args)
     //Psspl:Added the code for configuring the user-menu
     //$data['allow_newpm'] = xarMod::apiFunc('messages' , 'user' , 'isset_grouplist');
 
-    $object = DataObjectMaster::getObject(['name' => 'messages_messages']);
+    $object = DataObjectFactory::getObject(['name' => 'messages_messages']);
     $object->getItem(['itemid' => $id]);
 
     $data['replyto'] = $object->properties['replyto']->value;

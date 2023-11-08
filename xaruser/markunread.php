@@ -33,7 +33,7 @@ function messages_user_markunread()
         return;
     }
 
-    $data['object'] = DataObjectMaster::getObject(['name' => 'messages_messages']);
+    $data['object'] = DataObjectFactory::getObject(['name' => 'messages_messages']);
     $data['object']->getItem(['itemid' => $id]);
 
     $folder = xarSession::getVar('messages_currentfolder');

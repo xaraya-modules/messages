@@ -25,9 +25,9 @@ function messages_userapi_checkanonymous($args)
         return false;
     }
 
-    sys::import('modules.dynamicdata.class.objects.master');
+    sys::import('modules.dynamicdata.class.objects.factory');
 
-    $object = DataObjectMaster::getObject(['name' => 'messages_messages']);
+    $object = DataObjectFactory::getObject(['name' => 'messages_messages']);
     $object->getItem(['itemid' => $id]);
     $postanon = $object->properties['postanon']->value;
 
