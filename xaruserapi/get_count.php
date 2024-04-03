@@ -39,7 +39,7 @@ function messages_userapi_get_count($args)
             'get_count',
             'messages'
         );
-        throw new BadParameterException($msg);
+        throw new BadParameterException(null, $msg);
         $exception |= true;
     }
 
