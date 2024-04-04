@@ -1,0 +1,47 @@
+{# @messages/objects/showform-new.html.twig #}
+
+{% block showform_new %}
+<div class="xar-form-input-wrapper">
+        {% if reply %}
+	<h3>Your reply:</h3> 
+            {{ xar_data_input({property: properties['to_id'], hidden: "hidden", value: to_id}) }}
+        {% else %}
+		{% set title = 'To whom the message will be sent' %}
+		{{ xar_data_label({property: properties['to_id'], title: title, for: "id"}) }}
+            {% set users = properties['to_id'].getOptions() %}
+            {% if not users %}
+                No recipients available
+                {{ xar_data_input({property: properties['to_id'], hidden: "hidden"}) }}
+            {% elseif to_id is null or opt %}
+                {{ xar_data_input({property: properties['to_id'], value: to_id}) }}
+	    {% else %}
+		{{ xar_username(to_id) }}
+                {{ xar_data_input({property: properties['to_id'], value: to_id, hidden: "hidden"}) }}
+            {% endif %}
+        {% endif %}
+	<input type="hidden" name="replyto" value="{{ replyto }}" />
+    </div>
+
+    <div class="xar-form-input-wrapper">
+        {% set title = 'Message subject' %}
+        {{ xar_data_label({property: properties['subject'], title: title, for: "id"}) }}
+        {{ xar_data_input({property: properties['subject'], tabindex: "1"}) }}
+    </div>
+
+    <div class="xar-form-input-wrapper">
+        {% set title = 'Message text' %}
+        {{ xar_data_label({property: properties['body'], title: title, for: "id"}) }}
+        {{ xar_data_input({property: properties['body'], tabindex: "1"}) }}
+    </div>
+
+    <div class="xar-form-input-wrapper">
+	{# <!--Psspl:Modified the code for anonymous message--> #}
+	{% if xar_modulevar('messages', 'allowanonymous') and not reply %}
+		    <div class="xar-form-input-wrapper">
+			{{ xar_data_label({property: properties['postanon'], for: "id", label: "Post Anonymously"}) }}
+			{{ xar_data_input({property: properties['postanon']}) }}
+		    </div> 
+	{% endif %}
+    </div>
+
+{% endblock %}

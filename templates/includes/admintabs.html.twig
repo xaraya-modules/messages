@@ -1,0 +1,43 @@
+{# @messages/includes/admintabs.html.twig #}
+
+{% block admintabs %}
+{#  Common Administration menu #}
+{{ xar_style({scope: "module", module: "base", file: "tabs"}) }}
+
+{% set info = xarController..request.getInfo() %}
+
+{% set activetab = info[2] %}
+<div>
+  <ul class="xar-tabs">
+   
+    {% if xar_security_check('AdminMessages') %}
+        {% if activetab == 'modifyconfig' %}
+            {% set tabclass = 'xar-tab-active' %}
+            {% set linkclass = 'xar-accent xar-accent-outline' %}
+        {% else %}
+            {% set tabclass = 'xar-tab' %}
+            {% set linkclass = 'xar-norm xar-norm-outline' %}
+        {% endif %}
+        <li class="{{ tabclass }}">
+          <a href="{{ xar_moduleurl('messages','admin','modifyconfig') }}" class="{{ linkclass }}">
+            Modify Config
+          </a>
+        </li>
+    {% endif %}
+    {% if xar_security_check('EditMessages') %}
+        {% if activetab == 'main' or activetab == 'overview' %}
+            {% set tabclass = 'xar-tab-active' %}
+            {% set linkclass = 'xar-accent xar-accent-outline' %}
+        {% else %}
+            {% set tabclass = 'xar-tab' %}
+            {% set linkclass = 'xar-norm xar-norm-outline' %}
+        {% endif %}
+        <li class="{{ tabclass }}">
+          <a href="{{ xar_moduleurl('messages','admin','overview') }}" class="{{ linkclass }}">
+            Overview
+          </a>
+        </li>
+    {% endif %}
+  </ul>
+</div>
+{% endblock %}

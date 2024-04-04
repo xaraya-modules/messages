@@ -1,0 +1,8 @@
+{# @messages/email-body.html.twig #}
+
+{% extends '@messages/base.html.twig' %}
+
+{% block modulespace %}
+You have received a new message from {{ from_name }}.
+     Read the message: {{ msgurl }}
+{% endblock %}

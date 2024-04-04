@@ -1,0 +1,39 @@
+{# @messages/delete.html.twig #}
+
+{% extends '@messages/base.html.twig' %}
+
+{% block modulespace %}
+{{ xar_style({scope: "module", module: "messages", file: "messages"}) }}
+    {{ include('@messages/includes/user-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        {#  Psspl: Added the code for configuring NewMessages tab #}
+        {{ include('@messages/includes/user-menu.html.twig') }}
+    
+        <h2>
+            {% if folder is null %}
+                Delete Message
+            {% else %}
+                {% set displayfolder = xar_translate(folder|title) %}
+                {{ xar_translate('Delete Message From #(1)', displayfolder) }}
+            {% endif %}
+        </h2>
+    
+        {% if error is null %}
+            <div class="xar-margin-thick xar-padding-thick xar-border-thin">
+                {{ xar_data_display({object: object, tplmodule: "messages", action: action, replyto: replyto}) }}
+            </div>
+    
+            {{ include('@messages/includes/delete-message.html.twig') }}
+        {% else %}
+            <div class="xar-mod-head">
+                <span class="xar-mod-title">
+                    Messages
+                </span>
+            </div>
+    
+            <div class="xar-norm">
+                {{ error }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

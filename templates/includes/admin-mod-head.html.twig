@@ -1,0 +1,14 @@
+{# @messages/includes/admin-mod-head.html.twig #}
+
+{% block admin_mod_head %}
+<div class="xar-mod-head">
+        <span class="xar-mod-title">
+            {% if xar_modulevar('messages', 'use_module_alias') %}
+                {{ xar_var({scope: "module", module: "messages", name: "module_alias_name"}) }}
+            {% else %}
+                Messages Administration
+            {% endif %}
+        </span>
+        {{ include('@messages/includes/admin-menu.html.twig') }}
+    </div>
+{% endblock %}

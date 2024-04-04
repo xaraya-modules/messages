@@ -1,0 +1,68 @@
+{# @messages/objects/showform-modify.html.twig #}
+
+{% block showform_modify %}
+{# <!--    {% set postanon = properties['postanon'].value %}
+    {% set recipient = properties['to_id'].value %}
+    {% if not recipient %}
+        {% set is_sendtouser = 1 %}
+    {% else %}
+        {% set is_sendtouser = xar_apifunc('messages','user','is_sendtouser', 
+                array(
+                    'sendtouser' => recipient,
+                )
+            ) %}
+    {% endif %} --> #}
+{# <!--     <div class="xar-form-input-wrapper">
+        {% set title = 'The author of the message' %}
+        {{ xar_data_label({property: properties['from_id'], title: title, for: "id"}) }}
+        {{ xar_uservar('name') }}
+        {{ xar_data_input({property: properties['from_id'], hidden: hidden}) }}
+
+         
+        {% if xar_modulevar('messages', 'allowanonymous') %}
+		<div class="xar-form-input-wrapper">
+			{{ xar_data_label({property: properties['postanon'], for: "id", label: "Post Anonymously"}) }}
+			{{ xar_data_input({property: properties['postanon']}) }}
+		</div>
+	{% endif %}
+
+    </div> --> #}
+
+     <div class="xar-form-input-wrapper">
+        {% if reply %}
+	<h3>Your reply:</h3> 
+            {{ xar_data_input({property: properties['to_id'], hidden: "hidden", value: to_id}) }}
+        {% else %}
+		{% set title = 'To whom the message will be sent' %}
+		{{ xar_data_label({property: properties['to_id'], title: title, for: "id"}) }}
+            {% set users = properties['to_id'].getOptions() %}
+            {% if not users %}
+                No recipients available
+                {{ xar_data_input({property: properties['to_id'], hidden: "hidden"}) }}
+            {% else %}
+                {{ xar_data_input({property: properties['to_id']}) }}
+            {% endif %}
+        {% endif %}
+	<input type="hidden" name="replyto" value="{{ replyto }}" />
+    </div>
+
+    <div class="xar-form-input-wrapper">
+        {% set title = 'Message subject' %}
+        {{ xar_data_label({property: properties['subject'], title: title, for: "id"}) }}
+        {{ xar_data_input({property: properties['subject'], tabindex: "1"}) }}
+    </div>
+
+    <div class="xar-form-input-wrapper">
+        {% set title = 'Message text' %}
+        {{ xar_data_label({property: properties['body'], title: title, for: "id"}) }}
+        {{ xar_data_input({property: properties['body'], tabindex: "1"}) }}
+    </div>
+
+    {{ xar_data_input({property: properties['id'], hidden: "hidden"}) }}
+    {{ xar_data_input({property: properties['time'], hidden: "hidden"}) }}
+    {{ xar_data_input({property: properties['author_delete'], hidden: "hidden"}) }}
+    {{ xar_data_input({property: properties['recipient_delete'], hidden: "hidden"}) }}
+    {{ xar_data_input({property: properties['recipient_status'], hidden: "hidden"}) }}
+    {{ xar_data_input({property: properties['pid'], hidden: "hidden"}) }} 
+    {{ xar_data_input({property: properties['author_status'], hidden: "hidden"}) }}
+{% endblock %}

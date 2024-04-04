@@ -1,0 +1,40 @@
+{# @messages/modify.html.twig #}
+
+{% extends '@messages/base.html.twig' %}
+
+{% block modulespace %}
+{{ xar_style({scope: "module", module: "messages", file: "messages"}) }}
+
+    {{ include('@messages/includes/user-mod-head.html.twig') }}
+    
+    <div class="xar-mod-body">
+
+        <h2>{{ input_title }}</h2>
+        {% set withupload = object.upload %}
+        {% set enctype = 'application/x-www-form-urlencoded' %}
+        {% if withupload %}
+           {% set enctype = 'multipart/form-data' %}
+        {% endif %}
+	 
+        <form method="post" action="{{ xar_currenturl() }}" enctype="{{ enctype }}">
+           
+	   	{% if reply %}
+			<div id="message_display">
+			{{ xar_data_display({object: display, tplmodule: "messages"}) }}
+			</div>
+		{% endif %}
+
+
+                {{ xar_data_form({object: object, tplmodule: "messages", template: "modify", reply: reply, replyto: replyto, to_id: to_id}) }}
+		
+           <div class="xar-form-input-wrapper-after">
+                <input type="hidden" name="authid" id="authid" value="{{ xar_coremethod('xarSec', 'genAuthKey') }}"/>
+                {# <!-- <input type="hidden" name="id" id="id" value="{{ id }}" /> --> #}
+              
+		<input type="submit" name="draft" id="draft" value="{{ xar_translate('Save draft') }}" class="xar-margin-thickright" />
+		<input type="submit" name="saveandedit" id="saveandedit" value="{{ xar_translate('Save draft and edit') }}" class="xar-margin-thickright"/>
+                <input type="submit" name ="send" id="send" value="{{ xar_translate('Send') }}" class="xar-margin-thickright" />
+            </div>  
+        </form>
+    </div>
+{% endblock %}

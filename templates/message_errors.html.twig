@@ -1,0 +1,31 @@
+{# @messages/message_errors.html.twig #}
+
+{% extends '@messages/base.html.twig' %}
+
+{% block modulespace %}
+{{ xar_style({scope: "module", module: "messages", file: "messages"}) }}
+    {{ include('@messages/includes/user-mod-head.html.twig') }}
+    <div class="xar-mod-body">
+        <fieldset>
+            <legend>Message Problem</legend>
+            <img src="{{ xar_imageurl('sysmessage.jpg','base') }}" alt="{{ xar_translate('System Message') }}" width="96" height="96" class="xar-module-icon"/>
+            {% if layout is null %}
+                <div style="margin-top: 20px; margin-left: 20px">
+                    No error message is available.
+                    <br />
+                    Please contact the system administrator.
+                </div>                    
+            {% elseif layout == 'bad_id' %}
+                <div style="margin-top: 20px; margin-left: 20px">
+                    You are attempting to access a message that you did not create, or which was not sent to you..
+                </div>
+            {% else %}
+                <div style="margin-top: 20px; margin-left: 20px">
+                    No error message is available.
+                    <br />
+                    Please contact the system administrator.
+                </div>                    
+            {% endif %}
+        </fieldset>
+    </div>
+{% endblock %}

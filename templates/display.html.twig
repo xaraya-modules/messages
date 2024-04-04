@@ -1,0 +1,48 @@
+{# @messages/display.html.twig #}
+
+{% extends '@messages/base.html.twig' %}
+
+{% block modulespace %}
+{{ xar_style({scope: "module", module: "messages", file: "messages"}) }}
+ 
+    {{ include('@messages/includes/user-mod-head.html.twig') }}
+    
+    <div class="xar-mod-body">
+
+        <h2>{{ input_title }}</h2>
+    
+        <div id="message_display">
+    
+            {{ xar_data_display({object: object, tplmodule: "messages", action: action, folder: folder, replyto: replyto}) }}
+     
+    
+        {% set folder = xar_coremethod('xarSession', 'getVar', ['messages_currentfolder']) %}
+        
+        <div class="user-display-buttons">
+        
+        <form class="button" action="{{ xar_moduleurl('messages','user','view',{'folder': folder}) }}">
+         <input type="submit" value="Close" title="{{ xar_translate('Close') }}" />
+        </form>
+    
+                
+                {% if folder != 'sent' and xar_security_check('AddMessages', 0) %}
+                    <form class="button" action="{{ xar_moduleurl('messages','user','reply',{'folder': folder, 'replyto': id}) }}">
+             <input type="submit" value="Reply" title="{{ xar_translate('Reply') }}" />
+            </form>
+                {% endif %} 
+    
+        <form class="button" action="{{ xar_moduleurl('messages','user','markunread',{'id': id, 'folder': folder}) }}">
+         <input type="submit" value="Mark as Unread" title="{{ xar_translate('Mark as Unread') }}" id="markunread" />
+        </form>
+                
+             
+                {% if xar_security_check('ManageMessages', 0) %}
+            <form class="button" action="{{ xar_moduleurl('messages','user','delete',{'id': id, 'folder': folder}) }}">
+             <input type="submit" value="Delete" title="{{ xar_translate('Delete Message') }}" />
+            </form>
+                {% endif %}
+                </div>
+     
+        </div>
+    </div>
+{% endblock %}

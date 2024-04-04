@@ -1,0 +1,79 @@
+{# @messages/objects/showform-module_settings.html.twig #}
+
+{% block showform_module_settings %}
+<fieldset>
+        <legend>User Settings</legend>
+        <div style="margin-bottom: 12px">Which settings should be available to users in their Roles account?</div>    
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties['allowusersendredirect'], for: "id"}) }}       
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties['allowusersendredirect']}) }}		
+            </div>
+	    </div> 
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties['sendemail'], for: "id"}) }}       
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties['sendemail']}) }}		
+            </div>
+        </div>
+        <div class="xar-row">
+            <div class="xar-col">
+                {{ xar_data_label({property: properties['allowautoreply'], for: "id"}) }}       
+            </div>
+            <div class="xar-col">
+                {{ xar_data_input({property: properties['allowautoreply']}) }}		
+            </div>
+	    </div> 
+    </fieldset>
+
+    <fieldset>
+        <legend>Admin Settings</legend>
+        <div class="xar-row">
+            <div class="xar-col">
+			    {{ xar_data_label({property: properties['allowanonymous'], for: "id"}) }}       
+            </div>
+            <div class="xar-col">
+			    {{ xar_data_input({property: properties['allowanonymous']}) }}		
+            </div>
+	     </div>
+        <div class="xar-row">
+            <div class="xar-col">
+			    {{ xar_data_label({property: properties['strip_tags'], for: "id"}) }}       
+            </div>
+            <div class="xar-col">
+			    {{ xar_data_input({property: properties['strip_tags']}) }}		
+            </div>
+	     </div>
+        <div class="xar-row">
+            <div class="xar-col">
+			    {{ xar_data_label({property: properties['send_redirect'], for: "id"}) }}       
+            </div>
+            <div class="xar-col">
+			    {{ xar_data_input({property: properties['send_redirect']}) }}		
+            </div>
+	     </div>
+	</fieldset>
+ 
+    <fieldset>
+	    <legend>Role Groups</legend>
+
+		{% for val in groups %}
+			{% set key = val['id'] %}
+			{% set input_name = 'roleid_'.key %}
+
+            <div class="xar-row">
+                <div class="xar-col">
+                    <label for="$input_name" class="xar-form-label" title="{{ val['name'] }} can send to...">{{ val['name'] }} can send to...</label> <a href="{{ xar_currenturl() }}#" onClick="document.getElementById('collapse{{ key }}').style.display='';document.getElementById('expand{{ key }}').style.display='none';document.getElementById('roleid_{{ key }}_div').style.display='';return true;" id="expand{{ key }}">Show recipient groups</a>  <a href="{{ xar_currenturl() }}#" onClick="document.getElementById('expand{{ key }}').style.display='';document.getElementById('collapse{{ key }}').style.display='none';document.getElementById('roleid_{{ key }}_div').style.display='none';return true;" id="collapse{{ key }}" style="display.none">Hide recipient groups</a>
+                </div>
+                <div class="xar-col role_list" id="roleid_ }}$key#_div" style="display:none">
+    				{% set selected = unserialize(xar_coremethod('xarModItemVars', 'get', ['messages', "allowedsendmessages", key])) %}
+                    {{ xar_data_input({type: "checkboxlist", name: input_name, id: input_name, options: groups, value: selected, layout: "vertical"}) }}
+				</div>
+			</div>	 
+		{% endfor %}
+	</fieldset> 
+{% endblock %}

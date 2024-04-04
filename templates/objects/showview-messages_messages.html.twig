@@ -1,0 +1,96 @@
+{# @messages/objects/showview-messages_messages.html.twig #}
+
+{% block showview_messages_messages %}
+{% if items %}		
+
+        <table class="xar-norm xar-table">
+            <tr>
+
+                {% for name in properties|keys %}
+                    <th>
+
+                {#  if we're already sorting on this column, we want to show the arrow and don't need to make the column head a link #}
+        {% set sortfield = sort|slice( 0, strpos(sort, ' ')) %}
+	{% set ascdesc = sort|slice(  strpos(sort, ' ') + 1) %}
+
+	{% if name == sortfield %}
+
+            {{ xar_data_label({property: properties[name]}) }}
+    
+            {#  if $_GET['ascdesc'] is set, we want that to take precedence over anything in view.php so the arrow will always point the right way #}
+            {% if _GET['ascdesc'] is not null %}
+                {% set ascdesc = _GET['ascdesc'] %}
+            {% endif %}
+
+            {% if ascdesc == 'DESC' %}
+                {% set arrow = 'asc' %}
+            {% else %}
+                {% set arrow = 'desc' %}
+            {% endif %}
+
+	    <a href="{{ xar_moduleurl('messages','user','view', {'sortfield': name, 'ascdesc': arrow|upper, 'folder': folder}) }}"><img src="{{ xar_imageurl('icons/sort-' ~ arrow ~ '.png','theme') }}" width="16" height="16" alt="reverse order" /></a>
+
+        {% elseif name == 'to_id' or name == 'from_id' %}
+		{#  these fields are saved as integers but displayed as strings, so sorting would be confusing #}
+		{{ xar_data_label({property: properties[name]}) }}
+
+	{% else %}
+
+        {#  we're not sorting on this column, so we should make the column head a link #}
+            <a href="{{ xar_moduleurl('messages','user','view', {'folder': folder, 'sortfield': name}) }}">{{ xar_data_label({property: properties[name]}) }}</a>
+
+        {% endif %}
+
+                    </th>
+                {% endfor %}
+                {% if not linkfield %}
+                    <th>
+                        &#160;
+                    </th>
+                {% endif %}
+            </tr>
+ 
+            {% for id, fields in items %}
+                <tr>
+                    {% for name in properties|keys %}
+                        {% if not fields[name] or fields[name] == '0' %}
+                            <td valign="top">&#160;</td>
+                        {% elseif linkfield and linkfield == name %}
+                            <td valign="top"><a href="{{ links[id]['display']['olink'] }}">{{ xar_data_output({property: properties[name], value: fields[name]}) }}</a></td>
+                        {% elseif fields['postanon'] == 1 and name == 'from_id' %}
+			    <td valign="top">Anonymous</td>
+			{% elseif name == 'to_id' and fields['replyto'] is numeric and xar_apifunc('messages','user','checkanonymous',{'id': fields['replyto']}) %}
+			    <td valign="top">Anonymous</td>
+			{% else %}
+                            <td valign="top">{{ xar_data_output({property: properties[name], value: fields[name]}) }}</td>
+                        {% endif %}
+                    {% endfor %}
+                    {% if not linkfield %}
+                        <td valign="top">
+
+	{% if folder == 'drafts' %}
+		<a href="{{ xar_moduleurl('messages','user','modify', {'id': id, 'folder': 'drafts'}) }}"><img src="{{ xar_imageurl('icons/modify.png','theme') }}" width="16" height="16" alt="Edit" /></a>
+	{% endif %} 
+
+        &amp;nbsp;  <a href="{{ xar_moduleurl('messages','user','delete', {'id': id, 'folder': folder}) }}"><img src="{{ xar_imageurl('icons/delete.png','theme') }}" width="16" height="16" alt="Delete" /></a>
+
+	&amp;nbsp; 
+
+	{% if folder == 'sent' %}
+		<a href="{{ xar_moduleurl('messages','user','display', {'id': id, 'folder': 'sent'}) }}"><img src="{{ xar_imageurl('icons/display.png','theme') }}" width="16" height="16" alt="Display" /></a>
+	{% elseif folder == 'inbox' %} 
+		<a href="{{ xar_moduleurl('messages','user','display', {'id': id, 'folder': 'inbox'}) }}"><img src="{{ xar_imageurl('icons/display.png','theme') }}" width="16" height="16" alt="Display" /></a>
+	{% endif %}
+	
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+
+{% else %}
+
+<p>The folder is empty.</p>
+
+{% endif %}
+{% endblock %}

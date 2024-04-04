@@ -1,0 +1,75 @@
+{# @messages/objects/showdisplay-messages_messages.html.twig #}
+
+{% block showdisplay_messages_messages %}
+{# <!--     {% set action = action is not null ? action : 'check' %} --> #}
+    {% set postanon = properties['postanon'].value %}
+    {% set recipient = properties['to_id'].value %}
+    {% set author = properties['from_id'].value %}
+   {# <!--  {% set vettor = xar_coremethod('xarSession', 'getVar', ['role_id']) == recipient ? recipient : author %}
+    {% set vettee = xar_coremethod('xarSession', 'getVar', ['role_id']) == recipient ? author : recipient %} --> #}
+    {# <!-- {% if not vettee %}
+        {% set is_sendtouser = 1 %}
+    {% else %}
+        {% set is_sendtouser = xar_apifunc('messages','user','is_sendtouser', 
+                array(
+                    'currentuser' => vettor,
+                    'sendtouser' => vettee,
+                )
+            ) %}
+    {% endif %} --> #}
+
+    {#  
+    {# <!-- Message-Posting-Host: {{ message['posting-host'] }} --> #} 
+     #}
+
+    <div class="xar-form-input-wrapper">
+        <span class="xar-form-label">
+            From:
+        </span>
+        {#  Psspl:Modifided the code for anonymous message #}
+        {% if not postanon %}
+            <a href="{{ xar_moduleurl('roles','user','display',{'id': author}) }}" title="{{ xar_translate('View user info') }}">
+                {{ xar_username(author) }}
+            </a>
+        {% else %}
+            Anonymous
+        {% endif %}
+    </div>
+
+    <div class="xar-form-input-wrapper">
+        <span class="xar-form-label">
+            To:
+        </span>
+	{% if replyto is numeric and xar_apifunc('messages','user','checkanonymous',{'id': replyto}) %}
+	Anonymous
+	{% else %}
+         {{ xar_username(recipient) }} 
+	 {% endif %}
+    </div>
+
+    <div class="xar-form-input-wrapper">
+        <span class="xar-form-label">
+            Date:
+        </span>
+        {{ xar_data_output({property: properties['time']}) }}
+    </div>
+
+    <div class="xar-form-input-wrapper">
+        <span class="xar-form-label">
+            Subject:
+        </span>
+        {{ xar_data_output({property: properties['subject']}) }}
+    </div>
+
+    <div id="message_body">
+        {{ xar_data_output({property: properties['body']}) }}
+    </div>
+
+    {#  Psspl:Added the code for folder type #}
+        {% if folder is not null %}
+            <input type="hidden" value="{{ folder }}" name="folder" id="folder"/>    
+        {% endif %} 
+
+
+
+{% endblock %}

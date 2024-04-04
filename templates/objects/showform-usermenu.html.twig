@@ -1,0 +1,57 @@
+{# @messages/objects/showform-usermenu.html.twig #}
+
+{% block showform_usermenu %}
+{# <!-- This is the generic form for any modules dd user_settings object. --> #}
+    
+        {# <!--
+            This is the default layout, used when a module doesn't provide it's own showform-usermenu template
+        --> #} 
+        <fieldset>
+
+            <legend>{{ object.label }}</legend>
+
+	    {% if xar_modulevar('messages', 'allowusersendredirect') %}
+	{% set name = 'user_send_redirect' %}
+                <div class="xar-form-input-wrapper">
+                    {{ xar_data_label({property: properties[name], for: "id"}) }}
+                    {{ xar_data_input({property: properties[name]}) }}
+                </div>
+		<br />
+	{% else %}
+		{% set send_redirect = xar_modulevar('messages', 'send_redirect') %}
+		{{ xar_data_input({property: properties['user_send_redirect'], hidden: "hidden", value: send_redirect}) }}
+	{% endif %}
+            
+	    {% if xar_modulevar('messages', 'sendemail') %}
+		{% set name = 'user_sendemail' %}
+                <div class="xar-form-input-wrapper">
+                    {{ xar_data_label({property: properties[name], for: "id"}) }}
+                    {{ xar_data_input({property: properties[name]}) }}
+                </div>
+		<br />
+	{% else %}
+		{{ xar_data_input({property: properties['user_sendemail'], hidden: "hidden"}) }}
+	 {% endif %}
+
+	{% if xar_modulevar('messages', 'allowautoreply') %}
+		{% set name = 'enable_autoreply' %}
+                <div class="xar-form-input-wrapper">
+                    {{ xar_data_label({property: properties[name], for: "id"}) }}
+                    {{ xar_data_input({property: properties[name]}) }}
+                </div>
+
+		{% set name = 'autoreply' %}
+                <div class="xar-form-input-wrapper">
+                    {{ xar_data_label({property: properties[name], for: "id"}) }}
+                    {{ xar_data_input({property: properties[name]}) }}
+                </div>
+	{% else %}
+		{{ xar_data_input({property: properties['enable_autoreply'], hidden: "hidden"}) }}
+		{{ xar_data_input({property: properties['autoreply'], hidden: "hidden"}) }}
+	{% endif %}
+
+	
+
+        </fieldset> 
+ 
+{% endblock %}

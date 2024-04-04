@@ -1,0 +1,26 @@
+{# @messages/blocks/newmessages.html.twig #}
+
+{% block newmessages %}
+{{ xar_style({scope: "module", module: "messages", file: "messages"}) }}
+<div id="newmessages_block">
+    {% if not unread or unread == 0 %}
+        <div id="newmessages_empty">
+		{{ xar_translate('You have no unread messages') }}
+        </div>
+    {% else %}
+        {# <!-- <div id="newmessages_total">
+		You have <a href="{{ xar_moduleurl('messages','user','view') }}">{{ totalin }}</a>
+		total message{% if totalin != 1 %}s{% endif %}
+        </div> --> #}
+        <div id="newmessages_unread">
+		You have <a href="{{ xar_moduleurl('messages','user','view') }}">{{ unread }}</a>
+		new message{% if unread != 1 %}s{% endif %}
+        </div> 
+        <div id="newmessages_view">
+		<a href="{{ xar_moduleurl('messages','user','view') }}">
+		    View messages
+		</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

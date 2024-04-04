@@ -1,0 +1,24 @@
+{# @messages/admin/modifyconfig.html.twig #}
+
+{% block modifyconfig %}
+{{ include('@messages/includes/admin-mod-head.html.twig') }}
+    {{ xar_style({scope: "module", module: "messages", file: "messages"}) }}
+    {{ xar_style({scope: "module", module: "messages", file: "modifyconfig"}) }}
+
+    <div class="xar-mod-body">
+     
+	    <div style="float: right;"><a href="{{ xar_moduleurl('messages','user','view') }}">View Inbox</a> | <a href="{{ xar_moduleurl('messages','user','new') }}">New Message</a></div>
+
+        <h2>Modify Default Configuration</h2>
+
+        <form method="post" action="{{ xar_currenturl() }}">
+            {{ xar_data_form({object: module_settings}) }}
+		    {{ xar_data_form({object: object, itemid: "0", tplmodule: "messages", groups: groups, template: "module_settings"}) }}
+            
+            <input type="hidden" name="objectid" value="{{ object.objectid }}" />
+            <input type="hidden" name="itemid" value="0" />
+            <input type="hidden" name="return_url" value="{{ xar_currenturl() }}" />
+            {{ include('@base/includes/update-button.html.twig') }}
+        </form>
+    </div>
+{% endblock %}

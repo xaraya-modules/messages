@@ -1,0 +1,21 @@
+{# @messages/view.html.twig #}
+
+{% extends '@messages/base.html.twig' %}
+
+{% block modulespace %}
+{{ xar_style({scope: "module", module: "messages", file: "messages"}) }}
+    {{ include('@messages/includes/user-mod-head.html.twig') }}
+    
+    <div class="xar-mod-body">
+
+        <h2>{{ input_title }}</h2>
+    
+        {{ xar_data_view({object: list, tplmodule: "messages", sort: sort, folder: folder, fieldlist: fieldlist}) }}  
+    
+        {% if results is not null %}
+            {% set total = results %}
+        {% endif %}
+        {{ xar_pager({startnum: list.startnum, itemsperpage: list.numitems, total: total}) }}
+
+    </div>
+{% endblock %}

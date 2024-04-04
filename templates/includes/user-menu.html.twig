@@ -1,0 +1,78 @@
+{# @messages/includes/user-menu.html.twig #}
+
+{% block user_menu %}
+{#  Common Administration menu #}
+{{ xar_style({scope: "module", module: "base", file: "tabs"}) }}
+
+{% set info = xarController..request.getInfo() %}
+
+{% set activetab = info[2] %}
+
+{% set unread = xar_apifunc('messages','user','get_count',{'recipient': xar_uservar('id'), 'unread': true}) %}
+{% set sent = xar_apifunc('messages','user','get_count',{'author': xar_uservar('id')}) %}
+{% set total = xar_apifunc('messages','user','get_count',{'recipient': xar_uservar('id')}) %}
+{% set drafts = xar_apifunc('messages','user','get_count',{'author': xar_uservar('id'), 'drafts': true}) %}
+ 
+
+<div>
+  <ul class="xar-tabs">
+    {% if xar_security_check('ReadMessages') %}
+        {% if folder is null or not folder or folder == 'inbox' %}
+            {% set tabclass = 'xar-tab-active' %}
+	    {% set linkclass = 'xar-accent xar-accent-outline' %}
+        {% else %}
+            {% set tabclass = 'xar-tab' %}
+	    {% set linkclass = 'xar-norm xar-norm-outline' %}
+        {% endif %}
+        <li class="{{ tabclass }}">
+          <a href="{{ xar_moduleurl('messages','user','view') }}" class="{{ linkclass }}">
+		Inbox&#160;(&#160;{% if unread == 0 %}{{ unread }}{% else %}
+		<span class="xar-messages-tab-unread">{{ unread }}</span>{% endif %}&#160;/&#160;{{ total }}&#160;)
+          </a>
+        </li>
+
+	{% if folder == 'sent' %}
+		{% set tabclass = 'xar-tab-active' %}
+		{% set linkclass = 'xar-accent xar-accent-outline' %}
+	{% else %}
+		{% set tabclass = 'xar-tab' %}
+		{% set linkclass = 'xar-norm xar-norm-outline' %}
+	{% endif %}
+	<li class="{{ tabclass }}">
+	  <a href="{{ xar_moduleurl('messages','user','view',{'folder': 'sent'}) }}" class="{{ linkclass }}">
+		Sent &#160;(&#160;{{ sent }}&#160;)
+	  </a>
+	</li>
+      
+	{% if folder == 'drafts' %}
+		{% set tabclass = 'xar-tab-active' %}
+		{% set linkclass = 'xar-accent xar-accent-outline' %}
+	{% else %}
+		{% set tabclass = 'xar-tab' %}
+		{% set linkclass = 'xar-norm xar-norm-outline' %}
+	{% endif %}
+	<li class="{{ tabclass }}">
+	  <a href="{{ xar_moduleurl('messages','user','view',{'folder': 'drafts'}) }}" class="{{ linkclass }}">
+		Drafts &#160;(&#160;{{ drafts }}&#160;)
+	  </a>
+	</li>
+    {% endif %}
+    {#  Psspl: Added the code for configuring NewMessages tab #}
+     
+    {% if xar_security_check('AddMessages') %}
+        {% if folder == 'new' %}
+		{% set tabclass = 'xar-tab-active' %}
+		{% set linkclass = 'xar-accent xar-accent-outline' %}
+	{% else %}
+		{% set tabclass = 'xar-tab' %}
+		{% set linkclass = 'xar-norm xar-norm-outline' %}
+	{% endif %}
+        <li class="{{ tabclass }}">
+          <a href="{{ xar_moduleurl('messages','user','new') }}" class="{{ linkclass }}">
+            New Message
+          </a>
+        </li>
+    {% endif %} 
+  </ul>
+</div>
+{% endblock %}

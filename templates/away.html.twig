@@ -1,0 +1,25 @@
+{# @messages/away.html.twig #}
+
+{% extends '@messages/base.html.twig' %}
+
+{% block modulespace %}
+{{ xar_style({scope: "module", module: "messages", file: "messages"}) }}
+    {{ include('@messages/includes/user-mod-head.html.twig') }}
+    <div class="xar-mod-head">
+        <span class="xar-mod-title">
+            Away Message
+        </span>
+    </div>
+    {# <!--Psspl:Modifided the code for adding return action --> #}
+    <div class="xar-mod-body">
+        <form action="{{ xar_moduleurl('messages','user','view') }}" method="post">    
+            <span class="xar-accent">
+                {{ xar_translate('#(1) is away', xar_username(recipient)) }}
+            </span>
+            <span class="xar-norm">
+                <p>{{ xar_prep_html(away_message) }}</p>
+            </span>
+            <input type="submit" value="{{ xar_translate('Return') }}" class="xar-margin-thickleft"/>
+        </form>
+    </div>
+{% endblock %}
