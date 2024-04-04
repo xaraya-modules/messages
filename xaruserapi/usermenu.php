@@ -17,7 +17,7 @@
  * @param $args['phase'] phase to process (valid phases are showform, checkinput, and updateitem)
  * NOTE: If you provide this function in your module, you must include return values for all phases
  * @param $args['object'] user_settings object (default messages_user_settings)
- * @returns mixed
+ * @return mixed
  * @return array on showform
  * @return bool on checkinput, invalid = false, valid = true
  * @return bool on updateitem, error = false, success = true

@@ -20,7 +20,7 @@
  * @param integer    $recipient   the id of the recipient you want to count messages for
  * @param bool       $unread      (optional) count unread rather than total
  * @param bool       $drafts      (optional) count drafts
- * @returns integer  the number of messages
+ * @return integer  the number of messages
  */
 
 sys::import('modules.messages.xarincludes.defines');
