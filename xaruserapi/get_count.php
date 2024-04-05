@@ -25,7 +25,7 @@
 
 sys::import('modules.messages.xarincludes.defines');
 
-function messages_userapi_get_count($args)
+function messages_userapi_get_count(array $args = [], $context = null)
 {
     extract($args);
 
@@ -81,7 +81,7 @@ function messages_userapi_get_count($args)
     }
 
 
-    $result =& $dbconn->Execute($sql, $bindvars);
+    $result = & $dbconn->Execute($sql, $bindvars);
 
     if (!$result) {
         return;

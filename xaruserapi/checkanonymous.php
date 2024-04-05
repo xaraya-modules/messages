@@ -17,7 +17,7 @@
  * @return boolean
  */
 
-function messages_userapi_checkanonymous($args)
+function messages_userapi_checkanonymous(array $args = [], $context = null)
 {
     extract($args);
 

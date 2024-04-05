@@ -26,9 +26,9 @@ function messages_init()
     $prefix = xarDB::getPrefix();
 
     # --------------------------------------------------------
-#
+    #
     # Table structure for table messages
-#
+    #
 
     $query = "DROP TABLE IF EXISTS " . $prefix . "_messages";
     if (!$q->run($query)) {
@@ -116,7 +116,7 @@ function messages_init()
         'admin',
         'register_block_type',
         ['modName'  => 'messages',
-                             'blockType'=> 'newmessages', ]
+                             'blockType' => 'newmessages', ]
     )) {
         return;
     }
@@ -151,9 +151,9 @@ function messages_init()
     */
 
     # --------------------------------------------------------
-#
+    #
     # Create privilege instances
-#
+    #
 
     xarPrivileges::defineInstance('messages', 'Block', []);
     xarPrivileges::defineInstance('messages', 'Item', []);
@@ -260,7 +260,7 @@ function messages_delete()
         'admin',
         'unregister_block_type',
         ['modName'  => 'messages',
-                             'blockType'=> 'newmessages', ]
+                             'blockType' => 'newmessages', ]
     )) {
         return;
     }

@@ -22,19 +22,24 @@
  * @return bool on checkinput, invalid = false, valid = true
  * @return bool on updateitem, error = false, success = true
  */
-function messages_userapi_usermenu($args)
+function messages_userapi_usermenu(array $args = [], $context = null)
 {
     // not logged in?
     if (!xarUser::isLoggedIn()) {
         // redirect user to their account page after login
         $redirecturl = xarController::URL('roles', 'user', 'account');
-        xarResponse::redirect(xarController::URL($defaultloginmodname, 'user', 'showloginform', ['redirecturl' => $redirecturl]));
+        xarController::redirect(xarController::URL(
+            $defaultloginmodname,
+            'user',
+            'showloginform',
+            ['redirecturl' => $redirecturl]
+        ), null, $context);
     }
 
     // edit account is disabled?
-    if ((bool)xarModVars::get('messages', 'enable_user_menu') == false) {
+    if ((bool) xarModVars::get('messages', 'enable_user_menu') == false) {
         // show the user their profile display
-        xarResponse::redirect(xarController::URL('roles', 'user', 'account'));
+        xarController::redirect(xarController::URL('roles', 'user', 'account'), null, $context);
     }
 
     // Get arguments from argument array
@@ -154,7 +159,7 @@ function messages_userapi_usermenu($args)
             // the default returnurl should be roles user account with a moduleload of current module
             if (empty($returnurl))
                 $returnurl = xarController::URL('roles', 'user', 'account', array('moduleload' => 'roles'));
-            return xarResponse::redirect($returnurl);
+            return xarController::redirect($returnurl, null, $context);
             */
             // let the calling function know the update was a success
             return true;

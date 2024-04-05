@@ -25,7 +25,7 @@ class Messages_NewmessagesBlock extends BasicBlock
     public $text_type_long      = 'My Messages';
     public $allow_multiple      = true;
 
-    public function display(array $data=[])
+    public function display(array $data = [])
     {
         $data = parent::display($data);
         if (empty($data)) {
@@ -33,7 +33,7 @@ class Messages_NewmessagesBlock extends BasicBlock
         }
         $vars = $data['content'];
 
-        $itemtype=1;
+        $itemtype = 1;
 
         // Get Logged in Users ID
         $role_id = xarSession::getVar('role_id');
@@ -56,7 +56,7 @@ class Messages_NewmessagesBlock extends BasicBlock
             'get_count',
             [
                                       'recipient' => xarUser::getVar('id'),
-                                      'unread'=>true,
+                                      'unread' => true,
                     ]
         );
         $vars['unread'] = $unread;

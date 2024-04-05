@@ -18,7 +18,7 @@
 
 sys::import('modules.messages.xarincludes.defines');
 
-function messages_userapi_get_sendtogroups($args)
+function messages_userapi_get_sendtogroups(array $args = [], $context = null)
 {
     extract($args);
 

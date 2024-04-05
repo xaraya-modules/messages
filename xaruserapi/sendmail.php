@@ -19,7 +19,7 @@
  * @return true
  */
 
-function messages_userapi_sendmail($args)
+function messages_userapi_sendmail(array $args = [], $context = null)
 {
     extract($args);
 

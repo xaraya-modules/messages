@@ -20,7 +20,7 @@
 
 sys::import('modules.messages.xarincludes.defines');
 
-function messages_user_delete()
+function messages_user_delete(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ManageMessages')) {
         return;
@@ -86,7 +86,7 @@ function messages_user_delete()
 
             $data['object']->updateItem();
 
-            xarResponse::redirect(xarController::URL('messages', 'user', 'view', ['folder' => $folder]));
+            xarController::redirect(xarController::URL('messages', 'user', 'view', ['folder' => $folder]), null, $context);
             break;
 
         case "check":

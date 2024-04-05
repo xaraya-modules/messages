@@ -19,7 +19,7 @@
 
 sys::import('modules.messages.xarincludes.defines');
 
-function messages_userapi_get_sendtousers($args)
+function messages_userapi_get_sendtousers(array $args = [], $context = null)
 {
     $sendtogroups = xarMod::apiFunc('messages', 'user', 'get_sendtogroups', $args);
 
@@ -46,7 +46,7 @@ function messages_userapi_get_sendtousers($args)
     /*Psspl:get the selected groups only*/
     $user_c = [];
     foreach ($sendtogroups as $key => $value) {
-        $user_c[]=$q->peq('rm.parent_id', $value);
+        $user_c[] = $q->peq('rm.parent_id', $value);
     }
     $q->qor($user_c); //use OR
 

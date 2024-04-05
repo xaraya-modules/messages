@@ -14,7 +14,7 @@
 
 sys::import('modules.messages.xarincludes.defines');
 
-function messages_user_reply()
+function messages_user_reply(array $args = [], $context = null)
 {
     if (!xarSecurity::check('AddMessages')) {
         return;
@@ -26,6 +26,6 @@ function messages_user_reply()
     if (!xarVar::fetch('replyto', 'int', $replyto, 0, xarVar::NOT_REQUIRED)) {
         return;
     }
-    xarResponse::redirect(xarController::URL('messages', 'user', 'new', ['replyto' => $replyto]));
+    xarController::redirect(xarController::URL('messages', 'user', 'new', ['replyto' => $replyto]), null, $context);
     return true;
 }

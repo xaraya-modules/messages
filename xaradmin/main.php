@@ -12,7 +12,7 @@
  * @author Marc Lutolf <mfl@netspan.ch>
  */
 
-function messages_admin_main()
+function messages_admin_main(array $args = [], $context = null)
 {
     if (!xarSecurity::check('AdminMessages')) {
         return;
@@ -22,13 +22,13 @@ function messages_admin_main()
     $info =  xarController::$request->getInfo();
     $samemodule = $info[0] == $refererinfo[0];
 
-    if (((bool)xarModVars::get('modules', 'disableoverview') == false) || $samemodule) {
+    if (((bool) xarModVars::get('modules', 'disableoverview') == false) || $samemodule) {
         if (!xarVar::fetch('tab', 'str', $data['tab'], '', xarVar::NOT_REQUIRED)) {
             return;
         }
         return xarTpl::module('messages', 'admin', 'overview', $data);
     } else {
-        xarResponse::redirect(xarController::URL('messages', 'admin', 'modifyconfig'));
+        xarController::redirect(xarController::URL('messages', 'admin', 'modifyconfig'), null, $context);
         return true;
     }
 }

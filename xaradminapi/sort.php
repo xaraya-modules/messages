@@ -17,7 +17,7 @@
  * @author Ryan Walker
  * @return string $sort (ex. 'subject ASC');
  */
-function messages_adminapi_sort($args)
+function messages_adminapi_sort(array $args = [], $context = null)
 {
     // Default URL strings to look for
     $url_sortfield = 'sortfield';

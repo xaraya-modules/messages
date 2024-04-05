@@ -14,7 +14,7 @@
 
 sys::import('modules.messages.xarincludes.defines');
 
-function messages_user_modify()
+function messages_user_modify(array $args = [], $context = null)
 {
     if (!xarSecurity::check('EditMessages', 0)) {
         return;
@@ -83,7 +83,7 @@ function messages_user_modify()
     if ($send || $draft || $saveandedit) {
         // Check for a valid confirmation key
         if (!xarSec::confirmAuthKey()) {
-            return xarTpl::module('privileges', 'user', 'errors', ['layout' => 'bad_author']);
+            return xarController::badRequest('bad_author', $context);
         }
 
         // Get the data from the form
@@ -102,17 +102,17 @@ function messages_user_modify()
             $object->updateItem(['itemid' => $id]);
 
             if ($saveandedit) {
-                xarResponse::redirect(xarController::URL('messages', 'user', 'modify', ['id'=>$id]));
+                xarController::redirect(xarController::URL('messages', 'user', 'modify', ['id' => $id]), null, $context);
                 return true;
             } elseif ($draft) {
-                xarResponse::redirect(xarController::URL('messages', 'user', 'view', ['folder'=> 'drafts']));
+                xarController::redirect(xarController::URL('messages', 'user', 'view', ['folder' => 'drafts']), null, $context);
                 return true;
             } elseif ($send) {
                 if (xarModVars::get('messages', 'sendemail')) {
                     $to_id = $object->properties['to_id']->value;
                     xarMod::apiFunc('messages', 'user', 'sendmail', ['id' => $id, 'to_id' => $to_id]);
                 }
-                xarResponse::redirect(xarController::URL('messages', 'user', 'view'));
+                xarController::redirect(xarController::URL('messages', 'user', 'view'), null, $context);
                 return true;
             }
         }

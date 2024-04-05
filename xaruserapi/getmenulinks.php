@@ -14,7 +14,7 @@
 
 sys::import('modules.messages.xarincludes.defines');
 
-function messages_userapi_getmenulinks($args)
+function messages_userapi_getmenulinks(array $args = [], $context = null)
 {
     $menulinks = [];
     if (xarSecurity::check('ReadMessages', 0)) {

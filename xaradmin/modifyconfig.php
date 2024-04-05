@@ -15,7 +15,7 @@
  * This is a standard function to modify and update the configuration parameters of the
  * module
  */
-function messages_admin_modifyconfig()
+function messages_admin_modifyconfig(array $args = [], $context = null)
 {
     // Security check - important to do this as early as possible to avoid
     // potential security holes or just too much wasted processing
@@ -82,7 +82,7 @@ function messages_admin_modifyconfig()
                 //$property = DataPropertyMaster::getProperty(array('name' => 'roleid_'.$key));
                 //$property->checkInput('roleid_'.$key);
                 $the_key = $value['id'];
-                if (!xarVar::fetch('roleid_'.$the_key, 'array', $roleid_[$the_key], 0, xarVar::NOT_REQUIRED)) {
+                if (!xarVar::fetch('roleid_' . $the_key, 'array', $roleid_[$the_key], 0, xarVar::NOT_REQUIRED)) {
                     return;
                 }
                 xarModItemVars::set('messages', "allowedsendmessages", serialize($roleid_[$the_key]), $the_key);
@@ -135,7 +135,7 @@ function messages_admin_modifyconfig()
 
             $item = $object->updateItem(['itemid' => 0]);
 
-            xarResponse::redirect(xarController::URL('messages', 'admin', 'modifyconfig'));
+            xarController::redirect(xarController::URL('messages', 'admin', 'modifyconfig'), null, $context);
 
             # --------------------------------------------------------
             #

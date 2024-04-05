@@ -20,7 +20,7 @@
 
 sys::import('modules.messages.xarincludes.defines');
 
-function messages_user_markunread()
+function messages_user_markunread(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ManageMessages')) {
         return;
@@ -60,7 +60,7 @@ function messages_user_markunread()
 
     $data['object']->updateItem();
 
-    xarResponse::redirect(xarController::URL('messages', 'user', 'view', ['folder' => $folder]));
+    xarController::redirect(xarController::URL('messages', 'user', 'view', ['folder' => $folder]), null, $context);
 
     return true;
 }

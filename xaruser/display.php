@@ -14,7 +14,7 @@
 
 sys::import('modules.messages.xarincludes.defines');
 
-function messages_user_display($args)
+function messages_user_display(array $args = [], $context = null)
 {
     extract($args);
 
@@ -51,7 +51,7 @@ function messages_user_display($args)
         return xarTpl::module('messages', 'user', 'message_errors', ['layout' => 'bad_id']);
     }
 
-//    $data['message'] = $messages[0];
+    //    $data['message'] = $messages[0];
     $data['action']  = 'display';
 
     // added call to transform text srg 09/22/03

@@ -21,7 +21,7 @@
 
 sys::import('modules.messages.xarincludes.defines');
 
-function messages_userapi_getitemlinks($args)
+function messages_userapi_getitemlinks(array $args = [], $context = null)
 {
     $itemlinks = [];
     if (!xarSecurity::check('ViewMessages', 0)) {

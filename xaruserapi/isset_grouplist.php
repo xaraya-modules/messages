@@ -21,7 +21,7 @@ sys::import('modules.messages.xarincludes.defines');
 
 /*Check if there are any possible recipients for the logged in user*/
 
-function messages_userapi_isset_grouplist($args)
+function messages_userapi_isset_grouplist(array $args = [], $context = null)
 {
     extract($args);
 
@@ -51,8 +51,8 @@ function messages_userapi_isset_grouplist($args)
     }
     $CurrentUser =  $q->output();
 
-    $id=$CurrentUser[0]['parent_id'];
-    $groupID=$CurrentUser[0]['parent_id'];
+    $id = $CurrentUser[0]['parent_id'];
+    $groupID = $CurrentUser[0]['parent_id'];
 
     $allowedsendmessages = unserialize(xarModItemVars::get('messages', "allowedsendmessages", $groupID));
 

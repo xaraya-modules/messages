@@ -14,7 +14,7 @@
 
 sys::import('modules.messages.xarincludes.defines');
 
-function messages_user_view()
+function messages_user_view(array $args = [], $context = null)
 {
     if (!xarSecurity::check('ViewMessages')) {
         return;
@@ -81,7 +81,7 @@ function messages_user_view()
 
     $total = DataObjectFactory::getObjectList([
                             'name' => 'messages_messages',
-                            'status'    =>DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE,
+                            'status'    => DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE,
                             'numitems' => null,
                             'where' => $where,
                             ]);
@@ -89,7 +89,7 @@ function messages_user_view()
 
     $list = DataObjectFactory::getObjectList([
                             'name' => 'messages_messages',
-                            'status'    =>DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE,
+                            'status'    => DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE,
                             'startnum'  => $startnum,
                             'numitems' => $numitems,
                             'sort' => $data['sort'],

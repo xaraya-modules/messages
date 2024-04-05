@@ -14,8 +14,8 @@
 
 sys::import('modules.messages.xarincludes.defines');
 
-function messages_user_main()
+function messages_user_main(array $args = [], $context = null)
 {
-    xarResponse::redirect(xarController::URL('messages', 'user', 'view'));
+    xarController::redirect(xarController::URL('messages', 'user', 'view'), null, $context);
     return;
 }

@@ -14,7 +14,7 @@
 
 sys::import('modules.messages.xarincludes.defines');
 
-function messages_user_new()
+function messages_user_new(array $args = [], $context = null)
 {
     if (!xarSecurity::check('AddMessages')) {
         return;
@@ -84,7 +84,7 @@ function messages_user_new()
     if ($send || $draft || $saveandedit) {
         // Check for a valid confirmation key
         if (!xarSec::confirmAuthKey()) {
-            return xarTpl::module('privileges', 'user', 'errors', ['layout' => 'bad_author']);
+            return xarController::badRequest('bad_author', $context);
         }
 
         $isvalid = $object->checkInput();
@@ -150,7 +150,7 @@ function messages_user_new()
         }
 
         if ($saveandedit) {
-            xarResponse::redirect(xarController::URL('messages', 'user', 'modify', ['id' => $id]));
+            xarController::redirect(xarController::URL('messages', 'user', 'modify', ['id' => $id]), null, $context);
             return true;
         }
 
@@ -163,9 +163,9 @@ function messages_user_new()
         $redirect = $tabs[$redirect];
 
         if ($redirect == 'new') {
-            xarResponse::redirect(xarController::URL('messages', 'user', 'new'));
+            xarController::redirect(xarController::URL('messages', 'user', 'new'), null, $context);
         } else {
-            xarResponse::redirect(xarController::URL('messages', 'user', 'view', ['folder' => $redirect]));
+            xarController::redirect(xarController::URL('messages', 'user', 'view', ['folder' => $redirect]), null, $context);
         }
         return true;
     }

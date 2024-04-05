@@ -14,7 +14,7 @@
 
 sys::import('modules.messages.xarincludes.defines');
 
-function messages_userapi_encode_shorturl($args)
+function messages_userapi_encode_shorturl(array $args = [], $context = null)
 {
     $func = null;
     $module = null;

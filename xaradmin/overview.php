@@ -14,14 +14,14 @@
 /**
  * Overview function that displays the standard Overview page
  */
-function messages_admin_overview()
+function messages_admin_overview(array $args = [], $context = null)
 {
     /* Security Check */
     if (!xarSecurity::check('AdminMessages')) {
         return;
     }
 
-    $data=[];
+    $data = [];
 
     return xarTpl::module('messages', 'admin', 'overview', $data);
 }
