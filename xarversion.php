@@ -28,9 +28,11 @@ $modversion['admin']        = 1;
 $modversion['user']         = 1;
 $modversion['class']        = 'Admin';
 $modversion['category']     = 'Content';
+//$modversion['namespace']      = 'Xaraya\Modules\Messages';
+$modversion['twigtemplates']  = true;
 $modversion['dependencyinfo'] = [
-                                0 => [
-                                'name' => 'Xaraya Core',
-                                'version_ge' => '2.1.0',
-                                ],
-                            ];
+    0 => [
+        'name' => 'Xaraya Core',
+        'version_ge' => '2.4.1',
+    ],
+];
