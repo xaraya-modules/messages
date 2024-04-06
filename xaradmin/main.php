@@ -22,10 +22,13 @@ function messages_admin_main(array $args = [], $context = null)
     $info =  xarController::$request->getInfo();
     $samemodule = $info[0] == $refererinfo[0];
 
+    $data = [];
+
     if (((bool) xarModVars::get('modules', 'disableoverview') == false) || $samemodule) {
         if (!xarVar::fetch('tab', 'str', $data['tab'], '', xarVar::NOT_REQUIRED)) {
             return;
         }
+        $data['context'] ??= $context;
         return xarTpl::module('messages', 'admin', 'overview', $data);
     } else {
         xarController::redirect(xarController::URL('messages', 'admin', 'modifyconfig'), null, $context);

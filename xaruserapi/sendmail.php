@@ -35,11 +35,12 @@ function messages_userapi_sendmail(array $args = [], $context = null)
     $data['to_id'] = $to_id;
     $data['to_name'] = $msgdata['name'];
     $data['to_email'] = $msgdata['info'];
+    $data['context'] ??= $context;
     $subject = xarTpl::module('messages', 'user', 'email-subject', $data);
     $body = xarTpl::module('messages', 'user', 'email-body', $data);
     $msgdata['subject'] = $subject;
     $msgdata['message']  = $body;
 
-    $sendmail = xarMod::apiFunc('mail', 'admin', 'sendmail', $msgdata);
+    $sendmail = xarMod::apiFunc('mail', 'admin', 'sendmail', $msgdata, $context);
     return true;
 }

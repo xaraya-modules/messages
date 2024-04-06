@@ -90,6 +90,7 @@ function messages_user_modify(array $args = [], $context = null)
         $isvalid = $object->checkInput();
 
         if (!$isvalid) {
+            $data['context'] ??= $context;
             return xarTpl::module('messages', 'user', 'modify', $data);
         } else {
             // Good data: update the item
