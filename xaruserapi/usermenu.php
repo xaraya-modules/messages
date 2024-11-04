@@ -13,14 +13,15 @@
 /**
  * Provides extra processing to roles user account function for user_settings
  *
- * @param $args['id'] id of the user to get settings for (default current user)
- * @param $args['phase'] phase to process (valid phases are showform, checkinput, and updateitem)
+ * @param array<mixed> $args
+ * with
+ *     $args['id'] id of the user to get settings for (default current user)
+ *     $args['phase'] phase to process (valid phases are showform, checkinput, and updateitem)
  * NOTE: If you provide this function in your module, you must include return values for all phases
- * @param $args['object'] user_settings object (default messages_user_settings)
+ *     $args['object'] user_settings object (default messages_user_settings)
  * @return mixed
  * @return array on showform
- * @return bool on checkinput, invalid = false, valid = true
- * @return bool on updateitem, error = false, success = true
+ * @return mixed on checkinput, invalid = false, valid = true - on updateitem, error = false, success = true
  */
 function messages_userapi_usermenu(array $args = [], $context = null)
 {
@@ -28,6 +29,8 @@ function messages_userapi_usermenu(array $args = [], $context = null)
     if (!xarUser::isLoggedIn()) {
         // redirect user to their account page after login
         $redirecturl = xarController::URL('roles', 'user', 'account');
+        $defaultauthdata = xarMod::apiFunc('roles','user','getdefaultauthdata');
+        $defaultloginmodname = $defaultauthdata['defaultloginmodname'];
         xarController::redirect(xarController::URL(
             $defaultloginmodname,
             'user',
@@ -104,7 +107,6 @@ function messages_userapi_usermenu(array $args = [], $context = null)
             $data['authid'] = xarSec::genAuthKey('messages');
             // finally return data to the calling function
             return $data;
-            break;
 
             /**
              * The checkinput phase allows you to perform validations. Use this
@@ -138,7 +140,6 @@ function messages_userapi_usermenu(array $args = [], $context = null)
 
             // return the bool result to the calling function
             return $isvalid == true ? true : false;
-            break;
 
             /**
              * The updateitem phase allows you to update user settings. Use this
@@ -163,8 +164,7 @@ function messages_userapi_usermenu(array $args = [], $context = null)
             */
             // let the calling function know the update was a success
             return true;
-            break;
     }
     // if we got here, we don't know what went wrong, just return false
-    return false;
+    //return false;
 }

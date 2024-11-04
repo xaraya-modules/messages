@@ -24,6 +24,7 @@ function messages_user_new(array $args = [], $context = null)
         return;
     }
     $reply = ($replyto > 0) ? true : false;
+    $data = [];
     $data['reply'] = $reply;
     $data['replyto'] = $replyto;
 
@@ -98,7 +99,7 @@ function messages_user_new(array $args = [], $context = null)
         $object->properties['from_id']->setValue(xarUser::getVar('uname'));
 
         if (!$isvalid) {
-            $data['context'] ??= $context;
+            $data['context'] = $context;
             return xarTpl::module('messages', 'user', 'new', $data);
         }
 
@@ -136,7 +137,7 @@ function messages_user_new(array $args = [], $context = null)
                 $autoreplyobj->properties['from_id']->setValue(xarUser::getVar('uname', $to_id));
                 $autoreplyobj->properties['to_id']->setValue($uid);
                 $data['from_name'] = xarUser::getVar('name', $to_id);
-                $data['context'] ??= $context;
+                $data['context'] = $context;
                 $subject = xarTpl::module('messages', 'user', 'autoreply-subject', $data);
                 $data['autoreply'] = $autoreply;
                 $autoreply = xarTpl::module('messages', 'user', 'autoreply-body', $data);

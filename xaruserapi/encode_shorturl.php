@@ -41,6 +41,9 @@ function messages_userapi_encode_shorturl(array $args = [], $context = null)
             case 'folder':
                 $folder = $value;
                 break;
+            case 'opt':
+                $opt = $value;
+                break;
             default:
                 $rest[$name] = $value;
         }
@@ -123,7 +126,7 @@ function messages_userapi_encode_shorturl(array $args = [], $context = null)
         $rest['replyto'] = $replyto;
     }
 
-    if (($func = 'markunread' || $func == 'display') && isset($folder)) {
+    if (($func == 'markunread' || $func == 'display') && isset($folder)) {
         $rest['folder'] = $folder;
     }
 

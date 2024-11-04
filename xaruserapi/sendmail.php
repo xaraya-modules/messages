@@ -14,11 +14,12 @@
 /**
  * Send an email to a message recipient
  * @author Ryan Walker (ryan@webcommunicate.net)
- * @param int	$id the id of the message
- * @param int	$to_id the uid of the recipient
+ * @param array<mixed> $args
+ * with
+ *     int	$id the id of the message
+ *     int	$to_id the uid of the recipient
  * @return true
  */
-
 function messages_userapi_sendmail(array $args = [], $context = null)
 {
     extract($args);

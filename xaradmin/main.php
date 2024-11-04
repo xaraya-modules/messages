@@ -28,7 +28,7 @@ function messages_admin_main(array $args = [], $context = null)
         if (!xarVar::fetch('tab', 'str', $data['tab'], '', xarVar::NOT_REQUIRED)) {
             return;
         }
-        $data['context'] ??= $context;
+        $data['context'] = $context;
         return xarTpl::module('messages', 'admin', 'overview', $data);
     } else {
         xarController::redirect(xarController::URL('messages', 'admin', 'modifyconfig'), null, $context);

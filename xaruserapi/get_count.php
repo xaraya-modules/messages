@@ -11,25 +11,24 @@
  * @link http://xaraya.com/index.php/release/6.html
  * @author Carl P. Corliss <rabbitt@xaraya.com>
  */
+sys::import('modules.messages.xarincludes.defines');
+
 /**
  * Get the number of messages sent or received by a user
  *
  * @author mikespub
  * @access public
- * @param integer    $author      the id of the author you want to count messages for, or
- * @param integer    $recipient   the id of the recipient you want to count messages for
- * @param bool       $unread      (optional) count unread rather than total
- * @param bool       $drafts      (optional) count drafts
+ * @param array<mixed> $args
+ * with
+ *     integer    $author      the id of the author you want to count messages for, or
+ *     integer    $recipient   the id of the recipient you want to count messages for
+ *     bool       $unread      (optional) count unread rather than total
+ *     bool       $drafts      (optional) count drafts
  * @return integer  the number of messages
  */
-
-sys::import('modules.messages.xarincludes.defines');
-
 function messages_userapi_get_count(array $args = [], $context = null)
 {
     extract($args);
-
-    $exception = false;
 
     if ((!isset($author) || empty($author)) && (!isset($recipient) || empty($recipient))) {
         $msg = xarML(
@@ -40,11 +39,6 @@ function messages_userapi_get_count(array $args = [], $context = null)
             'messages'
         );
         throw new BadParameterException(null, $msg);
-        $exception |= true;
-    }
-
-    if ($exception) {
-        return;
     }
 
     $dbconn = xarDB::getConn();
@@ -84,7 +78,7 @@ function messages_userapi_get_count(array $args = [], $context = null)
     $result = & $dbconn->Execute($sql, $bindvars);
 
     if (!$result) {
-        return;
+        return 0;
     }
 
     if ($result->EOF) {

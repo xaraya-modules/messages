@@ -27,7 +27,7 @@ class Messages_NewmessagesBlock extends BasicBlock
 
     public function display(array $data = [])
     {
-        $data = parent::display($data);
+        $data = parent::display();
         if (empty($data)) {
             return;
         }

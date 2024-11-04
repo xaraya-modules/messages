@@ -38,28 +38,27 @@ function messages_userapi_decode_shorturl($params)
                 $args['opt'] = true;
             }
             return ['new', $args];
-            break;
+
         case 'modify':
             return ['modify', ['id' => $params[2]]];
-            break;
+
         case 'reply':
             return ['reply', ['replyto' => $params[2]]];
-            break;
+
         case 'markunread':
             return ['markunread', ['id' => $params[2]]];
-            break;
+
         case 'sent':
             return ['view', ['folder' => 'sent']];
-            break;
+
         case 'drafts':
             return ['view', ['folder' => 'drafts']];
-            break;
+
         case 'delete':
             return ['delete', ['id' => $params[2]]];
-            break;
+
         default:
         case 'inbox':
             return ['view', []];
-            break;
     }
 }

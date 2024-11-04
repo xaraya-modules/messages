@@ -26,10 +26,10 @@ function messages_adminapi_sort(array $args = [], $context = null)
     extract($args);
 
     if (!xarVar::fetch($url_sortfield, 'isset', $sortfield, null, xarVar::DONT_SET)) {
-        return;
+        return '';
     }
     if (!xarVar::fetch($url_ascdesc, 'isset', $ascdesc, null, xarVar::NOT_REQUIRED)) {
-        return;
+        return '';
     }
 
     /*if (isset($object) && !isset($sortfield) && !isset($ascdesc)) {

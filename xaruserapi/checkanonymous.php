@@ -13,10 +13,11 @@
  */
 /**
  * Check to see if a message was anonymous
- * @param int	$id the message id
+ * @param array<mixed> $args
+ * with
+ *     int	$id the message id
  * @return boolean
  */
-
 function messages_userapi_checkanonymous(array $args = [], $context = null)
 {
     extract($args);
