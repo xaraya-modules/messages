@@ -19,6 +19,7 @@ use xarMod;
 use xarModVars;
 use xarPrivileges;
 use xarMasks;
+use Query;
 use sys;
 use Exception;
 

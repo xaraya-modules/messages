@@ -20,6 +20,8 @@ use xarMod;
 use xarUser;
 use xarTpl;
 use xarModUserVars;
+use DataObjectFactory;
+use DataPropertyMaster;
 use sys;
 use BadParameterException;
 

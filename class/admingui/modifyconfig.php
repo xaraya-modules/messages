@@ -20,6 +20,7 @@ use xarTpl;
 use xarModItemVars;
 use xarModVars;
 use xarController;
+use DataObjectFactory;
 use sys;
 use BadParameterException;
 

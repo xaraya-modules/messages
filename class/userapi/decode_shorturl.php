@@ -24,7 +24,7 @@ class DecodeShorturlMethod extends MethodClass
 {
     /** functions imported by bermuda_cleanup */
 
-    public function __invoke($params)
+    public function __invoke(array $params = [])
     {
         if ($params[0] != 'messages') {
             return;

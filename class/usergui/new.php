@@ -21,6 +21,7 @@ use xarUser;
 use xarModVars;
 use xarModItemVars;
 use xarMod;
+use DataObjectFactory;
 use sys;
 use BadParameterException;
 
