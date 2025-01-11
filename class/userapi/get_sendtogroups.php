@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserApi;
 
+
+use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarUser;
 use xarDB;
@@ -23,6 +25,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * messages userapi get_sendtogroups function
+ * @extends MethodClass<UserApi>
  */
 class GetSendtogroupsMethod extends MethodClass
 {

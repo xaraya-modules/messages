@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserApi;
 
+
+use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
 use DataObjectFactory;
 use sys;
@@ -20,6 +22,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * messages userapi checkanonymous function
+ * @extends MethodClass<UserApi>
  */
 class CheckanonymousMethod extends MethodClass
 {

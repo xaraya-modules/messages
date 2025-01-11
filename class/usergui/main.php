@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserGui;
 
+
+use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarController;
 use sys;
@@ -20,6 +22,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * messages user main function
+ * @extends MethodClass<UserGui>
  */
 class MainMethod extends MethodClass
 {

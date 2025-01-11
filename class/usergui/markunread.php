@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserGui;
 
+use Xaraya\Modules\Messages\Defines;
+use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -25,6 +27,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * messages user markunread function
+ * @extends MethodClass<UserGui>
  */
 class MarkunreadMethod extends MethodClass
 {
@@ -54,14 +57,14 @@ class MarkunreadMethod extends MethodClass
                 if ($data['object']->properties['to_id']->value != xarSession::getVar('role_id')) {
                     return xarTpl::module('messages', 'user', 'message_errors', ['layout' => 'bad_id']);
                 } else {
-                    $data['object']->properties['recipient_status']->setValue(MESSAGES_STATUS_UNREAD);
+                    $data['object']->properties['recipient_status']->setValue(Defines::STATUS_UNREAD);
                 }
                 break;
             case 'sent':
                 if ($data['object']->properties['from_id']->value != xarSession::getVar('role_id')) {
                     return xarTpl::module('messages', 'user', 'message_errors', ['layout' => 'bad_id']);
                 } else {
-                    $data['object']->properties['author_status']->setValue(MESSAGES_STATUS_UNREAD);
+                    $data['object']->properties['author_status']->setValue(Defines::STATUS_UNREAD);
                 }
                 break;
         }

@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserApi;
 
+
+use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarMod;
 use xarUser;
@@ -24,6 +26,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * messages userapi isset_grouplist function
+ * @extends MethodClass<UserApi>
  */
 class IssetGrouplistMethod extends MethodClass
 {

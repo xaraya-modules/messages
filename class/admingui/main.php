@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Messages\AdminGui;
 
+
+use Xaraya\Modules\Messages\AdminGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarServer;
@@ -25,6 +27,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * messages admin main function
+ * @extends MethodClass<AdminGui>
  */
 class MainMethod extends MethodClass
 {

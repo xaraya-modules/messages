@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserApi;
 
+
+use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarUser;
 use xarController;
@@ -26,6 +28,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * messages userapi usermenu function
+ * @extends MethodClass<UserApi>
  */
 class UsermenuMethod extends MethodClass
 {

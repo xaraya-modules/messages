@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserApi;
 
+use Xaraya\Modules\Messages\Defines;
+use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarDB;
 use sys;
@@ -20,6 +22,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * messages userapi get_count function
+ * @extends MethodClass<UserApi>
  */
 class GetCountMethod extends MethodClass
 {
@@ -62,26 +65,26 @@ class GetCountMethod extends MethodClass
         $bindvars = [];
         if (isset($recipient)) {
             $sql .= "to_delete=? AND to_id=? AND from_status!=?";
-            $bindvars[] = MESSAGES_NOTDELETED;
+            $bindvars[] = Defines::NOTDELETED;
             $bindvars[] = (int) $recipient;
-            $bindvars[] = MESSAGES_STATUS_DRAFT;
+            $bindvars[] = Defines::STATUS_DRAFT;
             if (isset($unread)) {
                 $sql .= " AND to_status=?";
-                $bindvars[] = MESSAGES_STATUS_UNREAD;
+                $bindvars[] = Defines::STATUS_UNREAD;
             }
         } elseif (isset($author)) {
             $sql .= " from_delete=? AND from_id=?";
-            $bindvars[] = MESSAGES_NOTDELETED;
+            $bindvars[] = Defines::NOTDELETED;
             $bindvars[] = (int) $author;
             if (isset($unread)) {
                 $sql .= " AND from_status=?";
-                $bindvars[] = MESSAGES_NOTDELETED;
+                $bindvars[] = Defines::NOTDELETED;
             } elseif (isset($drafts)) {
                 $sql .= " AND from_status=?";
-                $bindvars[] = MESSAGES_STATUS_DRAFT;
+                $bindvars[] = Defines::STATUS_DRAFT;
             } else {
                 $sql .= " AND from_status!=?";
-                $bindvars[] = MESSAGES_STATUS_DRAFT;
+                $bindvars[] = Defines::STATUS_DRAFT;
             }
         }
 

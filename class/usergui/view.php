@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserGui;
 
+use Xaraya\Modules\Messages\Defines;
+use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -29,6 +31,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * messages user view function
+ * @extends MethodClass<UserGui>
  */
 class ViewMethod extends MethodClass
 {
@@ -64,16 +67,16 @@ class ViewMethod extends MethodClass
         switch ($folder) {
             case 'inbox':
                 $where = 'to_id eq ' . xarUser::getVar('id');
-                $where .= ' and recipient_delete eq ' . MESSAGES_NOTDELETED;
-                $where .= ' and author_status ne ' . MESSAGES_STATUS_DRAFT;
+                $where .= ' and recipient_delete eq ' . Defines::NOTDELETED;
+                $where .= ' and author_status ne ' . Defines::STATUS_DRAFT;
                 $data['fieldlist'] = 'from_id,subject,time,recipient_status';
                 xarTpl::setPageTitle(xarML('Inbox'));
                 $data['input_title']    = xarML('Inbox');
                 break;
             case 'sent':
                 $where = 'from_id eq ' . xarUser::getVar('id');
-                $where .= ' and author_delete eq ' . MESSAGES_NOTDELETED;
-                $where .= ' and author_status ne ' . MESSAGES_STATUS_DRAFT;
+                $where .= ' and author_delete eq ' . Defines::NOTDELETED;
+                $where .= ' and author_status ne ' . Defines::STATUS_DRAFT;
                 $data['fieldlist'] = 'to_id,subject,time,author_status,recipient_status';
                 if (xarModVars::get('messages', 'allowanonymous')) {
                     $data['fieldlist'] .= ',postanon';
@@ -84,7 +87,7 @@ class ViewMethod extends MethodClass
             case 'drafts':
                 $where = 'author_status eq 0';
                 $where .= ' and from_id eq ' . xarUser::getVar('id');
-                $where .= ' and author_delete eq ' . MESSAGES_NOTDELETED;
+                $where .= ' and author_delete eq ' . Defines::NOTDELETED;
                 $data['fieldlist'] = 'to_id,subject,time,author_status';
                 xarTpl::setPageTitle(xarML('Drafts'));
                 $data['input_title']    = xarML('Drafts');

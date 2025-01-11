@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserApi;
 
+
+use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarMod;
@@ -23,6 +25,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * messages userapi getitemlinks function
+ * @extends MethodClass<UserApi>
  */
 class GetitemlinksMethod extends MethodClass
 {

@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserGui;
 
+use Xaraya\Modules\Messages\Defines;
+use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -29,6 +31,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * messages user new function
+ * @extends MethodClass<UserGui>
  */
 class NewMethod extends MethodClass
 {
@@ -88,9 +91,9 @@ class NewMethod extends MethodClass
 
         if ($send) {
             $time = $object->properties['time']->value;
-            $object->properties['author_status']->setValue(MESSAGES_STATUS_UNREAD);
+            $object->properties['author_status']->setValue(Defines::STATUS_UNREAD);
         } else {
-            $object->properties['author_status']->setValue(MESSAGES_STATUS_DRAFT);
+            $object->properties['author_status']->setValue(Defines::STATUS_DRAFT);
         }
 
         if ($reply) {
@@ -123,12 +126,12 @@ class NewMethod extends MethodClass
                 return xarTpl::module('messages', 'user', 'new', $data);
             }
 
-            $object->properties['recipient_status']->setValue(MESSAGES_STATUS_UNREAD);
+            $object->properties['recipient_status']->setValue(Defines::STATUS_UNREAD);
 
             if ($send) {
-                $object->properties['author_status']->setValue(MESSAGES_STATUS_UNREAD);
+                $object->properties['author_status']->setValue(Defines::STATUS_UNREAD);
             } else {
-                $object->properties['author_status']->setValue(MESSAGES_STATUS_DRAFT);
+                $object->properties['author_status']->setValue(Defines::STATUS_DRAFT);
             }
 
             $id = $object->createItem();
@@ -153,7 +156,7 @@ class NewMethod extends MethodClass
                 }
                 if (!empty($autoreply)) {
                     $autoreplyobj = DataObjectFactory::getObject(['name' => 'messages_messages']);
-                    $autoreplyobj->properties['author_status']->setValue(MESSAGES_STATUS_UNREAD);
+                    $autoreplyobj->properties['author_status']->setValue(Defines::STATUS_UNREAD);
                     $autoreplyobj->properties['from_id']->setValue(xarUser::getVar('uname', $to_id));
                     $autoreplyobj->properties['to_id']->setValue($uid);
                     $data['from_name'] = xarUser::getVar('name', $to_id);

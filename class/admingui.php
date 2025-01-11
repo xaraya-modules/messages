@@ -19,6 +19,10 @@ sys::import('modules.messages.class.adminapi');
 
 /**
  * Handle the messages admin GUI
+ *
+ * @method mixed main(array $args)
+ * @method mixed modifyconfig(array $args)
+ * @method mixed overview(array $args)
  * @extends AdminGuiClass<Module>
  */
 class AdminGui extends AdminGuiClass

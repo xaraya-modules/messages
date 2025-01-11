@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserGui;
 
+use Xaraya\Modules\Messages\Defines;
+use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -27,6 +29,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * messages user modify function
+ * @extends MethodClass<UserGui>
  */
 class ModifyMethod extends MethodClass
 {
@@ -116,7 +119,7 @@ class ModifyMethod extends MethodClass
 
                 if ($send) {
                     $object->properties['time']->setValue(time());
-                    $object->properties['author_status']->setValue(MESSAGES_STATUS_UNREAD);
+                    $object->properties['author_status']->setValue(Defines::STATUS_UNREAD);
                 }
 
                 $object->updateItem(['itemid' => $id]);

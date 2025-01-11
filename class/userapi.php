@@ -18,6 +18,18 @@ sys::import('xaraya.modules.userapi');
 
 /**
  * Handle the messages user API
+ *
+ * @method mixed checkanonymous(array $args)
+ * @method mixed decodeShorturl(array $args)
+ * @method mixed encodeShorturl(array $args)
+ * @method mixed getCount(array $args)
+ * @method mixed getSendtogroups(array $args)
+ * @method mixed getSendtousers(array $args)
+ * @method mixed getitemlinks(array $args)
+ * @method mixed getmenulinks(array $args)
+ * @method mixed issetGrouplist(array $args)
+ * @method mixed sendmail(array $args)
+ * @method mixed usermenu(array $args)
  * @extends UserApiClass<Module>
  */
 class UserApi extends UserApiClass

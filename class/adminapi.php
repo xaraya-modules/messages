@@ -18,6 +18,8 @@ sys::import('xaraya.modules.adminapi');
 
 /**
  * Handle the messages admin API
+ *
+ * @method mixed sort(array $args)
  * @extends AdminApiClass<Module>
  */
 class AdminApi extends AdminApiClass

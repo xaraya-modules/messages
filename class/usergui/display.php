@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserGui;
 
+use Xaraya\Modules\Messages\Defines;
+use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -26,6 +28,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * messages user display function
+ * @extends MethodClass<UserGui>
  */
 class DisplayMethod extends MethodClass
 {
@@ -87,13 +90,13 @@ class DisplayMethod extends MethodClass
          */
         if ($current_user == $object->properties['from_id']->value) {
             // don't update drafts
-            if ($object->properties['author_status']->value != MESSAGES_STATUS_DRAFT) {
-                $object->properties['author_status']->setValue(MESSAGES_STATUS_READ);
+            if ($object->properties['author_status']->value != Defines::STATUS_DRAFT) {
+                $object->properties['author_status']->setValue(Defines::STATUS_READ);
                 $object->updateItem();
             }
         }
         if ($current_user == $object->properties['to_id']->value) {
-            $object->properties['recipient_status']->setValue(MESSAGES_STATUS_READ);
+            $object->properties['recipient_status']->setValue(Defines::STATUS_READ);
             $object->updateItem();
         }
 

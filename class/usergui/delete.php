@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserGui;
 
+use Xaraya\Modules\Messages\Defines;
+use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -25,6 +27,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * messages user delete function
+ * @extends MethodClass<UserGui>
  */
 class DeleteMethod extends MethodClass
 {
@@ -86,12 +89,12 @@ class DeleteMethod extends MethodClass
                  */
 
                 if ($folder == 'inbox') {
-                    $data['object']->properties['recipient_delete']->setValue(MESSAGES_DELETED);
+                    $data['object']->properties['recipient_delete']->setValue(Defines::DELETED);
                 } elseif ($folder == 'sent') {
-                    $data['object']->properties['author_delete']->setValue(MESSAGES_DELETED);
+                    $data['object']->properties['author_delete']->setValue(Defines::DELETED);
                 } else {
-                    $data['object']->properties['recipient_delete']->setValue(MESSAGES_DELETED);
-                    $data['object']->properties['author_delete']->setValue(MESSAGES_DELETED);
+                    $data['object']->properties['recipient_delete']->setValue(Defines::DELETED);
+                    $data['object']->properties['author_delete']->setValue(Defines::DELETED);
                 }
 
                 $data['object']->updateItem();

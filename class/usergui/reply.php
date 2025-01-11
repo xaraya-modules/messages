@@ -11,6 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserGui;
 
+
+use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -22,6 +24,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * messages user reply function
+ * @extends MethodClass<UserGui>
  */
 class ReplyMethod extends MethodClass
 {

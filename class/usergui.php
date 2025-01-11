@@ -19,6 +19,15 @@ sys::import('modules.messages.class.userapi');
 
 /**
  * Handle the messages user GUI
+ *
+ * @method mixed delete(array $args)
+ * @method mixed display(array $args)
+ * @method mixed main(array $args)
+ * @method mixed markunread(array $args)
+ * @method mixed modify(array $args)
+ * @method mixed new(array $args)
+ * @method mixed reply(array $args)
+ * @method mixed view(array $args)
  * @extends UserGuiClass<Module>
  */
 class UserGui extends UserGuiClass
