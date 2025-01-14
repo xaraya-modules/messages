@@ -35,14 +35,14 @@ class MarkunreadMethod extends MethodClass
 
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('ManageMessages')) {
+        if (!$this->checkAccess('ManageMessages')) {
             return;
         }
 
-        if (!xarVar::fetch('id', 'int:1', $id, 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('id', 'int:1', $id, 0, xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('folder', 'enum:inbox:sent:drafts', $folder, 'inbox', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('folder', 'enum:inbox:sent:drafts', $folder, 'inbox', xarVar::NOT_REQUIRED)) {
             return;
         }
 
@@ -73,7 +73,7 @@ class MarkunreadMethod extends MethodClass
 
         $data['object']->updateItem();
 
-        xarController::redirect(xarController::URL('messages', 'user', 'view', ['folder' => $folder]), null, $this->getContext());
+        $this->redirect($this->getUrl( 'user', 'view', ['folder' => $folder]));
 
         return true;
     }

@@ -30,9 +30,8 @@ class CheckanonymousMethod extends MethodClass
 
     /**
      * Check to see if a message was anonymous
-     * @param array $args
-     * with
-     *     int	$id the message id
+     * @param array<mixed> $args
+     * @var int $id the message id
      * @return bool
      */
     public function __invoke(array $args = [])

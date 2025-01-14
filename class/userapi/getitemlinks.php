@@ -34,7 +34,7 @@ class GetitemlinksMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         $itemlinks = [];
-        if (!xarSecurity::check('ViewMessages', 0)) {
+        if (!$this->checkAccess('ViewMessages', 0)) {
             return $itemlinks;
         }
 
@@ -54,7 +54,7 @@ class GetitemlinksMethod extends MethodClass
                 'display',
                 ['id' => $itemid]
             ),
-                'title' => xarML('Display User'),
+                'title' => $this->translate('Display User'),
                 'label' => xarVar::prepForDisplay($item['name']), ];
         }
         return $itemlinks;

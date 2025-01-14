@@ -32,12 +32,11 @@ class GetCountMethod extends MethodClass
      * Get the number of messages sent or received by a user
      * @author mikespub
      * @access public
-     * @param array $args
-     * with
-     *     integer    $author      the id of the author you want to count messages for, or
-     *     integer    $recipient   the id of the recipient you want to count messages for
-     *     bool       $unread      (optional) count unread rather than total
-     *     bool       $drafts      (optional) count drafts
+     * @param array<mixed> $args
+     * @var integer $author the id of the author you want to count messages for, or
+     * @var integer $recipient the id of the recipient you want to count messages for
+     * @var bool $unread (optional) count unread rather than total
+     * @var bool $drafts (optional) count drafts
      * @return int the number of messages
      */
     public function __invoke(array $args = [])
@@ -45,7 +44,7 @@ class GetCountMethod extends MethodClass
         extract($args);
 
         if ((!isset($author) || empty($author)) && (!isset($recipient) || empty($recipient))) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Invalid #(1) for #(2) function #(3)() in module #(4)',
                 'author/recipient',
                 'userapi',

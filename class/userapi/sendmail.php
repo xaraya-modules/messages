@@ -34,17 +34,16 @@ class SendmailMethod extends MethodClass
     /**
      * Send an email to a message recipient
      * @author Ryan Walker (ryan@webcommunicate.net)
-     * @param array $args
-     * with
-     *     int	$id the id of the message
-     *     int	$to_id the uid of the recipient
+     * @param array<mixed> $args
+     * @var int $id the id of the message
+     * @var int $to_id the uid of the recipient
      * @return true
      */
     public function __invoke(array $args = [])
     {
         extract($args);
 
-        $msgurl = xarController::URL('messages', 'user', 'display', ['id' => $id]);
+        $msgurl = $this->getUrl( 'user', 'display', ['id' => $id]);
         $from_name = xarUser::getVar('name');
         $msgdata['info'] = xarUser::getVar('email', $to_id);
         $msgdata['name'] = xarUser::getVar('name', $to_id);

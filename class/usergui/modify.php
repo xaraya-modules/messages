@@ -37,20 +37,20 @@ class ModifyMethod extends MethodClass
 
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('EditMessages', 0)) {
+        if (!$this->checkAccess('EditMessages', 0)) {
             return;
         }
 
-        if (!xarVar::fetch('send', 'str', $send, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('send', 'str', $send, '', xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('draft', 'str', $draft, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('draft', 'str', $draft, '', xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('saveandedit', 'str', $saveandedit, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('saveandedit', 'str', $saveandedit, '', xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('id', 'id', $id, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('id', 'id', $id, null, xarVar::NOT_REQUIRED)) {
             return;
         }
 
@@ -58,13 +58,13 @@ class ModifyMethod extends MethodClass
         $draft = (!empty($draft)) ? true : false;
         $saveandedit = (!empty($saveandedit)) ? true : false;
 
-        xarTpl::setPageTitle(xarML('Edit Draft'));
+        xarTpl::setPageTitle($this->translate('Edit Draft'));
         $data = [];
-        $data['input_title']    = xarML('Edit Draft');
+        $data['input_title']    = $this->translate('Edit Draft');
 
         // Check if we still have no id of the item to modify.
         if (empty($id)) {
-            $msg = xarML(
+            $msg = $this->translate(
                 'Invalid #(1) for #(2) function #(3)() in module #(4)',
                 'id',
                 'user',
@@ -96,15 +96,15 @@ class ModifyMethod extends MethodClass
             $reply->getItem(['itemid' => $replyto]); // get the message we're replying to
             $data['to_id'] = $reply->properties['from_id']->value; // get the user we're replying to
             $data['display'] = $reply;
-            xarTpl::setPageTitle(xarML('Reply to Message'));
-            $data['input_title']    = xarML('Reply to Message');
+            xarTpl::setPageTitle($this->translate('Reply to Message'));
+            $data['input_title']    = $this->translate('Reply to Message');
         }
 
         $data['label'] = $object->label;
 
         if ($send || $draft || $saveandedit) {
             // Check for a valid confirmation key
-            if (!xarSec::confirmAuthKey()) {
+            if (!$this->confirmAuthKey()) {
                 return xarController::badRequest('bad_author', $this->getContext());
             }
 
@@ -125,17 +125,17 @@ class ModifyMethod extends MethodClass
                 $object->updateItem(['itemid' => $id]);
 
                 if ($saveandedit) {
-                    xarController::redirect(xarController::URL('messages', 'user', 'modify', ['id' => $id]), null, $this->getContext());
+                    $this->redirect($this->getUrl( 'user', 'modify', ['id' => $id]));
                     return true;
                 } elseif ($draft) {
-                    xarController::redirect(xarController::URL('messages', 'user', 'view', ['folder' => 'drafts']), null, $this->getContext());
+                    $this->redirect($this->getUrl( 'user', 'view', ['folder' => 'drafts']));
                     return true;
                 } elseif ($send) {
-                    if (xarModVars::get('messages', 'sendemail')) {
+                    if ($this->getModVar('sendemail')) {
                         $to_id = $object->properties['to_id']->value;
                         xarMod::apiFunc('messages', 'user', 'sendmail', ['id' => $id, 'to_id' => $to_id]);
                     }
-                    xarController::redirect(xarController::URL('messages', 'user', 'view'), null, $this->getContext());
+                    $this->redirect($this->getUrl('user', 'view'));
                     return true;
                 }
             }

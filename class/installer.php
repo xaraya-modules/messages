@@ -105,33 +105,33 @@ class Installer extends InstallerClass
             return;
         }
 
-        xarModVars::set('messages', 'sendemail', false); // Note the 'e' in 'sendemail'
-        xarModVars::set('messages', 'allowautoreply', true);
-        xarModVars::set('messages', 'allowanonymous', false);
-        xarModVars::set('messages', 'allowedsendmessages', serialize([]));
-        xarModVars::set('messages', 'strip_tags', true);
-        xarModVars::set('messages', 'send_redirect', 1);
-        xarModVars::set('messages', 'allowusersendredirect', false);
+        $this->setModVar('sendemail', false); // Note the 'e' in 'sendemail'
+        $this->setModVar('allowautoreply', true);
+        $this->setModVar('allowanonymous', false);
+        $this->setModVar('allowedsendmessages', serialize([]));
+        $this->setModVar('strip_tags', true);
+        $this->setModVar('send_redirect', 1);
+        $this->setModVar('allowusersendredirect', false);
 
         // not sure if the following are needed?
-        xarModVars::set('messages', 'user_sendemail', true); // Note the 'e' in 'user_sendemail'
-        xarModVars::set('messages', 'enable_autoreply', false);
-        xarModVars::set('messages', 'autoreply', '');
-        xarModVars::set('messages', 'user_send_redirect', 1);
+        $this->setModVar('user_sendemail', true); // Note the 'e' in 'user_sendemail'
+        $this->setModVar('enable_autoreply', false);
+        $this->setModVar('autoreply', '');
+        $this->setModVar('user_send_redirect', 1);
 
-        //xarModVars::set('messages', 'buddylist', 0);
-        //xarModVars::set('messages', 'limitsaved', 12);
-        //xarModVars::set('messages', 'limitout', 10);
-        //xarModVars::set('messages', 'limitinbox', 10);
-        //xarModVars::set('messages', 'smilies', false);
-        //xarModVars::set('messages', 'allow_html', false);
-        //xarModVars::set('messages', 'allow_bbcode', false);
-        //xarModVars::set('messages', 'mailsubject', 'You have a new private message !');
-        //xarModVars::set('messages', 'fromname', 'Webmaster');
-        //xarModVars::set('messages', 'from', 'Webmaster@YourSite.com');
-        //xarModVars::set('messages', 'inboxurl', 'http://www.yoursite.com/index.php?module=messages&type=user&func=display');
-        //xarModVars::set('messages', 'serverpath', '/home/yourdir/public_html/modules/messages');
-        //xarModVars::set('messages', 'away_message', '');
+        //$this->setModVar('buddylist', 0);
+        //$this->setModVar('limitsaved', 12);
+        //$this->setModVar('limitout', 10);
+        //$this->setModVar('limitinbox', 10);
+        //$this->setModVar('smilies', false);
+        //$this->setModVar('allow_html', false);
+        //$this->setModVar('allow_bbcode', false);
+        //$this->setModVar('mailsubject', 'You have a new private message !');
+        //$this->setModVar('fromname', 'Webmaster');
+        //$this->setModVar('from', 'Webmaster@YourSite.com');
+        //$this->setModVar('inboxurl', 'http://www.yoursite.com/index.php?module=messages&type=user&func=display');
+        //$this->setModVar('serverpath', '/home/yourdir/public_html/modules/messages');
+        //$this->setModVar('away_message', '');
 
         # --------------------------------------------------------
         #
@@ -182,7 +182,7 @@ class Installer extends InstallerClass
                                       array('file' => 'modules/messages/messages.data.xml'));
             if (empty($objectid)) return;
             // save the object id for later
-            xarModVars::set('messages','objectid',$objectid);
+            $this->setModVar('objectid',$objectid);
         */
 
         # --------------------------------------------------------
@@ -212,8 +212,8 @@ class Installer extends InstallerClass
         * Format is
         * register(Name,Realm,Module,Component,Instance,Level,Description)
         *********************************************************************/
-        xarPrivileges::register('ManageMessages', 'All', 'messages', 'All', 'All', 'ACCESS_DELETE', xarML('Delete access to messages'));
-        xarPrivileges::register('DenyReadMessages', 'All', 'messages', 'All', 'All', 'ACCESS_NONE', xarML('Deny access to messages'));
+        xarPrivileges::register('ManageMessages', 'All', 'messages', 'All', 'All', 'ACCESS_DELETE', $this->translate('Delete access to messages'));
+        xarPrivileges::register('DenyReadMessages', 'All', 'messages', 'All', 'All', 'ACCESS_NONE', $this->translate('Deny access to messages'));
         /*********************************************************************
         * Assign the default privileges to groups/users
         * Format is
@@ -243,7 +243,7 @@ class Installer extends InstallerClass
             case '1.8':
             case '1.8.0':
                 // compatability upgrade
-                xarModVars::set('messages', 'away_message', '');
+                $this->setModVar('away_message', '');
                 // no break
             case '1.8.1':
                 // nothing to do for this rev
@@ -257,9 +257,9 @@ class Installer extends InstallerClass
                 ]);
 
                 // new module vars
-                xarModVars::set('messages', 'allowautoreply', true);
-                xarModVars::set('messages', 'send_redirect', true);
-                xarModVars::set('messages', 'allowusersendredirect', false);
+                $this->setModVar('allowautoreply', true);
+                $this->setModVar('send_redirect', true);
+                $this->setModVar('allowusersendredirect', false);
 
                 xarMod::apiFunc('dynamicdata', 'util', 'import', [
                     'file' => sys::code() . 'modules/messages/xardata/messages_user_settings-def.xml',
@@ -267,7 +267,7 @@ class Installer extends InstallerClass
                 ]);
 
                 // new user vars
-                xarModVars::set('messages', 'user_send_redirect', 1);
+                $this->setModVar('user_send_redirect', 1);
 
                 break;
             case '2.0.0':

@@ -46,7 +46,7 @@ class MainMethod extends MethodClass
      */
     public function __invoke(array $args = [])
     {
-        if (!xarSecurity::check('AdminMessages')) {
+        if (!$this->checkAccess('AdminMessages')) {
             return;
         }
 
@@ -57,13 +57,13 @@ class MainMethod extends MethodClass
         $data = [];
 
         if (((bool) xarModVars::get('modules', 'disableoverview') == false) || $samemodule) {
-            if (!xarVar::fetch('tab', 'str', $data['tab'], '', xarVar::NOT_REQUIRED)) {
+            if (!$this->fetch('tab', 'str', $data['tab'], '', xarVar::NOT_REQUIRED)) {
                 return;
             }
             $data['context'] = $this->getContext();
             return xarTpl::module('messages', 'admin', 'overview', $data);
         } else {
-            xarController::redirect(xarController::URL('messages', 'admin', 'modifyconfig'), null, $this->getContext());
+            $this->redirect($this->getUrl('admin', 'modifyconfig'));
             return true;
         }
     }

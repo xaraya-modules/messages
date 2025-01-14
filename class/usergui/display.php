@@ -38,22 +38,22 @@ class DisplayMethod extends MethodClass
     {
         extract($args);
 
-        if (!xarSecurity::check('ReadMessages')) {
+        if (!$this->checkAccess('ReadMessages')) {
             return;
         }
 
-        //if (!xarVar::fetch('object', 'str', $object, 'messages_messages', xarVar::NOT_REQUIRED)) return;
-        if (!xarVar::fetch('id', 'int', $id, 0, xarVar::NOT_REQUIRED)) {
+        //if (!$this->fetch('object', 'str', $object, 'messages_messages', xarVar::NOT_REQUIRED)) return;
+        if (!$this->fetch('id', 'int', $id, 0, xarVar::NOT_REQUIRED)) {
             return;
         }
-        if (!xarVar::fetch('folder', 'enum:inbox:sent:drafts', $data['folder'], 'inbox', xarVar::NOT_REQUIRED)) {
+        if (!$this->fetch('folder', 'enum:inbox:sent:drafts', $data['folder'], 'inbox', xarVar::NOT_REQUIRED)) {
             return;
         }
 
         $data['id'] = $id;
 
-        xarTpl::setPageTitle(xarML('Read Message'));
-        $data['input_title']    = xarML('Read Message');
+        xarTpl::setPageTitle($this->translate('Read Message'));
+        $data['input_title']    = $this->translate('Read Message');
 
         //Psspl:Added the code for configuring the user-menu
         //$data['allow_newpm'] = xarMod::apiFunc('messages' , 'user' , 'isset_grouplist');

@@ -30,7 +30,7 @@ class MainMethod extends MethodClass
 
     public function __invoke(array $args = [])
     {
-        xarController::redirect(xarController::URL('messages', 'user', 'view'), null, $this->getContext());
+        $this->redirect($this->getUrl('user', 'view'));
         return;
     }
 }

@@ -33,16 +33,16 @@ class GetmenulinksMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         $menulinks = [];
-        if (xarSecurity::check('ReadMessages', 0)) {
+        if ($this->checkAccess('ReadMessages', 0)) {
             $menulinks[] = [
-                'url'      => xarController::URL('messages', 'user', 'view'),
+                'url'      => $this->getUrl('user', 'view'),
                 'title'    => 'Look at the Messages',
                 'label'    => 'View Messages', ];
         }
 
-        if (xarSecurity::check('AddMessages', 0) && xarMod::apiFunc('messages', 'user', 'isset_grouplist')) {
+        if ($this->checkAccess('AddMessages', 0) && xarMod::apiFunc('messages', 'user', 'isset_grouplist')) {
             $menulinks[] = [
-                'url'      => xarController::URL('messages', 'user', 'new'),
+                'url'      => $this->getUrl('user', 'new'),
                 'title'    => 'Send a message to someone',
                 'label'    => 'New Message', ];
         }
