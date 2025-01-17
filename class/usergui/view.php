@@ -53,6 +53,7 @@ class ViewMethod extends MethodClass
         if (!$this->fetch('folder', 'enum:inbox:sent:drafts', $folder, 'inbox', xarVar::NOT_REQUIRED)) {
             return;
         }
+        $usergui = $this->getParent();
         xarSession::setVar('messages_currentfolder', $folder);
 
         $data['startnum'] = $startnum;
@@ -70,7 +71,7 @@ class ViewMethod extends MethodClass
                 $where .= ' and recipient_delete eq ' . Defines::NOTDELETED;
                 $where .= ' and author_status ne ' . Defines::STATUS_DRAFT;
                 $data['fieldlist'] = 'from_id,subject,time,recipient_status';
-                xarTpl::setPageTitle($this->translate('Inbox'));
+                $usergui->setPageTitle($this->translate('Inbox'));
                 $data['input_title']    = $this->translate('Inbox');
                 break;
             case 'sent':
@@ -81,7 +82,7 @@ class ViewMethod extends MethodClass
                 if ($this->getModVar('allowanonymous')) {
                     $data['fieldlist'] .= ',postanon';
                 }
-                xarTpl::setPageTitle($this->translate('Sent Messages'));
+                $usergui->setPageTitle($this->translate('Sent Messages'));
                 $data['input_title']    = $this->translate('Sent Messages');
                 break;
             case 'drafts':
@@ -89,7 +90,7 @@ class ViewMethod extends MethodClass
                 $where .= ' and from_id eq ' . xarUser::getVar('id');
                 $where .= ' and author_delete eq ' . Defines::NOTDELETED;
                 $data['fieldlist'] = 'to_id,subject,time,author_status';
-                xarTpl::setPageTitle($this->translate('Drafts'));
+                $usergui->setPageTitle($this->translate('Drafts'));
                 $data['input_title']    = $this->translate('Drafts');
                 break;
         }

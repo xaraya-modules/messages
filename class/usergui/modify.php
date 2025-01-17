@@ -53,12 +53,13 @@ class ModifyMethod extends MethodClass
         if (!$this->fetch('id', 'id', $id, null, xarVar::NOT_REQUIRED)) {
             return;
         }
+        $usergui = $this->getParent();
 
         $send = (!empty($send)) ? true : false;
         $draft = (!empty($draft)) ? true : false;
         $saveandedit = (!empty($saveandedit)) ? true : false;
 
-        xarTpl::setPageTitle($this->translate('Edit Draft'));
+        $usergui->setPageTitle($this->translate('Edit Draft'));
         $data = [];
         $data['input_title']    = $this->translate('Edit Draft');
 
@@ -96,7 +97,7 @@ class ModifyMethod extends MethodClass
             $reply->getItem(['itemid' => $replyto]); // get the message we're replying to
             $data['to_id'] = $reply->properties['from_id']->value; // get the user we're replying to
             $data['display'] = $reply;
-            xarTpl::setPageTitle($this->translate('Reply to Message'));
+            $usergui->setPageTitle($this->translate('Reply to Message'));
             $data['input_title']    = $this->translate('Reply to Message');
         }
 

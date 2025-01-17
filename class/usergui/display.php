@@ -49,10 +49,11 @@ class DisplayMethod extends MethodClass
         if (!$this->fetch('folder', 'enum:inbox:sent:drafts', $data['folder'], 'inbox', xarVar::NOT_REQUIRED)) {
             return;
         }
+        $usergui = $this->getParent();
 
         $data['id'] = $id;
 
-        xarTpl::setPageTitle($this->translate('Read Message'));
+        $usergui->setPageTitle($this->translate('Read Message'));
         $data['input_title']    = $this->translate('Read Message');
 
         //Psspl:Added the code for configuring the user-menu
