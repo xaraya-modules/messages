@@ -44,7 +44,7 @@ class GetCountMethod extends MethodClass
         extract($args);
 
         if ((!isset($author) || empty($author)) && (!isset($recipient) || empty($recipient))) {
-            $msg = $this->translate(
+            $msg = $this->ml(
                 'Invalid #(1) for #(2) function #(3)() in module #(4)',
                 'author/recipient',
                 'userapi',

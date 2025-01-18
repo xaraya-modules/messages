@@ -53,7 +53,7 @@ class UsermenuMethod extends MethodClass
             $redirecturl = xarController::URL('roles', 'user', 'account');
             $defaultauthdata = xarMod::apiFunc('roles', 'user', 'getdefaultauthdata');
             $defaultloginmodname = $defaultauthdata['defaultloginmodname'];
-            $this->redirect(xarController::URL(
+            $this->ctl()->redirect(xarController::URL(
                 $defaultloginmodname,
                 'user',
                 'showloginform',
@@ -62,9 +62,9 @@ class UsermenuMethod extends MethodClass
         }
 
         // edit account is disabled?
-        if ((bool) $this->getModVar('enable_user_menu') == false) {
+        if ((bool) $this->mod()->getVar('enable_user_menu') == false) {
             // show the user their profile display
-            $this->redirect(xarController::URL('roles', 'user', 'account'));
+            $this->ctl()->redirect(xarController::URL('roles', 'user', 'account'));
         }
 
         // Get arguments from argument array
@@ -126,7 +126,7 @@ class UsermenuMethod extends MethodClass
                 //$data['layout'] = 'roles_user_settings';
                 // pass the module name in when setting the authkey, this avoids clashes
                 // when the output contained within another modules display (eg in xarpages)
-                $data['authid'] = xarSec::genAuthKey('messages');
+                $data['authid'] = $this->sec()->genAuthKey();
                 // finally return data to the calling function
                 return $data;
 
@@ -150,7 +150,7 @@ class UsermenuMethod extends MethodClass
                             if ((preg_match("%^http://%", $home, $matches)) &&
                             ($url_parts['host'] != $_SERVER["SERVER_NAME"]) &&
                             ($url_parts['host'] != $_SERVER["HTTP_HOST"])) {
-                                $msg  = $this->translate('External URLs such as #(1) are not permitted as your home page.', $home);
+                                $msg  = $this->ml('External URLs such as #(1) are not permitted as your home page.', $home);
                                 $object->properties['userhome']->invalid .= $msg;
                                 $isvalid = false;
                             }
@@ -170,7 +170,7 @@ class UsermenuMethod extends MethodClass
             case 'updateitem':
                 // if you added the module name when you generated the authkey,
                 // be sure to use it here when confirming :)
-                if (!$this->confirmAuthKey()) {
+                if (!$this->sec()->confirmAuthKey()) {
                     return;
                 }
                 // data is already validated, go ahead and update the item
@@ -178,11 +178,11 @@ class UsermenuMethod extends MethodClass
                 // you could just return directly from here...
                 /*
                 // be sure to check for a returnurl
-                if (!$this->fetch('returnurl', 'pre:trim:str:1', $returnurl, '', xarVar::NOT_REQUIRED)) return;
+                if (!$this->var()->find('returnurl', $returnurl, 'pre:trim:str:1', '')) return;
                 // the default returnurl should be roles user account with a moduleload of current module
                 if (empty($returnurl))
                     $returnurl = xarController::URL('roles', 'user', 'account', array('moduleload' => 'roles'));
-                return $this->redirect($returnurl);
+                return $this->ctl()->redirect($returnurl);
                 */
                 // let the calling function know the update was a success
                 return true;

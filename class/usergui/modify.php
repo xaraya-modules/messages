@@ -37,35 +37,34 @@ class ModifyMethod extends MethodClass
 
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('EditMessages', 0)) {
+        if (!$this->sec()->checkAccess('EditMessages', 0)) {
             return;
         }
 
-        if (!$this->fetch('send', 'str', $send, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('send', $send, 'str', '')) {
             return;
         }
-        if (!$this->fetch('draft', 'str', $draft, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('draft', $draft, 'str', '')) {
             return;
         }
-        if (!$this->fetch('saveandedit', 'str', $saveandedit, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('saveandedit', $saveandedit, 'str', '')) {
             return;
         }
-        if (!$this->fetch('id', 'id', $id, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('id', $id, 'id')) {
             return;
         }
-        $usergui = $this->getParent();
 
         $send = (!empty($send)) ? true : false;
         $draft = (!empty($draft)) ? true : false;
         $saveandedit = (!empty($saveandedit)) ? true : false;
 
-        $usergui->setPageTitle($this->translate('Edit Draft'));
+        $this->tpl()->setPageTitle($this->ml('Edit Draft'));
         $data = [];
-        $data['input_title']    = $this->translate('Edit Draft');
+        $data['input_title']    = $this->ml('Edit Draft');
 
         // Check if we still have no id of the item to modify.
         if (empty($id)) {
-            $msg = $this->translate(
+            $msg = $this->ml(
                 'Invalid #(1) for #(2) function #(3)() in module #(4)',
                 'id',
                 'user',
@@ -97,15 +96,15 @@ class ModifyMethod extends MethodClass
             $reply->getItem(['itemid' => $replyto]); // get the message we're replying to
             $data['to_id'] = $reply->properties['from_id']->value; // get the user we're replying to
             $data['display'] = $reply;
-            $usergui->setPageTitle($this->translate('Reply to Message'));
-            $data['input_title']    = $this->translate('Reply to Message');
+            $this->tpl()->setPageTitle($this->ml('Reply to Message'));
+            $data['input_title']    = $this->ml('Reply to Message');
         }
 
         $data['label'] = $object->label;
 
         if ($send || $draft || $saveandedit) {
             // Check for a valid confirmation key
-            if (!$this->confirmAuthKey()) {
+            if (!$this->sec()->confirmAuthKey()) {
                 return xarController::badRequest('bad_author', $this->getContext());
             }
 
@@ -114,7 +113,7 @@ class ModifyMethod extends MethodClass
 
             if (!$isvalid) {
                 $data['context'] = $this->getContext();
-                return xarTpl::module('messages', 'user', 'modify', $data);
+                return $this->mod()->template('modify', $data);
             } else {
                 // Good data: update the item
 
@@ -126,17 +125,17 @@ class ModifyMethod extends MethodClass
                 $object->updateItem(['itemid' => $id]);
 
                 if ($saveandedit) {
-                    $this->redirect($this->getUrl( 'user', 'modify', ['id' => $id]));
+                    $this->ctl()->redirect($this->mod()->getURL( 'user', 'modify', ['id' => $id]));
                     return true;
                 } elseif ($draft) {
-                    $this->redirect($this->getUrl( 'user', 'view', ['folder' => 'drafts']));
+                    $this->ctl()->redirect($this->mod()->getURL( 'user', 'view', ['folder' => 'drafts']));
                     return true;
                 } elseif ($send) {
-                    if ($this->getModVar('sendemail')) {
+                    if ($this->mod()->getVar('sendemail')) {
                         $to_id = $object->properties['to_id']->value;
                         xarMod::apiFunc('messages', 'user', 'sendmail', ['id' => $id, 'to_id' => $to_id]);
                     }
-                    $this->redirect($this->getUrl('user', 'view'));
+                    $this->ctl()->redirect($this->mod()->getURL('user', 'view'));
                     return true;
                 }
             }

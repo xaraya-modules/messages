@@ -44,7 +44,7 @@ class ModifyconfigMethod extends MethodClass
     {
         // Security check - important to do this as early as possible to avoid
         // potential security holes or just too much wasted processing
-        if (!$this->checkAccess('AdminMessages')) {
+        if (!$this->sec()->checkAccess('AdminMessages')) {
             return;
         }
 
@@ -52,7 +52,7 @@ class ModifyconfigMethod extends MethodClass
         $data['groups'] = xarMod::apiFunc('roles', 'user', 'getallgroups');
 
         // Check if this template has been submitted, or if we just got here
-        if (!$this->fetch('phase', 'str:1:100', $phase, 'modify', xarVar::NOT_REQUIRED, xarVar::PREP_FOR_DISPLAY)) {
+        if (!$this->var()->find('phase', $phase, 'str:1:100', 'modify')) {
             return;
         }
 
@@ -84,7 +84,7 @@ class ModifyconfigMethod extends MethodClass
                 # the dynamicdata module, where the same check is done. Since both checks cannot simultaneously
                 # be passed, (the act of checking resets the check) the one below is disabled in this example.
                 #
-                //if (!$this->confirmAuthKey()) return;
+                //if (!$this->sec()->confirmAuthKey()) return;
 
                 # --------------------------------------------------------
                 #
@@ -100,7 +100,7 @@ class ModifyconfigMethod extends MethodClass
                 $isvalid = $data['module_settings']->checkInput();
                 if (!$isvalid) {
                     $data['context'] = $this->getContext();
-                    return xarTpl::module('messages', 'admin', 'modifyconfig', $data);
+                    return $this->mod()->template('modifyconfig', $data);
                 } else {
                     $itemid = $data['module_settings']->updateItem();
                 }
@@ -109,7 +109,7 @@ class ModifyconfigMethod extends MethodClass
                     //$property = DataPropertyMaster::getProperty(array('name' => 'roleid_'.$key));
                     //$property->checkInput('roleid_'.$key);
                     $the_key = $value['id'];
-                    if (!$this->fetch('roleid_' . $the_key, 'array', $roleid_[$the_key], 0, xarVar::NOT_REQUIRED)) {
+                    if (!$this->var()->find('roleid_' . $the_key, $roleid_[$the_key], 'array', 0)) {
                         return;
                     }
                     xarModItemVars::set('messages', "allowedsendmessages", serialize($roleid_[$the_key]), $the_key);
@@ -128,16 +128,16 @@ class ModifyconfigMethod extends MethodClass
                 #
                 /*
                     // Get parameters from whatever input we need.  All arguments to this
-                    // function should be obtained from $this->fetch(), getting them
+                    // function should be obtained from $this->var()->fetch(), getting them
                     // from other places such as the environment is not allowed, as that makes
                     // assumptions that will not hold in future versions of Xaraya
-                    if (!$this->fetch('bold', 'checkbox', $bold, false, xarVar::NOT_REQUIRED)) return;
+                    if (!$this->var()->find('bold', $bold, 'checkbox', false)) return;
 
                     // Confirm authorisation code.  This checks that the form had a valid
                     // authorisation code attached to it.  If it did not then the function will
                     // proceed no further as it is possible that this is an attempt at sending
                     // in false data to the system
-                    if (!$this->confirmAuthKey()) return;
+                    if (!$this->sec()->confirmAuthKey()) return;
 
                     xarModVars::set('content', 'bold', $bold);
                 */
@@ -162,7 +162,7 @@ class ModifyconfigMethod extends MethodClass
 
                 $item = $object->updateItem(['itemid' => 0]);
 
-                $this->redirect($this->getUrl('admin', 'modifyconfig'));
+                $this->ctl()->redirect($this->mod()->getURL('admin', 'modifyconfig'));
 
                 # --------------------------------------------------------
                 #

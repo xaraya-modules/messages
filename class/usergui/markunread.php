@@ -35,14 +35,14 @@ class MarkunreadMethod extends MethodClass
 
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('ManageMessages')) {
+        if (!$this->sec()->checkAccess('ManageMessages')) {
             return;
         }
 
-        if (!$this->fetch('id', 'int:1', $id, 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('id', $id, 'int:1', 0)) {
             return;
         }
-        if (!$this->fetch('folder', 'enum:inbox:sent:drafts', $folder, 'inbox', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('folder', $folder, 'enum:inbox:sent:drafts', 'inbox')) {
             return;
         }
 
@@ -55,14 +55,14 @@ class MarkunreadMethod extends MethodClass
         switch ($folder) {
             case 'inbox':
                 if ($data['object']->properties['to_id']->value != xarSession::getVar('role_id')) {
-                    return xarTpl::module('messages', 'user', 'message_errors', ['layout' => 'bad_id']);
+                    return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
                 } else {
                     $data['object']->properties['recipient_status']->setValue(Defines::STATUS_UNREAD);
                 }
                 break;
             case 'sent':
                 if ($data['object']->properties['from_id']->value != xarSession::getVar('role_id')) {
-                    return xarTpl::module('messages', 'user', 'message_errors', ['layout' => 'bad_id']);
+                    return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
                 } else {
                     $data['object']->properties['author_status']->setValue(Defines::STATUS_UNREAD);
                 }
@@ -73,7 +73,7 @@ class MarkunreadMethod extends MethodClass
 
         $data['object']->updateItem();
 
-        $this->redirect($this->getUrl( 'user', 'view', ['folder' => $folder]));
+        $this->ctl()->redirect($this->mod()->getURL( 'user', 'view', ['folder' => $folder]));
 
         return true;
     }

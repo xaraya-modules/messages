@@ -35,23 +35,23 @@ class DeleteMethod extends MethodClass
 
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('ManageMessages')) {
+        if (!$this->sec()->checkAccess('ManageMessages')) {
             return;
         }
 
-        if (!$this->fetch('action', 'enum:confirmed:check', $data['action'], 'check', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('action', $data['action'], 'enum:confirmed:check', 'check')) {
             return;
         }
-        if (!$this->fetch('object', 'str', $object, 'messages_messages', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('object', $object, 'str', 'messages_messages')) {
             return;
         }
-        if (!$this->fetch('replyto', 'int', $data['replyto'], 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('replyto', $data['replyto'], 'int', 0)) {
             return;
         }
-        if (!$this->fetch('id', 'int:1', $id, 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('id', $id, 'int:1', 0)) {
             return;
         }
-        if (!$this->fetch('folder', 'enum:inbox:sent:drafts', $folder, 'inbox', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('folder', $folder, 'enum:inbox:sent:drafts', 'inbox')) {
             return;
         }
 
@@ -64,17 +64,17 @@ class DeleteMethod extends MethodClass
         switch ($folder) {
             case 'inbox':
                 if ($data['object']->properties['to_id']->value != xarSession::getVar('role_id')) {
-                    return xarTpl::module('messages', 'user', 'message_errors', ['layout' => 'bad_id']);
+                    return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
                 }
                 break;
             case 'drafts':
                 if ($data['object']->properties['from_id']->value != xarSession::getVar('role_id')) {
-                    return xarTpl::module('messages', 'user', 'message_errors', ['layout' => 'bad_id']);
+                    return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
                 }
                 break;
             case 'sent':
                 if ($data['object']->properties['from_id']->value != xarSession::getVar('role_id')) {
-                    return xarTpl::module('messages', 'user', 'message_errors', ['layout' => 'bad_id']);
+                    return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
                 }
                 break;
         }
@@ -99,7 +99,7 @@ class DeleteMethod extends MethodClass
 
                 $data['object']->updateItem();
 
-                $this->redirect($this->getUrl( 'user', 'view', ['folder' => $folder]));
+                $this->ctl()->redirect($this->mod()->getURL( 'user', 'view', ['folder' => $folder]));
                 break;
 
             case "check":

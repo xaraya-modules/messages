@@ -38,23 +38,22 @@ class DisplayMethod extends MethodClass
     {
         extract($args);
 
-        if (!$this->checkAccess('ReadMessages')) {
+        if (!$this->sec()->checkAccess('ReadMessages')) {
             return;
         }
 
-        //if (!$this->fetch('object', 'str', $object, 'messages_messages', xarVar::NOT_REQUIRED)) return;
-        if (!$this->fetch('id', 'int', $id, 0, xarVar::NOT_REQUIRED)) {
+        //if (!$this->var()->find('object', $object, 'str', 'messages_messages')) return;
+        if (!$this->var()->find('id', $id, 'int', 0)) {
             return;
         }
-        if (!$this->fetch('folder', 'enum:inbox:sent:drafts', $data['folder'], 'inbox', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('folder', $data['folder'], 'enum:inbox:sent:drafts', 'inbox')) {
             return;
         }
-        $usergui = $this->getParent();
 
         $data['id'] = $id;
 
-        $usergui->setPageTitle($this->translate('Read Message'));
-        $data['input_title']    = $this->translate('Read Message');
+        $this->tpl()->setPageTitle($this->ml('Read Message'));
+        $data['input_title']    = $this->ml('Read Message');
 
         //Psspl:Added the code for configuring the user-menu
         //$data['allow_newpm'] = xarMod::apiFunc('messages' , 'user' , 'isset_grouplist');
@@ -69,7 +68,7 @@ class DisplayMethod extends MethodClass
         // Check that the current user is either author or recipient
         if (($object->properties['to_id']->value != $current_user) &&
             ($object->properties['from_id']->value != $current_user)) {
-            return xarTpl::module('messages', 'user', 'message_errors', ['layout' => 'bad_id']);
+            return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
         }
 
         //    $data['message'] = $messages[0];

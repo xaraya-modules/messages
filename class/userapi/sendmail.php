@@ -43,7 +43,7 @@ class SendmailMethod extends MethodClass
     {
         extract($args);
 
-        $msgurl = $this->getUrl( 'user', 'display', ['id' => $id]);
+        $msgurl = $this->mod()->getURL( 'user', 'display', ['id' => $id]);
         $from_name = xarUser::getVar('name');
         $msgdata['info'] = xarUser::getVar('email', $to_id);
         $msgdata['name'] = xarUser::getVar('name', $to_id);
@@ -56,8 +56,8 @@ class SendmailMethod extends MethodClass
         $data['to_name'] = $msgdata['name'];
         $data['to_email'] = $msgdata['info'];
         $data['context'] ??= $this->getContext();
-        $subject = xarTpl::module('messages', 'user', 'email-subject', $data);
-        $body = xarTpl::module('messages', 'user', 'email-body', $data);
+        $subject = $this->mod()->template('email-subject', $data);
+        $body = $this->mod()->template('email-body', $data);
         $msgdata['subject'] = $subject;
         $msgdata['message']  = $body;
 

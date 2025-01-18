@@ -65,7 +65,7 @@ class Messages_NewmessagesBlock extends BasicBlock
         if (empty($unread) || $unread == 0) {
             $vars['content'] = 'No new messages';
             if (empty($data['title'])) {
-                $data['title'] = xarML('My Messages');
+                $data['title'] = xarMLS::translate('My Messages');
             }
             $data['content'] = $vars;
         } else {
@@ -73,7 +73,7 @@ class Messages_NewmessagesBlock extends BasicBlock
             $data['content'] = $vars;
 
             if (empty($data['title'])) {
-                $data['title'] = xarML('My Messages');
+                $data['title'] = xarMLS::translate('My Messages');
             }
         }
         return $data;

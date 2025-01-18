@@ -15,7 +15,7 @@
 $modversion['name']         = 'messages';
 $modversion['id']           = '6';
 $modversion['version']      = '1.9.3';
-$modversion['displayname']  = xarML('Messages');
+$modversion['displayname']  = xarMLS::translate('Messages');
 $modversion['description']  = 'Xaraya Messages module';
 $modversion['credits']      = 'docs/credits.txt';
 $modversion['help']         = 'docs/help.txt';

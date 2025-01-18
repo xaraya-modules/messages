@@ -32,17 +32,17 @@ class ReplyMethod extends MethodClass
 
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('AddMessages')) {
+        if (!$this->sec()->checkAccess('AddMessages')) {
             return;
         }
 
-        if (!$this->fetch('object', 'str', $object, 'messages_messages', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('object', $object, 'str', 'messages_messages')) {
             return;
         }
-        if (!$this->fetch('replyto', 'int', $replyto, 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('replyto', $replyto, 'int', 0)) {
             return;
         }
-        $this->redirect($this->getUrl( 'user', 'new', ['replyto' => $replyto]));
+        $this->ctl()->redirect($this->mod()->getURL( 'user', 'new', ['replyto' => $replyto]));
         return true;
     }
 }

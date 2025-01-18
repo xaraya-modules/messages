@@ -39,11 +39,11 @@ class NewMethod extends MethodClass
 
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('AddMessages')) {
+        if (!$this->sec()->checkAccess('AddMessages')) {
             return;
         }
 
-        if (!$this->fetch('replyto', 'int', $replyto, 0, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('replyto', $replyto, 'int', 0)) {
             return;
         }
         $reply = ($replyto > 0) ? true : false;
@@ -51,25 +51,24 @@ class NewMethod extends MethodClass
         $data['reply'] = $reply;
         $data['replyto'] = $replyto;
 
-        if (!$this->fetch('send', 'str', $send, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('send', $send, 'str', '')) {
             return;
         }
-        if (!$this->fetch('draft', 'str', $draft, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('draft', $draft, 'str', '')) {
             return;
         }
-        if (!$this->fetch('saveandedit', 'str', $saveandedit, '', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('saveandedit', $saveandedit, 'str', '')) {
             return;
         }
-        if (!$this->fetch('to_id', 'id', $data['to_id'], null, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('to_id', $data['to_id'], 'id')) {
             return;
         }
-        if (!$this->fetch('opt', 'bool', $data['opt'], false, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('opt', $data['opt'], 'bool', false)) {
             return;
         }
-        if (!$this->fetch('id', 'id', $id, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('id', $id, 'id')) {
             return;
         }
-        $usergui = $this->getParent();
 
         $send = (!empty($send)) ? true : false;
         $draft = (!empty($draft)) ? true : false;
@@ -78,10 +77,10 @@ class NewMethod extends MethodClass
         $object = DataObjectFactory::getObject(['name' => 'messages_messages']);
         $data['object'] = $object;
 
-        $data['post_url']       = $this->getUrl('user', 'new');
+        $data['post_url']       = $this->mod()->getURL('user', 'new');
 
-        $usergui->setPageTitle($this->translate('Post Message'));
-        $data['input_title']    = $this->translate('Compose Message');
+        $this->tpl()->setPageTitle($this->ml('Post Message'));
+        $data['input_title']    = $this->ml('Compose Message');
 
         if ($draft) { // where to send people next
             $folder = 'drafts';
@@ -102,13 +101,13 @@ class NewMethod extends MethodClass
             $reply->getItem(['itemid' => $replyto]); // get the message we're replying to
             $data['to_id'] = $reply->properties['from_id']->value; // get the user we're replying to
             $data['display'] = $reply;
-            $usergui->setPageTitle($this->translate('Reply to Message'));
-            $data['input_title']    = $this->translate('Reply to Message');
+            $this->tpl()->setPageTitle($this->ml('Reply to Message'));
+            $data['input_title']    = $this->ml('Reply to Message');
         }
 
         if ($send || $draft || $saveandedit) {
             // Check for a valid confirmation key
-            if (!$this->confirmAuthKey()) {
+            if (!$this->sec()->confirmAuthKey()) {
                 return xarController::badRequest('bad_author', $this->getContext());
             }
 
@@ -124,7 +123,7 @@ class NewMethod extends MethodClass
 
             if (!$isvalid) {
                 $data['context'] = $this->getContext();
-                return xarTpl::module('messages', 'user', 'new', $data);
+                return $this->mod()->template('new', $data);
             }
 
             $object->properties['recipient_status']->setValue(Defines::STATUS_UNREAD);
@@ -140,7 +139,7 @@ class NewMethod extends MethodClass
             $to_id = $object->properties['to_id']->value;
 
             // admin setting
-            if ($send && $this->getModVar('sendemail')) {
+            if ($send && $this->mod()->getVar('sendemail')) {
                 // user setting
                 if (xarModItemVars::get('messages', "user_sendemail", $to_id)) {
                     xarMod::apiFunc('messages', 'user', 'sendmail', ['id' => $id, 'to_id' => $to_id]);
@@ -150,7 +149,7 @@ class NewMethod extends MethodClass
             $uid = xarUser::getVar('id');
 
             // Send the autoreply if one is enabled by the admin and by the recipient
-            if ($send && $this->getModVar('allowautoreply')) {
+            if ($send && $this->mod()->getVar('allowautoreply')) {
                 $autoreply = '';
                 if (xarModItemVars::get('messages', "enable_autoreply", $to_id)) {
                     $autoreply = xarModItemVars::get('messages', "autoreply", $to_id);
@@ -162,11 +161,11 @@ class NewMethod extends MethodClass
                     $autoreplyobj->properties['to_id']->setValue($uid);
                     $data['from_name'] = xarUser::getVar('name', $to_id);
                     $data['context'] = $this->getContext();
-                    $subject = xarTpl::module('messages', 'user', 'autoreply-subject', $data);
+                    $subject = $this->mod()->template('autoreply-subject', $data);
                     $data['autoreply'] = $autoreply;
-                    $autoreply = xarTpl::module('messages', 'user', 'autoreply-body', $data);
+                    $autoreply = $this->mod()->template('autoreply-body', $data);
                     // useful for eliminating html template comments
-                    if ($this->getModVar('strip_tags')) {
+                    if ($this->mod()->getVar('strip_tags')) {
                         $subject = strip_tags($subject);
                         $autoreply = strip_tags($autoreply);
                     }
@@ -177,22 +176,22 @@ class NewMethod extends MethodClass
             }
 
             if ($saveandedit) {
-                $this->redirect($this->getUrl( 'user', 'modify', ['id' => $id]));
+                $this->ctl()->redirect($this->mod()->getURL( 'user', 'modify', ['id' => $id]));
                 return true;
             }
 
-            if ($this->getModVar('allowusersendredirect')) {
+            if ($this->mod()->getVar('allowusersendredirect')) {
                 $redirect = xarModItemVars::get('messages', 'user_send_redirect', $uid);
             } else {
-                $redirect = $this->getModVar('send_redirect');
+                $redirect = $this->mod()->getVar('send_redirect');
             }
             $tabs = [1 => 'inbox', 2 => 'sent', 3 => 'drafts', 4 => 'new'];
             $redirect = $tabs[$redirect];
 
             if ($redirect == 'new') {
-                $this->redirect($this->getUrl('user', 'new'));
+                $this->ctl()->redirect($this->mod()->getURL('user', 'new'));
             } else {
-                $this->redirect($this->getUrl( 'user', 'view', ['folder' => $redirect]));
+                $this->ctl()->redirect($this->mod()->getURL( 'user', 'view', ['folder' => $redirect]));
             }
             return true;
         }

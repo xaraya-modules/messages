@@ -39,27 +39,26 @@ class ViewMethod extends MethodClass
 
     public function __invoke(array $args = [])
     {
-        if (!$this->checkAccess('ViewMessages')) {
+        if (!$this->sec()->checkAccess('ViewMessages')) {
             return;
         }
 
-        if (!$this->fetch('startnum', 'isset', $startnum, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('startnum', $startnum)) {
             return;
         }
-        if (!$this->fetch('numitems', 'int', $numitems, null, xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('numitems', $numitems, 'int')) {
             return;
         }
 
-        if (!$this->fetch('folder', 'enum:inbox:sent:drafts', $folder, 'inbox', xarVar::NOT_REQUIRED)) {
+        if (!$this->var()->find('folder', $folder, 'enum:inbox:sent:drafts', 'inbox')) {
             return;
         }
-        $usergui = $this->getParent();
         xarSession::setVar('messages_currentfolder', $folder);
 
         $data['startnum'] = $startnum;
 
         if (empty($numitems)) {
-            $numitems = $this->getModVar('items_per_page');
+            $numitems = $this->mod()->getVar('items_per_page');
         }
 
         //Psspl:Added the code for configuring the user-menu
@@ -71,27 +70,27 @@ class ViewMethod extends MethodClass
                 $where .= ' and recipient_delete eq ' . Defines::NOTDELETED;
                 $where .= ' and author_status ne ' . Defines::STATUS_DRAFT;
                 $data['fieldlist'] = 'from_id,subject,time,recipient_status';
-                $usergui->setPageTitle($this->translate('Inbox'));
-                $data['input_title']    = $this->translate('Inbox');
+                $this->tpl()->setPageTitle($this->ml('Inbox'));
+                $data['input_title']    = $this->ml('Inbox');
                 break;
             case 'sent':
                 $where = 'from_id eq ' . xarUser::getVar('id');
                 $where .= ' and author_delete eq ' . Defines::NOTDELETED;
                 $where .= ' and author_status ne ' . Defines::STATUS_DRAFT;
                 $data['fieldlist'] = 'to_id,subject,time,author_status,recipient_status';
-                if ($this->getModVar('allowanonymous')) {
+                if ($this->mod()->getVar('allowanonymous')) {
                     $data['fieldlist'] .= ',postanon';
                 }
-                $usergui->setPageTitle($this->translate('Sent Messages'));
-                $data['input_title']    = $this->translate('Sent Messages');
+                $this->tpl()->setPageTitle($this->ml('Sent Messages'));
+                $data['input_title']    = $this->ml('Sent Messages');
                 break;
             case 'drafts':
                 $where = 'author_status eq 0';
                 $where .= ' and from_id eq ' . xarUser::getVar('id');
                 $where .= ' and author_delete eq ' . Defines::NOTDELETED;
                 $data['fieldlist'] = 'to_id,subject,time,author_status';
-                $usergui->setPageTitle($this->translate('Drafts'));
-                $data['input_title']    = $this->translate('Drafts');
+                $this->tpl()->setPageTitle($this->ml('Drafts'));
+                $data['input_title']    = $this->ml('Drafts');
                 break;
         }
 
@@ -124,7 +123,7 @@ class ViewMethod extends MethodClass
         $data['list'] = $list;
 
         if (xarUser::isLoggedIn()) {
-            if (!$this->fetch('away', 'str', $away, null, xarVar::NOT_REQUIRED)) {
+            if (!$this->var()->find('away', $away, 'str')) {
                 return;
             }
             if (isset($away)) {

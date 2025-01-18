@@ -30,7 +30,7 @@ class MainMethod extends MethodClass
 
     public function __invoke(array $args = [])
     {
-        $this->redirect($this->getUrl('user', 'view'));
+        $this->ctl()->redirect($this->mod()->getURL('user', 'view'));
         return;
     }
 }
