@@ -42,7 +42,7 @@ class GetSendtousersMethod extends MethodClass
 
         // Get the users these allowed groups contain
         sys::import('xaraya.structures.query');
-        $xartable = xarDB::getTables();
+        $xartable = $this->db()->getTables();
         $q = new Query('SELECT');
         $q->addtable($xartable['roles'], 'r');
         $q->addtable($xartable['rolemembers'], 'rm');

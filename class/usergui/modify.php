@@ -105,7 +105,7 @@ class ModifyMethod extends MethodClass
         if ($send || $draft || $saveandedit) {
             // Check for a valid confirmation key
             if (!$this->sec()->confirmAuthKey()) {
-                return xarController::badRequest('bad_author', $this->getContext());
+                return $this->ctl()->badRequest('bad_author', $this->getContext());
             }
 
             // Get the data from the form

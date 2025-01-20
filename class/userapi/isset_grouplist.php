@@ -48,7 +48,7 @@ class IssetGrouplistMethod extends MethodClass
 
         sys::import('xaraya.structures.query');
 
-        $xartable = xarDB::getTables();
+        $xartable = $this->db()->getTables();
         $q = new Query('SELECT');
         $q->addtable($xartable['roles'], 'r');
 

@@ -41,7 +41,7 @@ class GetSendtogroupsMethod extends MethodClass
 
         // First we get all the parents of the current user
         sys::import('xaraya.structures.query');
-        $xartable = xarDB::getTables();
+        $xartable = $this->db()->getTables();
         $q = new Query('SELECT');
         $q->addtable($xartable['roles'], 'r');
         $q->addtable($xartable['rolemembers'], 'rm');
