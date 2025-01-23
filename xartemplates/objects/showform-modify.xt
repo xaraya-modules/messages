@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
- <!--    <xar:set name="postanon">
+ <xar:comment><!--    <xar:set name="postanon">
         $properties['postanon']->value
     </xar:set>
     <xar:set name="recipient">
@@ -18,8 +18,8 @@
                 )
             )
         </xar:set>
-    </xar:if> -->
-<!--     <div class="xar-form-input-wrapper">
+    </xar:if> --></xar:comment>
+<xar:comment><!--     <div class="xar-form-input-wrapper">
         <xar:var name="title">The author of the message</xar:var>
         <xar:data-label property="$properties['from_id']" title="$title" for="id"/>
         #xarUser::getVar('name')#
@@ -33,7 +33,7 @@
 		</div>
 	</xar:if>
 
-    </div> -->
+    </div> --></xar:comment>
 
      <div class="xar-form-input-wrapper">
         <xar:if condition="$reply">

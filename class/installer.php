@@ -58,7 +58,7 @@ class Installer extends InstallerClass
     public function init()
     {
         $q = new Query();
-        $prefix = xarDB::getPrefix();
+        $prefix = $this->db()->getPrefix();
 
         # --------------------------------------------------------
         #

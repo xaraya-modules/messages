@@ -11,13 +11,14 @@
  * @link http://xaraya.com/index.php/release/6.html
  * @author XarayaGeek
  */
-function messages_xartables()
+function messages_xartables(?string $prefix = null)
 {
     // Initialise table array
     $xartable = [];
+    $prefix ??= xarDB::getPrefix();
 
     // Name for template database entities
-    $messages_table     = xarDB::getPrefix() . '_messages';
+    $messages_table     = $prefix . '_messages';
 
     // Table name
     $xartable['messages']   = $messages_table;

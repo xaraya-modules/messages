@@ -2,9 +2,9 @@
 <xar:template xmlns:xar="http://xaraya.com/2004/blocklayout">
  
 
-<!--     <xar:set name="action">
+<xar:comment><!--     <xar:set name="action">
         isset($action) ? $action : 'check'
-    </xar:set> -->
+    </xar:set> --></xar:comment>
     <xar:set name="postanon">
         $properties['postanon']->value
     </xar:set>
@@ -14,13 +14,13 @@
     <xar:set name="author">
         $properties['from_id']->value
     </xar:set>
-   <!--  <xar:set name="vettor">
+   <xar:comment><!--  <xar:set name="vettor">
         xarSession::getVar('role_id') == $recipient ? $recipient : $author
     </xar:set>
     <xar:set name="vettee">
         xarSession::getVar('role_id') == $recipient ? $author : $recipient
-    </xar:set> -->
-    <!-- <xar:if condition="empty($vettee)">
+    </xar:set> --></xar:comment>
+    <xar:comment><!-- <xar:if condition="empty($vettee)">
         <xar:set name="is_sendtouser">
             1
         </xar:set>
@@ -33,10 +33,10 @@
                 )
             )
         </xar:set>
-    </xar:if> -->
+    </xar:if> --></xar:comment>
 
     <xar:comment>
-    <!-- Message-Posting-Host: #$message['posting-host']# --> 
+    <xar:comment><!-- Message-Posting-Host: #$message['posting-host']# --></xar:comment>
     </xar:comment>
 
     <div class="xar-form-input-wrapper">

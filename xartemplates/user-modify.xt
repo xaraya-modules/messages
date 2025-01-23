@@ -26,7 +26,7 @@
 		
            <div class="xar-form-input-wrapper-after">
                 <input type="hidden" name="authid" id="authid" value="#xarSec::genAuthKey()#"/>
-                <!-- <input type="hidden" name="id" id="id" value="#$id#" /> -->
+                <xar:comment><!-- <input type="hidden" name="id" id="id" value="#$id#" /> --></xar:comment>
               
 		<input type="submit" name="draft" id="draft" value="#xarML('Save draft')#" class="xar-margin-thickright" />
 		<input type="submit" name="saveandedit" id="saveandedit" value="#xarML('Save draft and edit')#" class="xar-margin-thickright"/>
