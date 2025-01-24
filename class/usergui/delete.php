@@ -55,7 +55,7 @@ class DeleteMethod extends MethodClass
             return;
         }
 
-        $data['object'] = DataObjectFactory::getObject(['name' => $object]);
+        $data['object'] = $this->data()->getObject(['name' => $object]);
         $data['object']->getItem(['itemid' => $id]);
 
         $folder = xarSession::getVar('messages_currentfolder');

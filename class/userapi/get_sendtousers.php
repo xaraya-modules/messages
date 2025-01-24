@@ -73,7 +73,7 @@ class GetSendtousersMethod extends MethodClass
         $users = $q->output();
 
         // Need to transform the display name values we got
-        $nameproperty = DataPropertyMaster::getProperty(['name' => 'username']);
+        $nameproperty = $this->prop()->getProperty(['name' => 'username']);
         foreach ($users as $key => $value) {
             $nameproperty->value = $users[$key]['name'];
             $users[$key]['name'] = $nameproperty->getValue();

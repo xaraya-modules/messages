@@ -48,7 +48,7 @@ class GetitemlinksMethod extends MethodClass
             if (!isset($item)) {
                 return;
             }
-            $itemlinks[$itemid] = ['url' => xarController::URL(
+            $itemlinks[$itemid] = ['url' => $this->ctl()->getModuleURL(
                 'roles',
                 'user',
                 'display',

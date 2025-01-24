@@ -74,7 +74,7 @@ class NewMethod extends MethodClass
         $draft = (!empty($draft)) ? true : false;
         $saveandedit = (!empty($saveandedit)) ? true : false;
 
-        $object = DataObjectFactory::getObject(['name' => 'messages_messages']);
+        $object = $this->data()->getObject(['name' => 'messages_messages']);
         $data['object'] = $object;
 
         $data['post_url']       = $this->mod()->getURL('user', 'new');
@@ -97,7 +97,7 @@ class NewMethod extends MethodClass
         }
 
         if ($reply) {
-            $reply = DataObjectFactory::getObject(['name' => 'messages_messages']);
+            $reply = $this->data()->getObject(['name' => 'messages_messages']);
             $reply->getItem(['itemid' => $replyto]); // get the message we're replying to
             $data['to_id'] = $reply->properties['from_id']->value; // get the user we're replying to
             $data['display'] = $reply;
@@ -155,7 +155,7 @@ class NewMethod extends MethodClass
                     $autoreply = xarModItemVars::get('messages', "autoreply", $to_id);
                 }
                 if (!empty($autoreply)) {
-                    $autoreplyobj = DataObjectFactory::getObject(['name' => 'messages_messages']);
+                    $autoreplyobj = $this->data()->getObject(['name' => 'messages_messages']);
                     $autoreplyobj->properties['author_status']->setValue(Defines::STATUS_UNREAD);
                     $autoreplyobj->properties['from_id']->setValue(xarUser::getVar('uname', $to_id));
                     $autoreplyobj->properties['to_id']->setValue($uid);

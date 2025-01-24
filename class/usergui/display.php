@@ -58,7 +58,7 @@ class DisplayMethod extends MethodClass
         //Psspl:Added the code for configuring the user-menu
         //$data['allow_newpm'] = xarMod::apiFunc('messages' , 'user' , 'isset_grouplist');
 
-        $object = DataObjectFactory::getObject(['name' => 'messages_messages']);
+        $object = $this->data()->getObject(['name' => 'messages_messages']);
         $object->getItem(['itemid' => $id]);
 
         $data['replyto'] = $object->properties['replyto']->value;

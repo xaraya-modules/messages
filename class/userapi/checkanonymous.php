@@ -44,7 +44,7 @@ class CheckanonymousMethod extends MethodClass
 
         sys::import('modules.dynamicdata.class.objects.factory');
 
-        $object = DataObjectFactory::getObject(['name' => 'messages_messages']);
+        $object = $this->data()->getObject(['name' => 'messages_messages']);
         $object->getItem(['itemid' => $id]);
         $postanon = $object->properties['postanon']->value;
 

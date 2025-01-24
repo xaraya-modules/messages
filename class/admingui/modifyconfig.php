@@ -63,7 +63,7 @@ class ModifyconfigMethod extends MethodClass
         // Load the DD master object class. This line will likely disappear in future versions
         sys::import('modules.dynamicdata.class.objects.factory');
         // Get the object we'll be working with for content-specific configuration
-        $data['object'] = DataObjectFactory::getObject(['name' => 'messages_module_settings']);
+        $data['object'] = $this->data()->getObject(['name' => 'messages_module_settings']);
         // Get the appropriate item of the dataobject. Using itemid 0 (not passing an itemid parameter) is standard convention
         $data['object']->getItem();
 
@@ -106,7 +106,7 @@ class ModifyconfigMethod extends MethodClass
                 }
 
                 foreach ($data['groups'] as $key => $value) {
-                    //$property = DataPropertyMaster::getProperty(array('name' => 'roleid_'.$key));
+                    //$property = $this->prop()->getProperty(array('name' => 'roleid_'.$key));
                     //$property->checkInput('roleid_'.$key);
                     $the_key = $value['id'];
                     if (!$this->var()->find('roleid_' . $the_key, $roleid_[$the_key], 'array', 0)) {
@@ -154,7 +154,7 @@ class ModifyconfigMethod extends MethodClass
                 // Load the DD master object class. This line will likely disappear in future versions
                 sys::import('modules.dynamicdata.class.objects.factory');
                 // Get the object we'll be working with
-                $object = DataObjectFactory::getObject(['name' => 'messages_module_settings']);
+                $object = $this->data()->getObject(['name' => 'messages_module_settings']);
                 // Get the data from the form
                 $isvalid = $object->checkInput();
                 // Update the item with itemid = 0

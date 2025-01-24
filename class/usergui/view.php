@@ -102,7 +102,7 @@ class ViewMethod extends MethodClass
         ]);
         $data['sort'] = $sort;
 
-        $total = DataObjectFactory::getObjectList([
+        $total = $this->data()->getObjectList([
             'name' => 'messages_messages',
             'status'    => DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE,
             'numitems' => null,
@@ -110,7 +110,7 @@ class ViewMethod extends MethodClass
         ]);
         $data['total'] = count($total->getItems());
 
-        $list = DataObjectFactory::getObjectList([
+        $list = $this->data()->getObjectList([
             'name' => 'messages_messages',
             'status'    => DataPropertyMaster::DD_DISPLAYSTATE_ACTIVE,
             'startnum'  => $startnum,

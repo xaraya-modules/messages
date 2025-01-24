@@ -50,10 +50,10 @@ class UsermenuMethod extends MethodClass
         // not logged in?
         if (!xarUser::isLoggedIn()) {
             // redirect user to their account page after login
-            $redirecturl = xarController::URL('roles', 'user', 'account');
+            $redirecturl = $this->ctl()->getModuleURL('roles', 'user', 'account');
             $defaultauthdata = xarMod::apiFunc('roles', 'user', 'getdefaultauthdata');
             $defaultloginmodname = $defaultauthdata['defaultloginmodname'];
-            $this->ctl()->redirect(xarController::URL(
+            $this->ctl()->redirect($this->ctl()->getModuleURL(
                 $defaultloginmodname,
                 'user',
                 'showloginform',
@@ -64,7 +64,7 @@ class UsermenuMethod extends MethodClass
         // edit account is disabled?
         if ((bool) $this->mod()->getVar('enable_user_menu') == false) {
             // show the user their profile display
-            $this->ctl()->redirect(xarController::URL('roles', 'user', 'account'));
+            $this->ctl()->redirect($this->ctl()->getModuleURL('roles', 'user', 'account'));
         }
 
         // Get arguments from argument array
@@ -119,7 +119,7 @@ class UsermenuMethod extends MethodClass
                 // if you want to provide your own update function, you can specify
                 // the form action url to be used. When the form is POSTed your function
                 // will be used. (see roles user usermenu for an example).
-                $data['formaction'] = xarController::URL('roles', 'user', 'usermenu');
+                $data['formaction'] = $this->ctl()->getModuleURL('roles', 'user', 'usermenu');
                 // not necessary, but for completeness pass back any fields you changed
                 $data['tplmodule'] = 'messages';
                 $data['template'] = 'usermenu';
@@ -181,7 +181,7 @@ class UsermenuMethod extends MethodClass
                 if (!$this->var()->find('returnurl', $returnurl, 'pre:trim:str:1', '')) return;
                 // the default returnurl should be roles user account with a moduleload of current module
                 if (empty($returnurl))
-                    $returnurl = xarController::URL('roles', 'user', 'account', array('moduleload' => 'roles'));
+                    $returnurl = $this->ctl()->getModuleURL('roles', 'user', 'account', array('moduleload' => 'roles'));
                 return $this->ctl()->redirect($returnurl);
                 */
                 // let the calling function know the update was a success

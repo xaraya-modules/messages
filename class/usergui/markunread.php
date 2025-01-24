@@ -46,7 +46,7 @@ class MarkunreadMethod extends MethodClass
             return;
         }
 
-        $data['object'] = DataObjectFactory::getObject(['name' => 'messages_messages']);
+        $data['object'] = $this->data()->getObject(['name' => 'messages_messages']);
         $data['object']->getItem(['itemid' => $id]);
 
         $folder = xarSession::getVar('messages_currentfolder');

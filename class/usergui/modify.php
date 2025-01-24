@@ -80,7 +80,7 @@ class ModifyMethod extends MethodClass
         sys::import('modules.dynamicdata.class.objects.factory');
 
         // Get the object name
-        $object = DataObjectFactory::getObject(['name' => 'messages_messages']);
+        $object = $this->data()->getObject(['name' => 'messages_messages']);
         $object->getItem(['itemid' => $id]);
         $replyto = $object->properties['replyto']->value;
         $data['replyto'] = $replyto;
@@ -92,7 +92,7 @@ class ModifyMethod extends MethodClass
         $data['to_id'] = null;
 
         if ($data['reply']) {
-            $reply = DataObjectFactory::getObject(['name' => 'messages_messages']);
+            $reply = $this->data()->getObject(['name' => 'messages_messages']);
             $reply->getItem(['itemid' => $replyto]); // get the message we're replying to
             $data['to_id'] = $reply->properties['from_id']->value; // get the user we're replying to
             $data['display'] = $reply;
