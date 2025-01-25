@@ -38,6 +38,7 @@ class GetCountMethod extends MethodClass
      * @var bool $unread (optional) count unread rather than total
      * @var bool $drafts (optional) count drafts
      * @return int the number of messages
+     * @see UserApi::getCount()
      */
     public function __invoke(array $args = [])
     {

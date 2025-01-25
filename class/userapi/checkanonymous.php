@@ -33,6 +33,7 @@ class CheckanonymousMethod extends MethodClass
      * @param array<mixed> $args
      * @var int $id the message id
      * @return bool
+     * @see UserApi::checkanonymous()
      */
     public function __invoke(array $args = [])
     {

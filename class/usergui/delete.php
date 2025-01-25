@@ -31,7 +31,8 @@ sys::import('xaraya.modules.method');
  */
 class DeleteMethod extends MethodClass
 {
-    /** functions imported by bermuda_cleanup */
+    /** functions imported by bermuda_cleanup * @see UserGui::delete()
+     */
 
     public function __invoke(array $args = [])
     {

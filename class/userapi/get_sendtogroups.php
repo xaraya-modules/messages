@@ -29,7 +29,8 @@ sys::import('xaraya.modules.method');
  */
 class GetSendtogroupsMethod extends MethodClass
 {
-    /** functions imported by bermuda_cleanup */
+    /** functions imported by bermuda_cleanup * @see UserApi::getSendtogroups()
+     */
 
     public function __invoke(array $args = [])
     {

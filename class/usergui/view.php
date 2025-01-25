@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Messages\UserGui;
 
 use Xaraya\Modules\Messages\Defines;
 use Xaraya\Modules\Messages\UserGui;
+use Xaraya\Modules\Messages\AdminApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -35,10 +36,13 @@ sys::import('xaraya.modules.method');
  */
 class ViewMethod extends MethodClass
 {
-    /** functions imported by bermuda_cleanup */
+    /** functions imported by bermuda_cleanup * @see UserGui::view()
+     */
 
     public function __invoke(array $args = [])
     {
+        /** @var AdminApi $adminapi */
+        $adminapi = $this->adminapi();
         if (!$this->sec()->checkAccess('ViewMessages')) {
             return;
         }
@@ -94,7 +98,7 @@ class ViewMethod extends MethodClass
                 break;
         }
 
-        $sort = xarMod::apiFunc('messages', 'admin', 'sort', [
+        $sort = $adminapi->sort([
             //how to sort if the URL or config say otherwise...
             //'object' => $object,
             'sortfield_fallback' => 'time',

@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Messages\UserGui;
 
 use Xaraya\Modules\Messages\Defines;
 use Xaraya\Modules\Messages\UserGui;
+use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -33,10 +34,13 @@ sys::import('xaraya.modules.method');
  */
 class ModifyMethod extends MethodClass
 {
-    /** functions imported by bermuda_cleanup */
+    /** functions imported by bermuda_cleanup * @see UserGui::modify()
+     */
 
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         if (!$this->sec()->checkAccess('EditMessages', 0)) {
             return;
         }
@@ -105,7 +109,7 @@ class ModifyMethod extends MethodClass
         if ($send || $draft || $saveandedit) {
             // Check for a valid confirmation key
             if (!$this->sec()->confirmAuthKey()) {
-                return $this->ctl()->badRequest('bad_author', $this->getContext());
+                return $this->ctl()->badRequest('bad_author');
             }
 
             // Get the data from the form
@@ -133,7 +137,7 @@ class ModifyMethod extends MethodClass
                 } elseif ($send) {
                     if ($this->mod()->getVar('sendemail')) {
                         $to_id = $object->properties['to_id']->value;
-                        xarMod::apiFunc('messages', 'user', 'sendmail', ['id' => $id, 'to_id' => $to_id]);
+                        $userapi->sendmail(['id' => $id, 'to_id' => $to_id]);
                     }
                     $this->ctl()->redirect($this->mod()->getURL('user', 'view'));
                     return true;

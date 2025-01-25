@@ -30,11 +30,14 @@ sys::import('xaraya.modules.method');
  */
 class IssetGrouplistMethod extends MethodClass
 {
-    /** functions imported by bermuda_cleanup */
+    /** functions imported by bermuda_cleanup * @see UserApi::issetGrouplist()
+     */
 
     public function __invoke(array $args = [])
     {
         extract($args);
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
 
         $users = xarMod::apiFunc(
             'roles',
@@ -71,7 +74,7 @@ class IssetGrouplistMethod extends MethodClass
             if (empty($allowedsendmessages[0])) {
                 return false;
             }
-            $data['users'] = xarMod::apiFunc('messages', 'user', 'get_sendtousers');
+            $data['users'] = $userapi->get_sendtousers();
             if (empty($data['users'])) {
                 return false;
             }

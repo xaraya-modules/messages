@@ -28,7 +28,8 @@ sys::import('xaraya.modules.method');
  */
 class ReplyMethod extends MethodClass
 {
-    /** functions imported by bermuda_cleanup */
+    /** functions imported by bermuda_cleanup * @see UserGui::reply()
+     */
 
     public function __invoke(array $args = [])
     {

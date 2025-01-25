@@ -28,10 +28,13 @@ sys::import('xaraya.modules.method');
  */
 class GetmenulinksMethod extends MethodClass
 {
-    /** functions imported by bermuda_cleanup */
+    /** functions imported by bermuda_cleanup * @see UserApi::getmenulinks()
+     */
 
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         $menulinks = [];
         if ($this->sec()->checkAccess('ReadMessages', 0)) {
             $menulinks[] = [
@@ -40,7 +43,7 @@ class GetmenulinksMethod extends MethodClass
                 'label'    => 'View Messages', ];
         }
 
-        if ($this->sec()->checkAccess('AddMessages', 0) && xarMod::apiFunc('messages', 'user', 'isset_grouplist')) {
+        if ($this->sec()->checkAccess('AddMessages', 0) && $userapi->isset_grouplist()) {
             $menulinks[] = [
                 'url'      => $this->mod()->getURL('user', 'new'),
                 'title'    => 'Send a message to someone',

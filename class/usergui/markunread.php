@@ -31,7 +31,8 @@ sys::import('xaraya.modules.method');
  */
 class MarkunreadMethod extends MethodClass
 {
-    /** functions imported by bermuda_cleanup */
+    /** functions imported by bermuda_cleanup * @see UserGui::markunread()
+     */
 
     public function __invoke(array $args = [])
     {

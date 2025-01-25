@@ -43,6 +43,7 @@ class MainMethod extends MethodClass
      * @author XarayaGeek
      * @author Ryan Walker
      * @author Marc Lutolf <mfl@netspan.ch>
+     * @see AdminGui::main()
      */
     public function __invoke(array $args = [])
     {

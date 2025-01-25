@@ -26,7 +26,8 @@ sys::import('xaraya.modules.method');
  */
 class MainMethod extends MethodClass
 {
-    /** functions imported by bermuda_cleanup */
+    /** functions imported by bermuda_cleanup * @see UserGui::main()
+     */
 
     public function __invoke(array $args = [])
     {

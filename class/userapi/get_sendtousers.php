@@ -30,11 +30,14 @@ sys::import('xaraya.modules.method');
  */
 class GetSendtousersMethod extends MethodClass
 {
-    /** functions imported by bermuda_cleanup */
+    /** functions imported by bermuda_cleanup * @see UserApi::getSendtousers()
+     */
 
     public function __invoke(array $args = [])
     {
-        $sendtogroups = xarMod::apiFunc('messages', 'user', 'get_sendtogroups', $args);
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
+        $sendtogroups = $userapi->get_sendtogroups($args);
 
         if (empty($sendtogroups)) {
             return [];

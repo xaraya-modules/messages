@@ -39,6 +39,7 @@ class ModifyconfigMethod extends MethodClass
     /**
      * This is a standard function to modify and update the configuration parameters of the
      * module
+     * @see AdminGui::modifyconfig()
      */
     public function __invoke(array $args = [])
     {

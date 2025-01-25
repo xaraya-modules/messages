@@ -44,6 +44,7 @@ class UsermenuMethod extends MethodClass
      * @return mixed
      * @return array on showform
      * @return mixed on checkinput, invalid = false, valid = true - on updateitem, error = false, success = true
+     * @see UserApi::usermenu()
      */
     public function __invoke(array $args = [])
     {

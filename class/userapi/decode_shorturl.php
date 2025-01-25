@@ -25,7 +25,8 @@ sys::import('xaraya.modules.method');
  */
 class DecodeShorturlMethod extends MethodClass
 {
-    /** functions imported by bermuda_cleanup */
+    /** functions imported by bermuda_cleanup * @see UserApi::decodeShorturl()
+     */
 
     public function __invoke(array $params = [])
     {

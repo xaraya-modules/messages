@@ -32,6 +32,7 @@ class SortMethod extends MethodClass
      * Sorting
      * @author Ryan Walker
      * @return string $sort (ex. 'subject ASC');
+     * @see AdminApi::sort()
      */
     public function __invoke(array $args = [])
     {

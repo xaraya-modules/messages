@@ -32,7 +32,8 @@ sys::import('xaraya.modules.method');
  */
 class DisplayMethod extends MethodClass
 {
-    /** functions imported by bermuda_cleanup */
+    /** functions imported by bermuda_cleanup * @see UserGui::display()
+     */
 
     public function __invoke(array $args = [])
     {

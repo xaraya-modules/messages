@@ -13,6 +13,7 @@ namespace Xaraya\Modules\Messages\UserGui;
 
 use Xaraya\Modules\Messages\Defines;
 use Xaraya\Modules\Messages\UserGui;
+use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarSecurity;
 use xarVar;
@@ -35,10 +36,13 @@ sys::import('xaraya.modules.method');
  */
 class NewMethod extends MethodClass
 {
-    /** functions imported by bermuda_cleanup */
+    /** functions imported by bermuda_cleanup * @see UserGui::new()
+     */
 
     public function __invoke(array $args = [])
     {
+        /** @var UserApi $userapi */
+        $userapi = $this->userapi();
         if (!$this->sec()->checkAccess('AddMessages')) {
             return;
         }
@@ -108,7 +112,7 @@ class NewMethod extends MethodClass
         if ($send || $draft || $saveandedit) {
             // Check for a valid confirmation key
             if (!$this->sec()->confirmAuthKey()) {
-                return $this->ctl()->badRequest('bad_author', $this->getContext());
+                return $this->ctl()->badRequest('bad_author');
             }
 
             $isvalid = $object->checkInput();
@@ -142,7 +146,7 @@ class NewMethod extends MethodClass
             if ($send && $this->mod()->getVar('sendemail')) {
                 // user setting
                 if (xarModItemVars::get('messages', "user_sendemail", $to_id)) {
-                    xarMod::apiFunc('messages', 'user', 'sendmail', ['id' => $id, 'to_id' => $to_id]);
+                    $userapi->sendmail(['id' => $id, 'to_id' => $to_id]);
                 }
             }
 

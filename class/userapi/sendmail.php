@@ -38,6 +38,7 @@ class SendmailMethod extends MethodClass
      * @var int $id the id of the message
      * @var int $to_id the uid of the recipient
      * @return true
+     * @see UserApi::sendmail()
      */
     public function __invoke(array $args = [])
     {
