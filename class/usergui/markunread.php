@@ -50,19 +50,19 @@ class MarkunreadMethod extends MethodClass
         $data['object'] = $this->data()->getObject(['name' => 'messages_messages']);
         $data['object']->getItem(['itemid' => $id]);
 
-        $folder = xarSession::getVar('messages_currentfolder');
+        $folder = $this->session()->getVar('messages_currentfolder');
 
         // Check the folder, and that the current user is either author or recipient
         switch ($folder) {
             case 'inbox':
-                if ($data['object']->properties['to_id']->value != xarSession::getVar('role_id')) {
+                if ($data['object']->properties['to_id']->value != $this->session()->getUserId()) {
                     return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
                 } else {
                     $data['object']->properties['recipient_status']->setValue(Defines::STATUS_UNREAD);
                 }
                 break;
             case 'sent':
-                if ($data['object']->properties['from_id']->value != xarSession::getVar('role_id')) {
+                if ($data['object']->properties['from_id']->value != $this->session()->getUserId()) {
                     return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
                 } else {
                     $data['object']->properties['author_status']->setValue(Defines::STATUS_UNREAD);

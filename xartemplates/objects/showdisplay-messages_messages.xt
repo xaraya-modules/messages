@@ -15,10 +15,10 @@
         $properties['from_id']->value
     </xar:set>
    <xar:comment><!--  <xar:set name="vettor">
-        xarSession::getVar('role_id') == $recipient ? $recipient : $author
+        xarSession::getUserId() == $recipient ? $recipient : $author
     </xar:set>
     <xar:set name="vettee">
-        xarSession::getVar('role_id') == $recipient ? $author : $recipient
+        xarSession::getUserId() == $recipient ? $author : $recipient
     </xar:set> --></xar:comment>
     <xar:comment><!-- <xar:if condition="empty($vettee)">
         <xar:set name="is_sendtouser">

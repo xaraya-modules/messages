@@ -39,7 +39,7 @@ class IssetGrouplistMethod extends MethodClass
         /** @var UserApi $userapi */
         $userapi = $this->userapi();
 
-        $users = xarMod::apiFunc(
+        $users = $this->mod()->apiFunc(
             'roles',
             'user',
             'getall',

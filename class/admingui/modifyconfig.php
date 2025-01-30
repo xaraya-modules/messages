@@ -50,14 +50,14 @@ class ModifyconfigMethod extends MethodClass
         }
 
         $data = [];
-        $data['groups'] = xarMod::apiFunc('roles', 'user', 'getallgroups');
+        $data['groups'] = $this->mod()->apiFunc('roles', 'user', 'getallgroups');
 
         // Check if this template has been submitted, or if we just got here
         if (!$this->var()->find('phase', $phase, 'str:1:100', 'modify')) {
             return;
         }
 
-        $data['module_settings'] = xarMod::apiFunc('base', 'admin', 'getmodulesettings', ['module' => 'messages']);
+        $data['module_settings'] = $this->mod()->apiFunc('base', 'admin', 'getmodulesettings', ['module' => 'messages']);
         $data['module_settings']->setFieldList('items_per_page, use_module_alias, module_alias_name, enable_short_urls');
         $data['module_settings']->getItem();
 

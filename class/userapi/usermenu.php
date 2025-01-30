@@ -52,7 +52,7 @@ class UsermenuMethod extends MethodClass
         if (!xarUser::isLoggedIn()) {
             // redirect user to their account page after login
             $redirecturl = $this->ctl()->getModuleURL('roles', 'user', 'account');
-            $defaultauthdata = xarMod::apiFunc('roles', 'user', 'getdefaultauthdata');
+            $defaultauthdata = $this->mod()->apiFunc('roles', 'user', 'getdefaultauthdata');
             $defaultloginmodname = $defaultauthdata['defaultloginmodname'];
             $this->ctl()->redirect($this->ctl()->getModuleURL(
                 $defaultloginmodname,
@@ -82,7 +82,7 @@ class UsermenuMethod extends MethodClass
         }
 
         if (!isset($object)) {
-            $object = xarMod::apiFunc('base', 'admin', 'getusersettings', ['module' => 'messages', 'itemid' => $id]);
+            $object = $this->mod()->apiFunc('base', 'admin', 'getusersettings', ['module' => 'messages', 'itemid' => $id]);
         }
         // only get the fields we need
         $fieldlist = [];

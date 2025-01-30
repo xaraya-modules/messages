@@ -57,14 +57,14 @@ class DisplayMethod extends MethodClass
         $data['input_title']    = $this->ml('Read Message');
 
         //Psspl:Added the code for configuring the user-menu
-        //$data['allow_newpm'] = xarMod::apiFunc('messages' , 'user' , 'isset_grouplist');
+        //$data['allow_newpm'] = $this->mod()->apiFunc('messages' , 'user' , 'isset_grouplist');
 
         $object = $this->data()->getObject(['name' => 'messages_messages']);
         $object->getItem(['itemid' => $id]);
 
         $data['replyto'] = $object->properties['replyto']->value;
 
-        $current_user = xarSession::getVar('role_id');
+        $current_user = $this->session()->getUserId();
 
         // Check that the current user is either author or recipient
         if (($object->properties['to_id']->value != $current_user) &&

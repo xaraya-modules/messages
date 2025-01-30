@@ -36,10 +36,10 @@ class Messages_NewmessagesBlock extends BasicBlock
         $itemtype = 1;
 
         // Get Logged in Users ID
-        $role_id = xarSession::getVar('role_id');
+        $role_id = $this->session()->getUserId();
 
         // Count total Messages
-        $totalin = xarMod::apiFunc(
+        $totalin = $this->mod()->apiMethod(
             'messages',
             'user',
             'get_count',
@@ -50,7 +50,7 @@ class Messages_NewmessagesBlock extends BasicBlock
         $vars['totalin'] = $totalin;
 
         // Count Unread Messages
-        $unread = xarMod::apiFunc(
+        $unread = $this->mod()->apiMethod(
             'messages',
             'user',
             'get_count',

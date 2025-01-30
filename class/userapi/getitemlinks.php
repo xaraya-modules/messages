@@ -40,7 +40,7 @@ class GetitemlinksMethod extends MethodClass
         }
 
         foreach ($args['itemids'] as $itemid) {
-            $item = xarMod::apiFunc(
+            $item = $this->mod()->apiFunc(
                 'roles',
                 'user',
                 'get',

@@ -57,7 +57,7 @@ class ViewMethod extends MethodClass
         if (!$this->var()->find('folder', $folder, 'enum:inbox:sent:drafts', 'inbox')) {
             return;
         }
-        xarSession::setVar('messages_currentfolder', $folder);
+        $this->session()->setVar('messages_currentfolder', $folder);
 
         $data['startnum'] = $startnum;
 
@@ -66,7 +66,7 @@ class ViewMethod extends MethodClass
         }
 
         //Psspl:Added the code for configuring the user-menu
-        //$data['allow_newpm'] = xarMod::apiFunc('messages' , 'user' , 'isset_grouplist');
+        //$data['allow_newpm'] = $this->mod()->apiFunc('messages' , 'user' , 'isset_grouplist');
 
         switch ($folder) {
             case 'inbox':
