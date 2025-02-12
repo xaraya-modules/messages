@@ -15,7 +15,7 @@ use Xaraya\Modules\AdminGuiClass;
 use sys;
 
 sys::import('xaraya.modules.admingui');
-sys::import('modules.messages.class.adminapi');
+sys::import('modules.messages.adminapi');
 
 /**
  * Handle the messages admin GUI

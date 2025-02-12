@@ -15,7 +15,7 @@ use Xaraya\Modules\UserGuiClass;
 use sys;
 
 sys::import('xaraya.modules.usergui');
-sys::import('modules.messages.class.userapi');
+sys::import('modules.messages.userapi');
 
 /**
  * Handle the messages user GUI
