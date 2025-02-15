@@ -51,9 +51,7 @@ class MainMethod extends MethodClass
             return;
         }
 
-        $refererinfo =  xarController::$request->getInfo(xarServer::getVar('HTTP_REFERER'));
-        $info =  xarController::$request->getInfo();
-        $samemodule = $info[0] == $refererinfo[0];
+        $samemodule = xarController::isRefererSameModule();
 
         $data = [];
 
