@@ -62,7 +62,7 @@ class SendmailMethod extends MethodClass
         $msgdata['subject'] = $subject;
         $msgdata['message']  = $body;
 
-        $sendmail = $this->mod()->apiFunc('mail', 'admin', 'sendmail', $msgdata, $this->getContext());
+        $sendmail = $this->mod()->apiFunc('mail', 'admin', 'sendmail', $msgdata);
         return true;
     }
 }
