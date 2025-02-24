@@ -47,16 +47,10 @@ class ViewMethod extends MethodClass
             return;
         }
 
-        if (!$this->var()->find('startnum', $startnum)) {
-            return;
-        }
-        if (!$this->var()->find('numitems', $numitems, 'int')) {
-            return;
-        }
+        $this->var()->find('startnum', $startnum);
+        $this->var()->find('numitems', $numitems, 'int');
 
-        if (!$this->var()->find('folder', $folder, 'enum:inbox:sent:drafts', 'inbox')) {
-            return;
-        }
+        $this->var()->find('folder', $folder, 'enum:inbox:sent:drafts', 'inbox');
         $this->session()->setVar('messages_currentfolder', $folder);
 
         $data['startnum'] = $startnum;
@@ -127,9 +121,7 @@ class ViewMethod extends MethodClass
         $data['list'] = $list;
 
         if (xarUser::isLoggedIn()) {
-            if (!$this->var()->find('away', $away, 'str')) {
-                return;
-            }
+            $this->var()->find('away', $away, 'str');
             if (isset($away)) {
                 xarModUserVars::set('messages', 'away_message', $away);
             }

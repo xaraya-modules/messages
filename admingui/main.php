@@ -55,10 +55,8 @@ class MainMethod extends MethodClass
 
         $data = [];
 
-        if (((bool) xarModVars::get('modules', 'disableoverview') == false) || $samemodule) {
-            if (!$this->var()->find('tab', $data['tab'], 'str', '')) {
-                return;
-            }
+        if (((bool) $this->mod('modules')->getVar('disableoverview') == false) || $samemodule) {
+            $this->var()->find('tab', $data['tab'], 'str', '');
             $data['context'] = $this->getContext();
             return $this->mod()->template('overview', $data);
         } else {

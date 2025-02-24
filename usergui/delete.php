@@ -40,21 +40,11 @@ class DeleteMethod extends MethodClass
             return;
         }
 
-        if (!$this->var()->find('action', $data['action'], 'enum:confirmed:check', 'check')) {
-            return;
-        }
-        if (!$this->var()->find('object', $object, 'str', 'messages_messages')) {
-            return;
-        }
-        if (!$this->var()->find('replyto', $data['replyto'], 'int', 0)) {
-            return;
-        }
-        if (!$this->var()->find('id', $id, 'int:1', 0)) {
-            return;
-        }
-        if (!$this->var()->find('folder', $folder, 'enum:inbox:sent:drafts', 'inbox')) {
-            return;
-        }
+        $this->var()->find('action', $data['action'], 'enum:confirmed:check', 'check');
+        $this->var()->find('object', $object, 'str', 'messages_messages');
+        $this->var()->find('replyto', $data['replyto'], 'int', 0);
+        $this->var()->find('id', $id, 'int:1', 0);
+        $this->var()->find('folder', $folder, 'enum:inbox:sent:drafts', 'inbox');
 
         $data['object'] = $this->data()->getObject(['name' => $object]);
         $data['object']->getItem(['itemid' => $id]);

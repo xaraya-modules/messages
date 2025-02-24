@@ -86,7 +86,7 @@ class UsermenuMethod extends MethodClass
         }
         // only get the fields we need
         $fieldlist = [];
-        $settings = explode(',', xarModVars::get('roles', 'duvsettings'));
+        $settings = explode(',', $this->mod('roles')->getVar('duvsettings'));
         $fieldlist[] = 'user_sendemail';
         $fieldlist[] = 'enable_autoreply';
         $fieldlist[] = 'autoreply';
@@ -141,11 +141,11 @@ class UsermenuMethod extends MethodClass
                 //$user_sendemail = $object->properties['user_sendemail']->value;
                 //xarModItemVars::set('messages', "user_sendemail", $user_sendemail ,$id);
 
-                /*if (!empty($object->properties['userhome']) && (bool)xarModVars::get('roles','allowuserhomeedit')) {
+                /*if (!empty($object->properties['userhome']) && (bool)$this->mod('roles')->getVar('allowuserhomeedit')) {
                    $home = $object->properties['userhome']->getValue();
-                   if ((bool)xarModVars::get('roles','allowuserhomeedit')) { // users can edit user home
+                   if ((bool)$this->mod('roles')->getVar('allowuserhomeedit')) { // users can edit user home
                         // Check if external urls are allowed in home page
-                        $allowexternalurl = (bool)xarModVars::get('roles','allowexternalurl');
+                        $allowexternalurl = (bool)$this->mod('roles')->getVar('allowexternalurl');
                         $url_parts = parse_url($home);
                         if (!$allowexternalurl) {
                             if ((preg_match("%^http://%", $home, $matches)) &&
@@ -179,7 +179,7 @@ class UsermenuMethod extends MethodClass
                 // you could just return directly from here...
                 /*
                 // be sure to check for a returnurl
-                if (!$this->var()->find('returnurl', $returnurl, 'pre:trim:str:1', '')) return;
+                $this->var()->find('returnurl', $returnurl, 'pre:trim:str:1', '');
                 // the default returnurl should be roles user account with a moduleload of current module
                 if (empty($returnurl))
                     $returnurl = $this->ctl()->getModuleURL('roles', 'user', 'account', array('moduleload' => 'roles'));

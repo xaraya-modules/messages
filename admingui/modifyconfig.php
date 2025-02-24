@@ -53,9 +53,7 @@ class ModifyconfigMethod extends MethodClass
         $data['groups'] = $this->mod()->apiFunc('roles', 'user', 'getallgroups');
 
         // Check if this template has been submitted, or if we just got here
-        if (!$this->var()->find('phase', $phase, 'str:1:100', 'modify')) {
-            return;
-        }
+        $this->var()->find('phase', $phase, 'str:1:100', 'modify');
 
         $data['module_settings'] = $this->mod()->apiFunc('base', 'admin', 'getmodulesettings', ['module' => 'messages']);
         $data['module_settings']->setFieldList('items_per_page, use_module_alias, module_alias_name, enable_short_urls');
@@ -110,9 +108,7 @@ class ModifyconfigMethod extends MethodClass
                     //$property = $this->prop()->getProperty(array('name' => 'roleid_'.$key));
                     //$property->checkInput('roleid_'.$key);
                     $the_key = $value['id'];
-                    if (!$this->var()->find('roleid_' . $the_key, $roleid_[$the_key], 'array', 0)) {
-                        return;
-                    }
+                    $this->var()->find('roleid_' . $the_key, $roleid_[$the_key], 'array', 0);
                     xarModItemVars::set('messages', "allowedsendmessages", serialize($roleid_[$the_key]), $the_key);
                 }
 
@@ -132,7 +128,7 @@ class ModifyconfigMethod extends MethodClass
                     // function should be obtained from $this->var()->fetch(), getting them
                     // from other places such as the environment is not allowed, as that makes
                     // assumptions that will not hold in future versions of Xaraya
-                    if (!$this->var()->find('bold', $bold, 'checkbox', false)) return;
+                    $this->var()->find('bold', $bold, 'checkbox', false);
 
                     // Confirm authorisation code.  This checks that the form had a valid
                     // authorisation code attached to it.  If it did not then the function will
@@ -140,7 +136,7 @@ class ModifyconfigMethod extends MethodClass
                     // in false data to the system
                     if (!$this->sec()->confirmAuthKey()) return;
 
-                    xarModVars::set('content', 'bold', $bold);
+                    $this->mod('content')->setVar('bold', $bold);
                 */
 
                 # --------------------------------------------------------

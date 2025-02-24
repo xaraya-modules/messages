@@ -47,32 +47,18 @@ class NewMethod extends MethodClass
             return;
         }
 
-        if (!$this->var()->find('replyto', $replyto, 'int', 0)) {
-            return;
-        }
+        $this->var()->find('replyto', $replyto, 'int', 0);
         $reply = ($replyto > 0) ? true : false;
         $data = [];
         $data['reply'] = $reply;
         $data['replyto'] = $replyto;
 
-        if (!$this->var()->find('send', $send, 'str', '')) {
-            return;
-        }
-        if (!$this->var()->find('draft', $draft, 'str', '')) {
-            return;
-        }
-        if (!$this->var()->find('saveandedit', $saveandedit, 'str', '')) {
-            return;
-        }
-        if (!$this->var()->find('to_id', $data['to_id'], 'id')) {
-            return;
-        }
-        if (!$this->var()->find('opt', $data['opt'], 'bool', false)) {
-            return;
-        }
-        if (!$this->var()->find('id', $id, 'id')) {
-            return;
-        }
+        $this->var()->find('send', $send, 'str', '');
+        $this->var()->find('draft', $draft, 'str', '');
+        $this->var()->find('saveandedit', $saveandedit, 'str', '');
+        $this->var()->find('to_id', $data['to_id'], 'id');
+        $this->var()->find('opt', $data['opt'], 'bool', false);
+        $this->var()->find('id', $id, 'id');
 
         $send = (!empty($send)) ? true : false;
         $draft = (!empty($draft)) ? true : false;

@@ -43,13 +43,9 @@ class DisplayMethod extends MethodClass
             return;
         }
 
-        //if (!$this->var()->find('object', $object, 'str', 'messages_messages')) return;
-        if (!$this->var()->find('id', $id, 'int', 0)) {
-            return;
-        }
-        if (!$this->var()->find('folder', $data['folder'], 'enum:inbox:sent:drafts', 'inbox')) {
-            return;
-        }
+        //$this->var()->find('object', $object, 'str', 'messages_messages');
+        $this->var()->find('id', $id, 'int', 0);
+        $this->var()->find('folder', $data['folder'], 'enum:inbox:sent:drafts', 'inbox');
 
         $data['id'] = $id;
 

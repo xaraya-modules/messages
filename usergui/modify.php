@@ -45,18 +45,10 @@ class ModifyMethod extends MethodClass
             return;
         }
 
-        if (!$this->var()->find('send', $send, 'str', '')) {
-            return;
-        }
-        if (!$this->var()->find('draft', $draft, 'str', '')) {
-            return;
-        }
-        if (!$this->var()->find('saveandedit', $saveandedit, 'str', '')) {
-            return;
-        }
-        if (!$this->var()->find('id', $id, 'id')) {
-            return;
-        }
+        $this->var()->find('send', $send, 'str', '');
+        $this->var()->find('draft', $draft, 'str', '');
+        $this->var()->find('saveandedit', $saveandedit, 'str', '');
+        $this->var()->find('id', $id, 'id');
 
         $send = (!empty($send)) ? true : false;
         $draft = (!empty($draft)) ? true : false;

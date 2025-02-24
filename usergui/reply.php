@@ -37,12 +37,8 @@ class ReplyMethod extends MethodClass
             return;
         }
 
-        if (!$this->var()->find('object', $object, 'str', 'messages_messages')) {
-            return;
-        }
-        if (!$this->var()->find('replyto', $replyto, 'int', 0)) {
-            return;
-        }
+        $this->var()->find('object', $object, 'str', 'messages_messages');
+        $this->var()->find('replyto', $replyto, 'int', 0);
         $this->ctl()->redirect($this->mod()->getURL( 'user', 'new', ['replyto' => $replyto]));
         return true;
     }

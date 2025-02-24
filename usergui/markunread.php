@@ -40,12 +40,8 @@ class MarkunreadMethod extends MethodClass
             return;
         }
 
-        if (!$this->var()->find('id', $id, 'int:1', 0)) {
-            return;
-        }
-        if (!$this->var()->find('folder', $folder, 'enum:inbox:sent:drafts', 'inbox')) {
-            return;
-        }
+        $this->var()->find('id', $id, 'int:1', 0);
+        $this->var()->find('folder', $folder, 'enum:inbox:sent:drafts', 'inbox');
 
         $data['object'] = $this->data()->getObject(['name' => 'messages_messages']);
         $data['object']->getItem(['itemid' => $id]);
