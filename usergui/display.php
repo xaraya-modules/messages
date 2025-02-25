@@ -60,7 +60,7 @@ class DisplayMethod extends MethodClass
 
         $data['replyto'] = $object->properties['replyto']->value;
 
-        $current_user = $this->session()->getUserId();
+        $current_user = $this->user()->getId();
 
         // Check that the current user is either author or recipient
         if (($object->properties['to_id']->value != $current_user) &&

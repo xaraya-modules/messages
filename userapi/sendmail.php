@@ -45,13 +45,13 @@ class SendmailMethod extends MethodClass
         extract($args);
 
         $msgurl = $this->mod()->getURL( 'user', 'display', ['id' => $id]);
-        $from_name = xarUser::getVar('name');
-        $msgdata['info'] = xarUser::getVar('email', $to_id);
-        $msgdata['name'] = xarUser::getVar('name', $to_id);
+        $from_name = $this->user()->getName();
+        $msgdata['info'] = $this->user($to_id)->getEmail();
+        $msgdata['name'] = $this->user($to_id)->getName();
 
         $data['msgurl'] = $msgurl;
         $data['id'] = $id; // message id
-        $data['from_id'] = xarUser::getVar('id');
+        $data['from_id'] = $this->user()->getId();
         $data['from_name'] = $from_name;
         $data['to_id'] = $to_id;
         $data['to_name'] = $msgdata['name'];

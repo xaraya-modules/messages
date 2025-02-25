@@ -36,7 +36,7 @@ class Messages_NewmessagesBlock extends BasicBlock
         $itemtype = 1;
 
         // Get Logged in Users ID
-        $role_id = $this->session()->getUserId();
+        $role_id = $this->user()->getId();
 
         // Count total Messages
         $totalin = $this->mod()->apiMethod(
@@ -55,7 +55,7 @@ class Messages_NewmessagesBlock extends BasicBlock
             'user',
             'get_count',
             [
-                                      'recipient' => xarUser::getVar('id'),
+                                      'recipient' => $this->user()->getId(),
                                       'unread' => true,
                     ]
         );

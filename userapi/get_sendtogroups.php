@@ -37,7 +37,7 @@ class GetSendtogroupsMethod extends MethodClass
         extract($args);
 
         if (!isset($currentuser)) {
-            $currentuser = xarUser::getVar('id');
+            $currentuser = $this->user()->getId();
         }
 
         // First we get all the parents of the current user
@@ -59,7 +59,7 @@ class GetSendtogroupsMethod extends MethodClass
         // Find the groups these parents can send to
         $sendtogroups = [];
         foreach ($parents as $parent) {
-            $allowedgroups = unserialize(xarModItemVars::get('messages', "allowedsendmessages", $parent['parent_id']));
+            $allowedgroups = unserialize($this->mod()->getItemVar("allowedsendmessages", $parent['parent_id']));
             if (!empty($allowedgroups)) {
                 foreach ($allowedgroups as $allowedgroup) {
                     $sendtogroups[$allowedgroup] = $allowedgroup;

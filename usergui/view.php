@@ -64,7 +64,7 @@ class ViewMethod extends MethodClass
 
         switch ($folder) {
             case 'inbox':
-                $where = 'to_id eq ' . xarUser::getVar('id');
+                $where = 'to_id eq ' . $this->user()->getId();
                 $where .= ' and recipient_delete eq ' . Defines::NOTDELETED;
                 $where .= ' and author_status ne ' . Defines::STATUS_DRAFT;
                 $data['fieldlist'] = 'from_id,subject,time,recipient_status';
@@ -72,7 +72,7 @@ class ViewMethod extends MethodClass
                 $data['input_title']    = $this->ml('Inbox');
                 break;
             case 'sent':
-                $where = 'from_id eq ' . xarUser::getVar('id');
+                $where = 'from_id eq ' . $this->user()->getId();
                 $where .= ' and author_delete eq ' . Defines::NOTDELETED;
                 $where .= ' and author_status ne ' . Defines::STATUS_DRAFT;
                 $data['fieldlist'] = 'to_id,subject,time,author_status,recipient_status';
@@ -84,7 +84,7 @@ class ViewMethod extends MethodClass
                 break;
             case 'drafts':
                 $where = 'author_status eq 0';
-                $where .= ' and from_id eq ' . xarUser::getVar('id');
+                $where .= ' and from_id eq ' . $this->user()->getId();
                 $where .= ' and author_delete eq ' . Defines::NOTDELETED;
                 $data['fieldlist'] = 'to_id,subject,time,author_status';
                 $this->tpl()->setPageTitle($this->ml('Drafts'));
@@ -120,12 +120,12 @@ class ViewMethod extends MethodClass
         $list->getItems();
         $data['list'] = $list;
 
-        if (xarUser::isLoggedIn()) {
+        if ($this->user()->isLoggedIn()) {
             $this->var()->find('away', $away, 'str');
             if (isset($away)) {
-                xarModUserVars::set('messages', 'away_message', $away);
+                $this->mod()->setUserVar('away_message', $away);
             }
-            $data['away_message'] = xarModUserVars::get('messages', 'away_message');
+            $data['away_message'] = $this->mod()->getUserVar('away_message');
         } else {
             $data['away_message'] = '';
         }

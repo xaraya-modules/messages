@@ -47,7 +47,7 @@ class IssetGrouplistMethod extends MethodClass
                 'include_anonymous' => false,
                 'include_myself' => false, ]
         );
-        $userid = xarUser::getVar('id');
+        $userid = $this->user()->getId();
 
         sys::import('xaraya.structures.query');
 
@@ -68,7 +68,7 @@ class IssetGrouplistMethod extends MethodClass
         $id = $CurrentUser[0]['parent_id'];
         $groupID = $CurrentUser[0]['parent_id'];
 
-        $allowedsendmessages = unserialize(xarModItemVars::get('messages', "allowedsendmessages", $groupID));
+        $allowedsendmessages = unserialize($this->mod()->getItemVar("allowedsendmessages", $groupID));
 
         if (isset($allowedsendmessages)) {
             if (empty($allowedsendmessages[0])) {

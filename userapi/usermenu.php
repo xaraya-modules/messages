@@ -49,7 +49,7 @@ class UsermenuMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         // not logged in?
-        if (!xarUser::isLoggedIn()) {
+        if (!$this->user()->isLoggedIn()) {
             // redirect user to their account page after login
             $redirecturl = $this->ctl()->getModuleURL('roles', 'user', 'account');
             $defaultauthdata = $this->mod()->apiFunc('roles', 'user', 'getdefaultauthdata');
@@ -78,7 +78,7 @@ class UsermenuMethod extends MethodClass
         }
 
         if (empty($id) || !is_numeric($id)) {
-            $id = xarUser::getVar('id');
+            $id = $this->user()->getId();
         }
 
         if (!isset($object)) {
@@ -139,7 +139,7 @@ class UsermenuMethod extends MethodClass
                 $isvalid = $object->checkInput();
 
                 //$user_sendemail = $object->properties['user_sendemail']->value;
-                //xarModItemVars::set('messages', "user_sendemail", $user_sendemail ,$id);
+                //$this->mod()->setUserVar("user_sendemail", $user_sendemail);
 
                 /*if (!empty($object->properties['userhome']) && (bool)$this->mod('roles')->getVar('allowuserhomeedit')) {
                    $home = $object->properties['userhome']->getValue();

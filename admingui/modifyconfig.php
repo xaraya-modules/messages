@@ -109,7 +109,7 @@ class ModifyconfigMethod extends MethodClass
                     //$property->checkInput('roleid_'.$key);
                     $the_key = $value['id'];
                     $this->var()->find('roleid_' . $the_key, $roleid_[$the_key], 'array', 0);
-                    xarModItemVars::set('messages', "allowedsendmessages", serialize($roleid_[$the_key]), $the_key);
+                    $this->mod()->setItemVar("allowedsendmessages", serialize($roleid_[$the_key]), $the_key);
                 }
 
                 # --------------------------------------------------------

@@ -54,17 +54,17 @@ class DeleteMethod extends MethodClass
         // Check the folder, and that the current user is either author or recipient
         switch ($folder) {
             case 'inbox':
-                if ($data['object']->properties['to_id']->value != $this->session()->getUserId()) {
+                if ($data['object']->properties['to_id']->value != $this->user()->getId()) {
                     return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
                 }
                 break;
             case 'drafts':
-                if ($data['object']->properties['from_id']->value != $this->session()->getUserId()) {
+                if ($data['object']->properties['from_id']->value != $this->user()->getId()) {
                     return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
                 }
                 break;
             case 'sent':
-                if ($data['object']->properties['from_id']->value != $this->session()->getUserId()) {
+                if ($data['object']->properties['from_id']->value != $this->user()->getId()) {
                     return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
                 }
                 break;

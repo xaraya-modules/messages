@@ -109,7 +109,7 @@ class NewMethod extends MethodClass
                 $object->properties['replyto']->setValue(0);
             }
 
-            $object->properties['from_id']->setValue(xarUser::getVar('uname'));
+            $object->properties['from_id']->setValue($this->user()->getUser());
 
             if (!$isvalid) {
                 $data['context'] = $this->getContext();
@@ -131,25 +131,25 @@ class NewMethod extends MethodClass
             // admin setting
             if ($send && $this->mod()->getVar('sendemail')) {
                 // user setting
-                if (xarModItemVars::get('messages', "user_sendemail", $to_id)) {
+                if ($this->mod()->getUserVar("user_sendemail", $to_id)) {
                     $userapi->sendmail(['id' => $id, 'to_id' => $to_id]);
                 }
             }
 
-            $uid = xarUser::getVar('id');
+            $uid = $this->user()->getId();
 
             // Send the autoreply if one is enabled by the admin and by the recipient
             if ($send && $this->mod()->getVar('allowautoreply')) {
                 $autoreply = '';
-                if (xarModItemVars::get('messages', "enable_autoreply", $to_id)) {
-                    $autoreply = xarModItemVars::get('messages', "autoreply", $to_id);
+                if ($this->mod()->getUserVar("enable_autoreply", $to_id)) {
+                    $autoreply = $this->mod()->getUserVar("autoreply", $to_id);
                 }
                 if (!empty($autoreply)) {
                     $autoreplyobj = $this->data()->getObject(['name' => 'messages_messages']);
                     $autoreplyobj->properties['author_status']->setValue(Defines::STATUS_UNREAD);
-                    $autoreplyobj->properties['from_id']->setValue(xarUser::getVar('uname', $to_id));
+                    $autoreplyobj->properties['from_id']->setValue($this->user($to_id)->getUser());
                     $autoreplyobj->properties['to_id']->setValue($uid);
-                    $data['from_name'] = xarUser::getVar('name', $to_id);
+                    $data['from_name'] = $this->user($to_id)->getName();
                     $data['context'] = $this->getContext();
                     $subject = $this->mod()->template('autoreply-subject', $data);
                     $data['autoreply'] = $autoreply;
@@ -171,7 +171,7 @@ class NewMethod extends MethodClass
             }
 
             if ($this->mod()->getVar('allowusersendredirect')) {
-                $redirect = xarModItemVars::get('messages', 'user_send_redirect', $uid);
+                $redirect = $this->mod()->getUserVar('user_send_redirect');
             } else {
                 $redirect = $this->mod()->getVar('send_redirect');
             }
