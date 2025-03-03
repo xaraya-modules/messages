@@ -91,7 +91,7 @@ class DeleteMethod extends MethodClass
                 $data['object']->updateItem();
 
                 $this->ctl()->redirect($this->mod()->getURL( 'user', 'view', ['folder' => $folder]));
-                break;
+                return true;
 
             case "check":
                 // nothing to do here, just return the object

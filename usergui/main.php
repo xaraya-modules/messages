@@ -32,6 +32,6 @@ class MainMethod extends MethodClass
     public function __invoke(array $args = [])
     {
         $this->ctl()->redirect($this->mod()->getURL('user', 'view'));
-        return;
+        return true;
     }
 }
