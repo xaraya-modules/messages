@@ -14,17 +14,7 @@ namespace Xaraya\Modules\Messages\AdminGui;
 
 use Xaraya\Modules\Messages\AdminGui;
 use Xaraya\Modules\MethodClass;
-use xarSecurity;
-use xarMod;
-use xarVar;
-use xarSec;
-use xarTpl;
-use xarModItemVars;
-use xarModVars;
-use xarController;
-use DataObjectFactory;
 use sys;
-use BadParameterException;
 
 sys::import('xaraya.modules.method');
 

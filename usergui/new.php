@@ -15,18 +15,7 @@ use Xaraya\Modules\Messages\Defines;
 use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
-use xarSecurity;
-use xarVar;
-use xarController;
-use xarTpl;
-use xarSec;
-use xarUser;
-use xarModVars;
-use xarModItemVars;
-use xarMod;
-use DataObjectFactory;
 use sys;
-use BadParameterException;
 
 sys::import('xaraya.modules.method');
 

@@ -14,9 +14,7 @@ namespace Xaraya\Modules\Messages\AdminApi;
 
 use Xaraya\Modules\Messages\AdminApi;
 use Xaraya\Modules\MethodClass;
-use xarVar;
 use sys;
-use BadParameterException;
 
 sys::import('xaraya.modules.method');
 

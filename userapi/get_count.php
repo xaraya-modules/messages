@@ -14,7 +14,6 @@ namespace Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\Messages\Defines;
 use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
-use xarDB;
 use sys;
 use BadParameterException;
 

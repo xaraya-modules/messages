@@ -15,14 +15,6 @@ use Xaraya\Modules\Messages\Defines;
 use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
-use xarSecurity;
-use xarVar;
-use xarTpl;
-use xarSec;
-use xarController;
-use xarModVars;
-use xarMod;
-use DataObjectFactory;
 use sys;
 use Exception;
 

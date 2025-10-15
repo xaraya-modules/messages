@@ -14,14 +14,11 @@
 namespace Xaraya\Modules\Messages;
 
 use Xaraya\Modules\InstallerClass;
-use xarDB;
 use xarMod;
-use xarModVars;
 use xarPrivileges;
 use xarMasks;
 use Query;
 use sys;
-use Exception;
 
 sys::import('xaraya.modules.installer');
 
