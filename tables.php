@@ -2,8 +2,6 @@
 
 namespace Xaraya\Modules\Messages;
 
-use xarDB;
-
 class Tables
 {
     /**
@@ -18,11 +16,10 @@ class Tables
      * @link http://xaraya.com/index.php/release/6.html
      * @author XarayaGeek
      */
-    public function __invoke(?string $prefix = null)
+    public function __invoke(string $prefix = 'xar')
     {
         // Initialise table array
         $xartable = [];
-        $prefix ??= xarDB::getPrefix();
 
         // Name for template database entities
         $messages_table     = $prefix . '_messages';
