@@ -14,7 +14,7 @@
                 <xar:ml><xar:mlstring>#(1) is away</xar:mlstring><xar:mlvar>#xarUser::getVar('name',$recipient)#</xar:mlvar></xar:ml>
             </span>
             <span class="xar-norm">
-                <p>#xarVar::prepHTMLDisplay($away_message)#</p>
+                <p>#xarVarPrep::htmlDisplay($away_message)#</p>
             </span>
             <input type="submit" value="#xarML('Return')#" class="xar-margin-thickleft"/>
         </form>
