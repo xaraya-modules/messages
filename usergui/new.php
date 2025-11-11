@@ -15,9 +15,6 @@ use Xaraya\Modules\Messages\Defines;
 use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages user new function
@@ -155,7 +152,7 @@ class NewMethod extends MethodClass
             }
 
             if ($saveandedit) {
-                $this->ctl()->redirect($this->mod()->getURL( 'user', 'modify', ['id' => $id]));
+                $this->ctl()->redirect($this->mod()->getURL('user', 'modify', ['id' => $id]));
                 return true;
             }
 
@@ -170,7 +167,7 @@ class NewMethod extends MethodClass
             if ($redirect == 'new') {
                 $this->ctl()->redirect($this->mod()->getURL('user', 'new'));
             } else {
-                $this->ctl()->redirect($this->mod()->getURL( 'user', 'view', ['folder' => $redirect]));
+                $this->ctl()->redirect($this->mod()->getURL('user', 'view', ['folder' => $redirect]));
             }
             return true;
         }

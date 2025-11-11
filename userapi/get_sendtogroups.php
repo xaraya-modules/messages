@@ -11,13 +11,9 @@
 
 namespace Xaraya\Modules\Messages\UserApi;
 
-
 use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
 use Query;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages userapi get_sendtogroups function
@@ -37,7 +33,6 @@ class GetSendtogroupsMethod extends MethodClass
         }
 
         // First we get all the parents of the current user
-        sys::import('xaraya.structures.query');
         $xartable = $this->db()->getTables();
         $q = new Query('SELECT');
         $q->addtable($xartable['roles'], 'r');

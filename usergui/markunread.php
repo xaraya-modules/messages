@@ -14,9 +14,6 @@ namespace Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\Messages\Defines;
 use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages user markunread function
@@ -63,7 +60,7 @@ class MarkunreadMethod extends MethodClass
 
         $data['object']->updateItem();
 
-        $this->ctl()->redirect($this->mod()->getURL( 'user', 'view', ['folder' => $folder]));
+        $this->ctl()->redirect($this->mod()->getURL('user', 'view', ['folder' => $folder]));
 
         return true;
     }

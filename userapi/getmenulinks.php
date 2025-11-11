@@ -11,12 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserApi;
 
-
 use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages userapi getmenulinks function

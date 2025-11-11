@@ -12,9 +12,6 @@
 namespace Xaraya\Modules\Messages;
 
 use Xaraya\Modules\UserApiClass;
-use sys;
-
-sys::import('xaraya.modules.userapi');
 
 /**
  * Handle the messages user API

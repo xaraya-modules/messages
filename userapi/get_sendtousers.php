@@ -11,14 +11,10 @@
 
 namespace Xaraya\Modules\Messages\UserApi;
 
-
 use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
 use xarRoles;
 use Query;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages userapi get_sendtousers function
@@ -40,7 +36,6 @@ class GetSendtousersMethod extends MethodClass
         }
 
         // Get the users these allowed groups contain
-        sys::import('xaraya.structures.query');
         $xartable = $this->db()->getTables();
         $q = new Query('SELECT');
         $q->addtable($xartable['roles'], 'r');

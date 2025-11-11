@@ -15,10 +15,7 @@ use Xaraya\Modules\Messages\Defines;
 use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
 use Exception;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages user modify function
@@ -65,7 +62,6 @@ class ModifyMethod extends MethodClass
         $data['id'] = $id;
 
         // Load the DD master object class. This line will likely disappear in future versions
-        sys::import('modules.dynamicdata.class.objects.factory');
 
         // Get the object name
         $object = $this->data()->getObject(['name' => 'messages_messages']);
@@ -113,10 +109,10 @@ class ModifyMethod extends MethodClass
                 $object->updateItem(['itemid' => $id]);
 
                 if ($saveandedit) {
-                    $this->ctl()->redirect($this->mod()->getURL( 'user', 'modify', ['id' => $id]));
+                    $this->ctl()->redirect($this->mod()->getURL('user', 'modify', ['id' => $id]));
                     return true;
                 } elseif ($draft) {
-                    $this->ctl()->redirect($this->mod()->getURL( 'user', 'view', ['folder' => 'drafts']));
+                    $this->ctl()->redirect($this->mod()->getURL('user', 'view', ['folder' => 'drafts']));
                     return true;
                 } elseif ($send) {
                     if ($this->mod()->getVar('sendemail')) {

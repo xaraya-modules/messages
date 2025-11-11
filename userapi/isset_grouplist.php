@@ -11,13 +11,9 @@
 
 namespace Xaraya\Modules\Messages\UserApi;
 
-
 use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
 use Query;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages userapi isset_grouplist function
@@ -44,7 +40,6 @@ class IssetGrouplistMethod extends MethodClass
         );
         $userid = $this->user()->getId();
 
-        sys::import('xaraya.structures.query');
 
         $xartable = $this->db()->getTables();
         $q = new Query('SELECT');

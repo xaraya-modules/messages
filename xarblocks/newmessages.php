@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Messages Module
  *
@@ -15,7 +16,6 @@
  *
  * @author Scot Gardner
  */
-sys::import('xaraya.structures.containers.blocks.basicblock');
 
 class Messages_NewmessagesBlock extends BasicBlock
 {
@@ -44,8 +44,8 @@ class Messages_NewmessagesBlock extends BasicBlock
             'user',
             'get_count',
             [
-                                      'recipient' => $role_id,
-                    ]
+                'recipient' => $role_id,
+            ]
         );
         $vars['totalin'] = $totalin;
 
@@ -55,9 +55,9 @@ class Messages_NewmessagesBlock extends BasicBlock
             'user',
             'get_count',
             [
-                                      'recipient' => $this->user()->getId(),
-                                      'unread' => true,
-                    ]
+                'recipient' => $this->user()->getId(),
+                'unread' => true,
+            ]
         );
         $vars['unread'] = $unread;
 

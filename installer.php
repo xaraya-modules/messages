@@ -20,8 +20,6 @@ use xarMasks;
 use Query;
 use sys;
 
-sys::import('xaraya.modules.installer');
-
 /**
  * Handle module installer functions
  *

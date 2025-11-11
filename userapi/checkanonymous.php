@@ -11,12 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserApi;
 
-
 use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages userapi checkanonymous function
@@ -41,7 +37,6 @@ class CheckanonymousMethod extends MethodClass
             return false;
         }
 
-        sys::import('modules.dynamicdata.class.objects.factory');
 
         $object = $this->data()->getObject(['name' => 'messages_messages']);
         $object->getItem(['itemid' => $id]);

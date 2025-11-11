@@ -11,12 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserGui;
 
-
 use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages user reply function
@@ -35,7 +31,7 @@ class ReplyMethod extends MethodClass
 
         $this->var()->find('object', $object, 'str', 'messages_messages');
         $this->var()->find('replyto', $replyto, 'int', 0);
-        $this->ctl()->redirect($this->mod()->getURL( 'user', 'new', ['replyto' => $replyto]));
+        $this->ctl()->redirect($this->mod()->getURL('user', 'new', ['replyto' => $replyto]));
         return true;
     }
 }

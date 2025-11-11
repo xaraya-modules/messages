@@ -11,12 +11,8 @@
 
 namespace Xaraya\Modules\Messages\AdminGui;
 
-
 use Xaraya\Modules\Messages\AdminGui;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages admin modifyconfig function
@@ -50,7 +46,6 @@ class ModifyconfigMethod extends MethodClass
         $data['module_settings']->getItem();
 
         // Load the DD master object class. This line will likely disappear in future versions
-        sys::import('modules.dynamicdata.class.objects.factory');
         // Get the object we'll be working with for content-specific configuration
         $data['object'] = $this->data()->getObject(['name' => 'messages_module_settings']);
         // Get the appropriate item of the dataobject. Using itemid 0 (not passing an itemid parameter) is standard convention
@@ -139,7 +134,6 @@ class ModifyconfigMethod extends MethodClass
                 #
 
                 // Load the DD master object class. This line will likely disappear in future versions
-                sys::import('modules.dynamicdata.class.objects.factory');
                 // Get the object we'll be working with
                 $object = $this->data()->getObject(['name' => 'messages_module_settings']);
                 // Get the data from the form

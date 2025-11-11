@@ -12,9 +12,6 @@
 namespace Xaraya\Modules\Messages;
 
 use Xaraya\Modules\AdminApiClass;
-use sys;
-
-sys::import('xaraya.modules.adminapi');
 
 /**
  * Handle the messages admin API

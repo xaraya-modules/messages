@@ -16,9 +16,6 @@ use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\Messages\AdminApi;
 use Xaraya\Modules\MethodClass;
 use DataPropertyMaster;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages user view function

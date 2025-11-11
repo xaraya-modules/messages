@@ -11,12 +11,8 @@
 
 namespace Xaraya\Modules\Messages\AdminApi;
 
-
 use Xaraya\Modules\Messages\AdminApi;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages adminapi sort function

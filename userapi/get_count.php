@@ -14,10 +14,7 @@ namespace Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\Messages\Defines;
 use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
 use BadParameterException;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages userapi get_count function

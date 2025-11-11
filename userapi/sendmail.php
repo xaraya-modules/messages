@@ -11,12 +11,8 @@
 
 namespace Xaraya\Modules\Messages\UserApi;
 
-
 use Xaraya\Modules\Messages\UserApi;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages userapi sendmail function
@@ -39,7 +35,7 @@ class SendmailMethod extends MethodClass
     {
         extract($args);
 
-        $msgurl = $this->mod()->getURL( 'user', 'display', ['id' => $id]);
+        $msgurl = $this->mod()->getURL('user', 'display', ['id' => $id]);
         $from_name = $this->user()->getName();
         $msgdata['info'] = $this->user($to_id)->getEmail();
         $msgdata['name'] = $this->user($to_id)->getName();

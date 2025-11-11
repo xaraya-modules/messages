@@ -15,9 +15,6 @@ use Xaraya\Modules\Messages\Defines;
 use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\MethodClass;
 use xarModHooks;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages user display function
@@ -56,8 +53,8 @@ class DisplayMethod extends MethodClass
         $current_user = $this->user()->getId();
 
         // Check that the current user is either author or recipient
-        if (($object->properties['to_id']->value != $current_user) &&
-            ($object->properties['from_id']->value != $current_user)) {
+        if (($object->properties['to_id']->value != $current_user)
+            && ($object->properties['from_id']->value != $current_user)) {
             return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
         }
 

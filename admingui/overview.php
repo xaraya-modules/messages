@@ -11,12 +11,8 @@
 
 namespace Xaraya\Modules\Messages\AdminGui;
 
-
 use Xaraya\Modules\Messages\AdminGui;
 use Xaraya\Modules\MethodClass;
-use sys;
-
-sys::import('xaraya.modules.method');
 
 /**
  * messages admin overview function
