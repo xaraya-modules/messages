@@ -41,7 +41,7 @@ class Messages_NewmessagesBlock extends BasicBlock
         // Count total Messages
         $totalin = $this->mod()->apiMethod(
             'messages',
-            'user',
+            'userapi',
             'get_count',
             [
                 'recipient' => $role_id,
@@ -52,7 +52,7 @@ class Messages_NewmessagesBlock extends BasicBlock
         // Count Unread Messages
         $unread = $this->mod()->apiMethod(
             'messages',
-            'user',
+            'userapi',
             'get_count',
             [
                 'recipient' => $this->user()->getId(),
