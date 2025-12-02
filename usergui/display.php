@@ -14,7 +14,6 @@ namespace Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\Messages\Defines;
 use Xaraya\Modules\Messages\UserGui;
 use Xaraya\Modules\MethodClass;
-use xarModHooks;
 
 /**
  * messages user display function
@@ -63,7 +62,7 @@ class DisplayMethod extends MethodClass
 
         // added call to transform text srg 09/22/03
         $body = $object->properties['body']->getValue();
-        [$body] = xarModHooks::call(
+        [$body] = $this->mod()->callHooks(
             'item',
             'transform',
             $id,

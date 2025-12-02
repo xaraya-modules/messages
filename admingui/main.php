@@ -40,7 +40,7 @@ class MainMethod extends MethodClass
             return;
         }
 
-        $samemodule = $this->ctl()->isSameReferer();
+        $samemodule = $this->req()->isSameReferer();
 
         $data = [];
 

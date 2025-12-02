@@ -14,7 +14,6 @@
 namespace Xaraya\Modules\Messages;
 
 use Xaraya\Modules\InstallerClass;
-use xarMod;
 use xarPrivileges;
 use xarMasks;
 use Query;
@@ -96,7 +95,7 @@ class Installer extends InstallerClass
             'messages_messages',
         ];
 
-        if (!xarMod::apiFunc('modules', 'admin', 'standardinstall', ['module' => $module, 'objects' => $objects])) {
+        if (!$this->mod()->apiFunc('modules', 'admin', 'standardinstall', ['module' => $module, 'objects' => $objects])) {
             return;
         }
 
@@ -133,7 +132,7 @@ class Installer extends InstallerClass
         # Set up configuration modvars (general)
         #
 
-        $module_settings = xarMod::apiFunc('base', 'admin', 'getmodulesettings', ['module' => 'messages']);
+        $module_settings = $this->mod()->apiFunc('base', 'admin', 'getmodulesettings', ['module' => 'messages']);
         $module_settings->initialize();
 
 
@@ -141,7 +140,7 @@ class Installer extends InstallerClass
          * REGISTER BLOCKS
          */
 
-        if (!xarMod::apiFunc(
+        if (!$this->mod()->apiFunc(
             'blocks',
             'admin',
             'register_block_type',
@@ -155,7 +154,7 @@ class Installer extends InstallerClass
          */
 
         // Hook into the roles module (Your Account page)
-        xarMod::apiFunc(
+        $this->mod()->apiFunc(
             'modules',
             'admin',
             'enablehooks',
@@ -165,7 +164,7 @@ class Installer extends InstallerClass
 
         /*
              // Hook into the Dynamic Data module
-            xarMod::apiFunc(
+            $this->mod()->apiFunc(
                 'modules'
                 ,'admin'
                 ,'enablehooks'
@@ -173,7 +172,7 @@ class Installer extends InstallerClass
                     'hookModName'       => 'dynamicdata'
                     ,'callerModName'    => 'messages'));
 
-            $objectid = xarMod::apiFunc('dynamicdata','util','import',
+            $objectid = $this->mod()->apiFunc('dynamicdata','util','import',
                                       array('file' => 'modules/messages/messages.data.xml'));
             if (empty($objectid)) return;
             // save the object id for later
@@ -246,7 +245,7 @@ class Installer extends InstallerClass
             case '1.9':
             case '1.9.0':
 
-                xarMod::apiFunc('dynamicdata', 'util', 'import', [
+                $this->mod()->apiFunc('dynamicdata', 'util', 'import', [
                     'file' => sys::code() . 'modules/messages/xardata/messages_module_settings-def.xml',
                     'overwrite' => true,
                 ]);
@@ -256,7 +255,7 @@ class Installer extends InstallerClass
                 $this->mod()->setVar('send_redirect', true);
                 $this->mod()->setVar('allowusersendredirect', false);
 
-                xarMod::apiFunc('dynamicdata', 'util', 'import', [
+                $this->mod()->apiFunc('dynamicdata', 'util', 'import', [
                     'file' => sys::code() . 'modules/messages/xardata/messages_user_settings-def.xml',
                     'overwrite' => true,
                 ]);
@@ -285,7 +284,7 @@ class Installer extends InstallerClass
          * UNREGISTER BLOCKS
          */
 
-        if (!xarMod::apiFunc(
+        if (!$this->mod()->apiFunc(
             'blocks',
             'admin',
             'unregister_block_type',
@@ -297,6 +296,6 @@ class Installer extends InstallerClass
 
         //	xarPrivileges::removeModule('messages');
 
-        return xarMod::apiFunc('modules', 'admin', 'standarddeinstall', ['module' => 'messages']);
+        return $this->mod()->apiFunc('modules', 'admin', 'standarddeinstall', ['module' => 'messages']);
     }
 }

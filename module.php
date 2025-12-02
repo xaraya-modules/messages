@@ -14,7 +14,7 @@ namespace Xaraya\Modules\Messages;
 use Xaraya\Modules\ModuleClass;
 
 /**
- * Get messages module classes via xarMod::getModule()
+ * Get messages module classes via xar::mod()->getModule()
  */
 class Module extends ModuleClass
 {
