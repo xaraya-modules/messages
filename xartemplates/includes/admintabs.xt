@@ -4,7 +4,7 @@
 <xar:comment>Common Administration menu</xar:comment>
 <xar:style scope="module" module="base" file="tabs" />
 
-<xar:set name="info">xarController::getRequest()->getInfo()</xar:set>
+<xar:set name="info">$xar->req()->getRequest()->getInfo()</xar:set>
 
 <xar:set name="activetab">$info[2]</xar:set>
 <div>
@@ -19,7 +19,7 @@
             <xar:set name="linkclass">'xar-norm xar-norm-outline'</xar:set>
         </xar:if>
         <li class="#$tabclass#">
-          <a href="#xarController::URL('messages','admin','modifyconfig')#" class="#$linkclass#">
+          <a href="#$xar->ctl()->URL('messages','admin','modifyconfig')#" class="#$linkclass#">
             Modify Config
           </a>
         </li>
@@ -33,7 +33,7 @@
             <xar:set name="linkclass">'xar-norm xar-norm-outline'</xar:set>
         </xar:if>
         <li class="#$tabclass#">
-          <a href="#xarController::URL('messages','admin','overview')#" class="#$linkclass#">
+          <a href="#$xar->ctl()->URL('messages','admin','overview')#" class="#$linkclass#">
             Overview
           </a>
         </li>

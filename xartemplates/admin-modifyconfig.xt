@@ -7,17 +7,17 @@
 
     <div class="xar-mod-body">
      
-	    <div style="float: right;"><a href="#xarController::URL('messages','user','view')#">View Inbox</a> | <a href="#xarController::URL('messages','user','new')#">New Message</a></div>
+	    <div style="float: right;"><a href="#$xar->ctl()->URL('messages','user','view')#">View Inbox</a> | <a href="#$xar->ctl()->URL('messages','user','new')#">New Message</a></div>
 
         <h2>Modify Default Configuration</h2>
 
-        <form method="post" action="#xarServer::getCurrentURL()#">
+        <form method="post" action="#$xar->ctl()->getCurrentURL()#">
             <xar:data-form object="$module_settings"/>
 		    <xar:data-form object="$object" itemid="0" tplmodule="messages" groups="$groups" template="module_settings" />
             
             <input type="hidden" name="objectid" value="#$object->objectid#" />
             <input type="hidden" name="itemid" value="0" />
-            <input type="hidden" name="return_url" value="#xarServer::getCurrentURL()#" />
+            <input type="hidden" name="return_url" value="#$xar->ctl()->getCurrentURL()#" />
             <xar:template file="update-button" module="base" />
         </form>
     </div>

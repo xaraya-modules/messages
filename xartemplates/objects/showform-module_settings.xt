@@ -67,10 +67,10 @@
 
             <div class="xar-row">
                 <div class="xar-col">
-                    <label for="$input_name" class="xar-form-label" title="#$val['name']# can send to...">#$val['name']# can send to...</label> <a href="#xarServer::getCurrentURL()###" onClick="document.getElementById('collapse#$key#').style.display='';document.getElementById('expand#$key#').style.display='none';document.getElementById('roleid_#$key#_div').style.display='';return true;" id="expand#$key#">Show recipient groups</a>  <a href="#xarServer::getCurrentURL()###" onClick="document.getElementById('expand#$key#').style.display='';document.getElementById('collapse#$key#').style.display='none';document.getElementById('roleid_#$key#_div').style.display='none';return true;" id="collapse#$key#" style="display:none">Hide recipient groups</a>
+                    <label for="$input_name" class="xar-form-label" title="#$val['name']# can send to...">#$val['name']# can send to...</label> <a href="#$xar->ctl()->getCurrentURL()###" onClick="document.getElementById('collapse#$key#').style.display='';document.getElementById('expand#$key#').style.display='none';document.getElementById('roleid_#$key#_div').style.display='';return true;" id="expand#$key#">Show recipient groups</a>  <a href="#$xar->ctl()->getCurrentURL()###" onClick="document.getElementById('expand#$key#').style.display='';document.getElementById('collapse#$key#').style.display='none';document.getElementById('roleid_#$key#_div').style.display='none';return true;" id="collapse#$key#" style="display:none">Hide recipient groups</a>
                 </div>
                 <div class="xar-col role_list" id="roleid_#$key#_div" style="display:none">
-    				<xar:set name="selected">unserialize(xarModItemVars::get('messages', "allowedsendmessages", $key))</xar:set>
+    				<xar:set name="selected">unserialize($xar->mod('messages')->getItemVar("allowedsendmessages", $key))</xar:set>
                     <xar:data-input type="checkboxlist" name="$input_name" id="$input_name" options="$groups" value="$selected" layout="vertical" />
 				</div>
 			</div>	 

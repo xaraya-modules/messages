@@ -6,7 +6,7 @@
     <div class="xar-mod-body">
         <fieldset>
             <legend>Message Problem</legend>
-            <img src="#xarTpl::getImage('sysmessage.jpg','base')#" alt="#xarML('System Message')#" width="96" height="96" class="xar-module-icon"/>
+            <img src="#$xar->tpl()->getImage('sysmessage.jpg','base')#" alt="#$xar->ml('System Message')#" width="96" height="96" class="xar-module-icon"/>
             <xar:if condition="!isset($layout)">
                 <div style="margin-top: 20px; margin-left: 20px">
                     No error message is available.

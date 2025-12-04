@@ -29,7 +29,7 @@
                 <xar:set name="arrow">'desc'</xar:set>
             </xar:if>
 
-	    <a href="#xarController::URL('messages','user','view', array('sortfield' => $name, 'ascdesc' => strtoupper($arrow), 'folder' => $folder))#"><img src="#xarTpl::getImage('icons/sort-' . $arrow . '.png','theme')#" width="16" height="16" alt="reverse order" /></a>
+	    <a href="#$xar->ctl()->URL('messages','user','view', array('sortfield' => $name, 'ascdesc' => strtoupper($arrow), 'folder' => $folder))#"><img src="#$xar->tpl()->getImage('icons/sort-' . $arrow . '.png','theme')#" width="16" height="16" alt="reverse order" /></a>
 
         <xar:elseif condition="$name eq 'to_id' or $name eq 'from_id'" />
 		<xar:comment>these fields are saved as integers but displayed as strings, so sorting would be confusing</xar:comment>
@@ -38,7 +38,7 @@
 	<xar:else />
 
         <xar:comment>we're not sorting on this column, so we should make the column head a link</xar:comment>
-            <a href="#xarController::URL('messages','user','view', array('folder' => $folder, 'sortfield' => $name))#"><xar:data-label property="$properties[$name]" /></a>
+            <a href="#$xar->ctl()->URL('messages','user','view', array('folder' => $folder, 'sortfield' => $name))#"><xar:data-label property="$properties[$name]" /></a>
 
         </xar:if>
 
@@ -60,7 +60,7 @@
                             <td valign="top"><a href="#$links[$id]['display']['olink']#"><xar:data-output property="$properties[$name]" value="$fields[$name]" /></a></td>
                         <xar:elseif condition="$fields['postanon'] eq 1 and $name eq 'from_id'" />
 			    <td valign="top">Anonymous</td>
-			<xar:elseif condition="$name eq 'to_id' and is_numeric($fields['replyto']) and xarMod::apiFunc('messages','user','checkanonymous',array('id' => $fields['replyto']))" />
+			<xar:elseif condition="$name eq 'to_id' and is_numeric($fields['replyto']) and $xar->mod()->apiFunc('messages','user','checkanonymous',array('id' => $fields['replyto']))" />
 			    <td valign="top">Anonymous</td>
 			<xar:else />
                             <td valign="top"><xar:data-output property="$properties[$name]" value="$fields[$name]" /></td>
@@ -70,17 +70,17 @@
                         <td valign="top">
 
 	<xar:if condition="$folder eq 'drafts'">
-		<a href="#xarController::URL('messages','user','modify', array('id' => $id, 'folder' => 'drafts'))#"><img src="#xarTpl::getImage('icons/modify.png','theme')#" width="16" height="16" alt="Edit" /></a>
+		<a href="#$xar->ctl()->URL('messages','user','modify', array('id' => $id, 'folder' => 'drafts'))#"><img src="#$xar->tpl()->getImage('icons/modify.png','theme')#" width="16" height="16" alt="Edit" /></a>
 	</xar:if> 
 
-        &amp;nbsp;  <a href="#xarController::URL('messages','user','delete', array('id' => $id, 'folder' => $folder))#"><img src="#xarTpl::getImage('icons/delete.png','theme')#" width="16" height="16" alt="Delete" /></a>
+        &amp;nbsp;  <a href="#$xar->ctl()->URL('messages','user','delete', array('id' => $id, 'folder' => $folder))#"><img src="#$xar->tpl()->getImage('icons/delete.png','theme')#" width="16" height="16" alt="Delete" /></a>
 
 	&amp;nbsp; 
 
 	<xar:if condition="$folder eq 'sent'">
-		<a href="#xarController::URL('messages','user','display', array('id' => $id, 'folder' => 'sent'))#"><img src="#xarTpl::getImage('icons/display.png','theme')#" width="16" height="16" alt="Display" /></a>
+		<a href="#$xar->ctl()->URL('messages','user','display', array('id' => $id, 'folder' => 'sent'))#"><img src="#$xar->tpl()->getImage('icons/display.png','theme')#" width="16" height="16" alt="Display" /></a>
 	<xar:elseif condition="$folder eq 'inbox'" /> 
-		<a href="#xarController::URL('messages','user','display', array('id' => $id, 'folder' => 'inbox'))#"><img src="#xarTpl::getImage('icons/display.png','theme')#" width="16" height="16" alt="Display" /></a>
+		<a href="#$xar->ctl()->URL('messages','user','display', array('id' => $id, 'folder' => 'inbox'))#"><img src="#$xar->tpl()->getImage('icons/display.png','theme')#" width="16" height="16" alt="Display" /></a>
 	</xar:if>
 	
                         </td>

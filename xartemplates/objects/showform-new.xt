@@ -15,7 +15,7 @@
             <xar:elseif condition="!isset($to_id) or $opt" />
                 <xar:data-input property="$properties['to_id']" value="$to_id" />
 	    <xar:else />
-		#xarUser::getVar('name',$to_id)#
+		#$xar->user($to_id)->getVar('name')#
                 <xar:data-input property="$properties['to_id']" value="$to_id" hidden="hidden" />
             </xar:if>
         </xar:if>
@@ -36,7 +36,7 @@
 
     <div class="xar-form-input-wrapper">
 	<!--Psspl:Modified the code for anonymous message-->
-	<xar:if condition="xarModVars::get('messages', 'allowanonymous') and !$reply">
+	<xar:if condition="$xar->mod('messages')->getVar('allowanonymous') and !$reply">
 		    <div class="xar-form-input-wrapper">
 			<xar:data-label property="$properties['postanon']" for="id" label="Post Anonymously"/>
 			<xar:data-input property="$properties['postanon']"/>

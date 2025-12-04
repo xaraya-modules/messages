@@ -9,14 +9,14 @@
     </div>
     <!--Psspl:Modifided the code for adding return action -->
     <div class="xar-mod-body">
-        <form action="#xarController::URL('messages','user','view')#" method="post">    
+        <form action="#$xar->ctl()->URL('messages','user','view')#" method="post">    
             <span class="xar-accent">
-                <xar:ml><xar:mlstring>#(1) is away</xar:mlstring><xar:mlvar>#xarUser::getVar('name',$recipient)#</xar:mlvar></xar:ml>
+                <xar:ml><xar:mlstring>#(1) is away</xar:mlstring><xar:mlvar>#$xar->user($recipient)->getVar('name')#</xar:mlvar></xar:ml>
             </span>
             <span class="xar-norm">
-                <p>#xarVarPrep::html($away_message)#</p>
+                <p>#$xar->prep()->html($away_message)#</p>
             </span>
-            <input type="submit" value="#xarML('Return')#" class="xar-margin-thickleft"/>
+            <input type="submit" value="#$xar->ml('Return')#" class="xar-margin-thickleft"/>
         </form>
     </div>
 </xar:template>

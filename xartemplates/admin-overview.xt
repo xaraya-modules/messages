@@ -3,18 +3,18 @@
     <xar:template file="admin-mod-head"/>
     <div class="xar-mod-body">
     
-          <div style="float: right;"><a href="#xarController::URL('messages','user','view')#">View Inbox</a> | <a href="#xarController::URL('messages','user','new')#">New Message</a></div>
+          <div style="float: right;"><a href="#$xar->ctl()->URL('messages','user','view')#">View Inbox</a> | <a href="#$xar->ctl()->URL('messages','user','new')#">New Message</a></div>
     
           <h2>Messages Overview</h2>  
     
           <p>A private messaging module.</p>
     
-          <p>Before using this module you must specify who should be permitted to send to whom.  This is done in the <strong>Role Groups</strong> fieldset in the <a href="#xarController::URL('messages','admin','modifyconfig')#">Modify Config tab</a>.</p>
+          <p>Before using this module you must specify who should be permitted to send to whom.  This is done in the <strong>Role Groups</strong> fieldset in the <a href="#$xar->ctl()->URL('messages','admin','modifyconfig')#">Modify Config tab</a>.</p>
      
     
         <h3>Enable User Settings</h3>
     
-        <p>To enable User Settings, check the box for "Enable User Settings" in the <a href="#xarController::URL('messages','admin','modifyconfig')#">Modify Config tab</a> and choose the specific settings to enable in the <strong>User Settings</strong> fieldset.  Depending on which settings you enable, the following may be configurable by users in their Roles account:</p>
+        <p>To enable User Settings, check the box for "Enable User Settings" in the <a href="#$xar->ctl()->URL('messages','admin','modifyconfig')#">Modify Config tab</a> and choose the specific settings to enable in the <strong>User Settings</strong> fieldset.  Depending on which settings you enable, the following may be configurable by users in their Roles account:</p>
     
         <ul><li><em>Tab to open after sending message</em> -- Redirect to this tab after sending a message.</li>
         <li><em>Email me when I receive a new message</em> -- Enable email delivery to the user's email address.</li>
@@ -43,14 +43,14 @@
         pre { margin-left: 10px; }
         </style>
     
-        <pre>##xarController::URL('messages','user','new',array('to_id' => 11))##</pre>
+        <pre>##$xar->ctl()->URL('messages','user','new',array('to_id' => 11))##</pre>
     
         <p>Optionally, set the 'opt' argument to true if you would like the form to display a userlist dropdown with the value set to the specified user:</p>
-        <pre>##xarController::URL('messages','user','new',array('to_id' => 11, 'opt' => true))##</pre>
+        <pre>##$xar->ctl()->URL('messages','user','new',array('to_id' => 11, 'opt' => true))##</pre>
         <p>If you don't set 'opt' to true, the form will display the recipient's username and pass the user ID in a hidden input.</p>
         <p>Depending on context, a link might look something like...</p>
-        <pre>&lt;a href="##xarController::URL('messages','user','new',array('to_id' => $uid))##">
-        Send a PM to ##xarUser::getVar('name',$uid)##
+        <pre>&lt;a href="##$xar->ctl()->URL('messages','user','new',array('to_id' => $uid))##">
+        Send a PM to ##$xar->user($uid)->getVar('name')##
     &lt;/a></pre>
     
     

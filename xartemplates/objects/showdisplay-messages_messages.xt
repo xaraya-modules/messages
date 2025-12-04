@@ -15,10 +15,10 @@
         $properties['from_id']->value
     </xar:set>
    <xar:comment><!--  <xar:set name="vettor">
-        xarSession::getUserId() == $recipient ? $recipient : $author
+        $xar->session()->getUserId() == $recipient ? $recipient : $author
     </xar:set>
     <xar:set name="vettee">
-        xarSession::getUserId() == $recipient ? $author : $recipient
+        $xar->session()->getUserId() == $recipient ? $author : $recipient
     </xar:set> --></xar:comment>
     <xar:comment><!-- <xar:if condition="empty($vettee)">
         <xar:set name="is_sendtouser">
@@ -26,7 +26,7 @@
         </xar:set>
     <xar:else />
         <xar:set name="is_sendtouser">
-            xarMod::apiFunc('messages','user','is_sendtouser', 
+            $xar->mod()->apiFunc('messages','user','is_sendtouser', 
                 array(
                     'currentuser' => $vettor,
                     'sendtouser' => $vettee,
@@ -45,8 +45,8 @@
         </span>
         <xar:comment>Psspl:Modifided the code for anonymous message</xar:comment>
         <xar:if condition="!$postanon">
-            <a href="#xarController::URL('roles','user','display',array('id' => $author))#" title="#xarML('View user info')#">
-                #xarUser::getVar('name',$author)#
+            <a href="#$xar->ctl()->URL('roles','user','display',array('id' => $author))#" title="#$xar->ml('View user info')#">
+                #$xar->user($author)->getVar('name')#
             </a>
         <xar:else/>
             Anonymous
@@ -57,10 +57,10 @@
         <span class="xar-form-label">
             To:
         </span>
-	<xar:if condition="is_numeric($replyto) and xarMod::apiFunc('messages','user','checkanonymous',array('id' => $replyto))">
+	<xar:if condition="is_numeric($replyto) and $xar->mod()->apiFunc('messages','user','checkanonymous',array('id' => $replyto))">
 	Anonymous
 	<xar:else />
-         #xarUser::getVar('name',$recipient)# 
+         #$xar->user($recipient)->getVar('name')# 
 	 </xar:if>
     </div>
 

@@ -13,7 +13,7 @@
            <xar:set name="enctype">'multipart/form-data'</xar:set>
         </xar:if>
 	 
-        <form method="post" action="#xarServer::getCurrentURL()#" enctype="#$enctype#">
+        <form method="post" action="#$xar->ctl()->getCurrentURL()#" enctype="#$enctype#">
            
 	   	<xar:if condition="$reply">
 			<div id="message_display">
@@ -25,12 +25,12 @@
                 <xar:data-form object="$object" tplmodule="messages" template="modify" reply="$reply" replyto="$replyto" to_id="$to_id" />
 		
            <div class="xar-form-input-wrapper-after">
-                <input type="hidden" name="authid" id="authid" value="#xarSec::genAuthKey()#"/>
+                <input type="hidden" name="authid" id="authid" value="#$xar->sec()->genAuthKey()#"/>
                 <xar:comment><!-- <input type="hidden" name="id" id="id" value="#$id#" /> --></xar:comment>
               
-		<input type="submit" name="draft" id="draft" value="#xarML('Save draft')#" class="xar-margin-thickright" />
-		<input type="submit" name="saveandedit" id="saveandedit" value="#xarML('Save draft and edit')#" class="xar-margin-thickright"/>
-                <input type="submit" name ="send" id="send" value="#xarML('Send')#" class="xar-margin-thickright" />
+		<input type="submit" name="draft" id="draft" value="#$xar->ml('Save draft')#" class="xar-margin-thickright" />
+		<input type="submit" name="saveandedit" id="saveandedit" value="#$xar->ml('Save draft and edit')#" class="xar-margin-thickright"/>
+                <input type="submit" name ="send" id="send" value="#$xar->ml('Send')#" class="xar-margin-thickright" />
             </div>  
         </form>
     </div>

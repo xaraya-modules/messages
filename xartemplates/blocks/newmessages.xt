@@ -4,19 +4,19 @@
 <div id="newmessages_block">
     <xar:if condition="empty($unread) or $unread eq 0">
         <div id="newmessages_empty">
-		#xarML('You have no unread messages')#
+		#$xar->ml('You have no unread messages')#
         </div>
     <xar:else />
         <xar:comment><!-- <div id="newmessages_total">
-		You have <a href="#xarController::URL('messages','user','view')#">#$totalin#</a>
+		You have <a href="#$xar->ctl()->URL('messages','user','view')#">#$totalin#</a>
 		total message<xar:if condition="$totalin ne 1">s</xar:if>
         </div> --></xar:comment>
         <div id="newmessages_unread">
-		You have <a href="#xarController::URL('messages','user','view')#">#$unread#</a>
+		You have <a href="#$xar->ctl()->URL('messages','user','view')#">#$unread#</a>
 		new message<xar:if condition="$unread ne 1">s</xar:if>
         </div> 
         <div id="newmessages_view">
-		<a href="#xarController::URL('messages','user','view')#">
+		<a href="#$xar->ctl()->URL('messages','user','view')#">
 		    View messages
 		</a>
         </div>

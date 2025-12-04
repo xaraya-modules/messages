@@ -10,7 +10,7 @@
 
             <legend>#$object->label#</legend>
 
-	    <xar:if condition="xarModVars::get('messages', 'allowusersendredirect')">
+	    <xar:if condition="$xar->mod('messages')->getVar('allowusersendredirect')">
 	<xar:set name="name">'user_send_redirect'</xar:set>
                 <div class="xar-form-input-wrapper">
                     <xar:data-label property="$properties[$name]" for="id"/>
@@ -18,11 +18,11 @@
                 </div>
 		<br />
 	<xar:else />
-		<xar:set name="send_redirect">xarModVars::get('messages', 'send_redirect')</xar:set>
+		<xar:set name="send_redirect">$xar->mod('messages')->getVar('send_redirect')</xar:set>
 		<xar:data-input property="$properties['user_send_redirect']" hidden="hidden" value="$send_redirect" />
 	</xar:if>
             
-	    <xar:if condition="xarModVars::get('messages', 'sendemail')">
+	    <xar:if condition="$xar->mod('messages')->getVar('sendemail')">
 		<xar:set name="name">'user_sendemail'</xar:set>
                 <div class="xar-form-input-wrapper">
                     <xar:data-label property="$properties[$name]" for="id"/>
@@ -33,7 +33,7 @@
 		<xar:data-input property="$properties['user_sendemail']" hidden="hidden" />
 	 </xar:if>
 
-	<xar:if condition="xarModVars::get('messages', 'allowautoreply')">
+	<xar:if condition="$xar->mod('messages')->getVar('allowautoreply')">
 		<xar:set name="name">'enable_autoreply'</xar:set>
                 <div class="xar-form-input-wrapper">
                     <xar:data-label property="$properties[$name]" for="id"/>
