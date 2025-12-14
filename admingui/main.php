@@ -46,8 +46,7 @@ class MainMethod extends MethodClass
 
         if (!$this->mod()->disableOverview() || $samemodule) {
             $this->var()->find('tab', $data['tab'], 'str', '');
-            $data['context'] = $this->getContext();
-            return $this->mod()->template('overview', $data);
+            return $this->render('overview', $data);
         } else {
             $this->ctl()->redirect($this->mod()->getURL('admin', 'modifyconfig'));
             return true;

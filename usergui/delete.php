@@ -45,17 +45,17 @@ class DeleteMethod extends MethodClass
         switch ($folder) {
             case 'inbox':
                 if ($data['object']->properties['to_id']->value != $this->user()->getId()) {
-                    return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
+                    return $this->render('message_errors', ['layout' => 'bad_id']);
                 }
                 break;
             case 'drafts':
                 if ($data['object']->properties['from_id']->value != $this->user()->getId()) {
-                    return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
+                    return $this->render('message_errors', ['layout' => 'bad_id']);
                 }
                 break;
             case 'sent':
                 if ($data['object']->properties['from_id']->value != $this->user()->getId()) {
-                    return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
+                    return $this->render('message_errors', ['layout' => 'bad_id']);
                 }
                 break;
         }

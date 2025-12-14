@@ -35,7 +35,6 @@ class OverviewMethod extends MethodClass
 
         $data = [];
 
-        $data['context'] = $this->getContext();
-        return $this->mod()->template('overview', $data);
+        return $data;
     }
 }

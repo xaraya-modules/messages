@@ -54,7 +54,7 @@ class DisplayMethod extends MethodClass
         // Check that the current user is either author or recipient
         if (($object->properties['to_id']->value != $current_user)
             && ($object->properties['from_id']->value != $current_user)) {
-            return $this->mod()->template('message_errors', ['layout' => 'bad_id']);
+            return $this->render('message_errors', ['layout' => 'bad_id']);
         }
 
         //    $data['message'] = $messages[0];

@@ -47,9 +47,8 @@ class SendmailMethod extends MethodClass
         $data['to_id'] = $to_id;
         $data['to_name'] = $msgdata['name'];
         $data['to_email'] = $msgdata['info'];
-        $data['context'] ??= $this->getContext();
-        $subject = $this->mod()->template('email-subject', $data);
-        $body = $this->mod()->template('email-body', $data);
+        $subject = $this->render('email-subject', $data);
+        $body = $this->render('email-body', $data);
         $msgdata['subject'] = $subject;
         $msgdata['message']  = $body;
 

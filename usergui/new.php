@@ -98,8 +98,7 @@ class NewMethod extends MethodClass
             $object->properties['from_id']->setValue($this->user()->getUser());
 
             if (!$isvalid) {
-                $data['context'] = $this->getContext();
-                return $this->mod()->template('new', $data);
+                return $data;
             }
 
             $object->properties['recipient_status']->setValue(Defines::STATUS_UNREAD);
@@ -136,10 +135,9 @@ class NewMethod extends MethodClass
                     $autoreplyobj->properties['from_id']->setValue($this->user($to_id)->getUser());
                     $autoreplyobj->properties['to_id']->setValue($uid);
                     $data['from_name'] = $this->user($to_id)->getName();
-                    $data['context'] = $this->getContext();
-                    $subject = $this->mod()->template('autoreply-subject', $data);
+                    $subject = $this->render('autoreply-subject', $data);
                     $data['autoreply'] = $autoreply;
-                    $autoreply = $this->mod()->template('autoreply-body', $data);
+                    $autoreply = $this->render('autoreply-body', $data);
                     // useful for eliminating html template comments
                     if ($this->mod()->getVar('strip_tags')) {
                         $subject = strip_tags($subject);
